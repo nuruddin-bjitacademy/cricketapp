@@ -1,0 +1,784 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.MatchDetailsSquadFragment">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_flag_team1"
+        style="@style/RoundedImageViewStyle"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="@dimen/_10sdp"
+        android:padding="@dimen/_1sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_name_team1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_flag_team1"
+        app:layout_constraintStart_toEndOf="@+id/iv_flag_team1"
+        app:layout_constraintTop_toTopOf="@+id/iv_flag_team1"
+        tools:text="IND" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_flag_team2"
+        style="@style/RoundedImageViewStyle"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="@dimen/_10sdp"
+        android:padding="@dimen/_1sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_name_team2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_flag_team2"
+        app:layout_constraintEnd_toStartOf="@+id/iv_flag_team2"
+        app:layout_constraintTop_toTopOf="@+id/iv_flag_team2"
+        tools:text="AUS" />
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/iv_flag_team1">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/heading"
+                android:gravity="center"
+                android:padding="@dimen/_5sdp"
+                android:text="PLAYING XI"
+                android:textSize="16sp"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_one"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/heading" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_one"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_one"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toEndOf="@+id/iv_player_one"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_one"
+                tools:text="Player One" />
+
+            <View
+                android:id="@+id/divider_t1_p12"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toStartOf="@+id/iv_player_one"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_one" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_two"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_one" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_two"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toEndOf="@+id/iv_player_two"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_two"
+                tools:text="Player Two" />
+
+            <View
+                android:id="@+id/divider_t1_p23"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toStartOf="@+id/iv_player_two"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_two" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_three"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_two" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_three"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_three"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toEndOf="@+id/iv_player_three"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_three"
+                tools:text="Player Three" />
+
+            <View
+                android:id="@+id/divider_t1_p34"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toStartOf="@+id/iv_player_three"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_three" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_four"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_three" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_four"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_four"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toEndOf="@+id/iv_player_four"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_four"
+                tools:text="Player Four" />
+
+            <View
+                android:id="@+id/divider_t1_p45"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toStartOf="@+id/iv_player_four"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_four" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_five"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_four" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_five"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_five"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toEndOf="@+id/iv_player_five"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_five"
+                tools:text="Player Five" />
+
+            <View
+                android:id="@+id/divider_t1_p56"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toStartOf="@+id/iv_player_five"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_five" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_six"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_five" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_six"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_six"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toEndOf="@+id/iv_player_six"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_six"
+                tools:text="Player Six" />
+
+            <View
+                android:id="@+id/divider_t1_p67"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toStartOf="@+id/iv_player_six"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_six" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_seven"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_six" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_seven"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_seven"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toEndOf="@+id/iv_player_seven"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_seven"
+                tools:text="Player Seven" />
+
+            <View
+                android:id="@+id/divider_t1_p78"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toStartOf="@+id/iv_player_seven"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_seven" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_eight"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_seven" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_eight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_eight"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toEndOf="@+id/iv_player_eight"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_eight"
+                tools:text="Player Eight" />
+
+            <View
+                android:id="@+id/divider_t1_p89"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toStartOf="@+id/iv_player_eight"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_eight" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_nine"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_eight" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_nine"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_nine"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toEndOf="@+id/iv_player_nine"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_nine"
+                tools:text="Player Nine" />
+
+            <View
+                android:id="@+id/divider_t1_p910"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toStartOf="@+id/iv_player_nine"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_nine" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_ten"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_nine" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_ten"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_ten"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toEndOf="@+id/iv_player_ten"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_ten"
+                tools:text="Player Ten" />
+
+            <View
+                android:id="@+id/divider_t1_p1011"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toStartOf="@+id/iv_player_ten"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_ten" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_eleven"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_ten" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_eleven"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_eleven"
+                app:layout_constraintEnd_toEndOf="@id/divider"
+                app:layout_constraintStart_toEndOf="@+id/iv_player_eleven"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_eleven"
+                tools:text="Player Eleven" />
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:background="@color/divider"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/iv_player_one" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_one_team_two"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/heading" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_one_team_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:gravity="end"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_one_team_two"
+                app:layout_constraintEnd_toStartOf="@id/iv_player_one_team_two"
+                app:layout_constraintStart_toEndOf="@+id/divider"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_one_team_two"
+                tools:text="Player One" />
+
+            <View
+                android:id="@+id/divider_t2_p12"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/iv_player_one_team_two"
+                app:layout_constraintStart_toStartOf="@+id/divider"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_one_team_two" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_two_team_two"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_one_team_two" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_two_team_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:gravity="end"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_two_team_two"
+                app:layout_constraintEnd_toStartOf="@id/iv_player_two_team_two"
+                app:layout_constraintStart_toEndOf="@+id/divider"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_two_team_two"
+                tools:text="Player Two" />
+
+            <View
+                android:id="@+id/divider_t2_p23"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/iv_player_two_team_two"
+                app:layout_constraintStart_toStartOf="@+id/divider"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_two_team_two" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_three_team_two"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_two_team_two" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_three_team_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:gravity="end"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_three_team_two"
+                app:layout_constraintEnd_toStartOf="@id/iv_player_three_team_two"
+                app:layout_constraintStart_toEndOf="@+id/divider"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_three_team_two"
+                tools:text="Player Three" />
+
+            <View
+                android:id="@+id/divider_t2_p34"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/iv_player_three_team_two"
+                app:layout_constraintStart_toStartOf="@+id/divider"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_three_team_two" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_four_team_two"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_three_team_two" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_four_team_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:gravity="end"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_four_team_two"
+                app:layout_constraintEnd_toStartOf="@id/iv_player_four_team_two"
+                app:layout_constraintStart_toEndOf="@+id/divider"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_four_team_two"
+                tools:text="Player Four" />
+
+            <View
+                android:id="@+id/divider_t2_p45"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/iv_player_four_team_two"
+                app:layout_constraintStart_toStartOf="@+id/divider"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_four_team_two" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_five_team_two"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_four_team_two" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_five_team_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:gravity="end"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_five_team_two"
+                app:layout_constraintEnd_toStartOf="@id/iv_player_five_team_two"
+                app:layout_constraintStart_toEndOf="@+id/divider"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_five_team_two"
+                tools:text="Player Five" />
+
+            <View
+                android:id="@+id/divider_t2_p56"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/iv_player_five_team_two"
+                app:layout_constraintStart_toStartOf="@+id/divider"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_five_team_two" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_six_team_two"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_five_team_two" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_six_team_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:gravity="end"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_six_team_two"
+                app:layout_constraintEnd_toStartOf="@id/iv_player_six_team_two"
+                app:layout_constraintStart_toEndOf="@+id/divider"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_six_team_two"
+                tools:text="Player Six" />
+
+            <View
+                android:id="@+id/divider_t2_p67"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/iv_player_six_team_two"
+                app:layout_constraintStart_toStartOf="@+id/divider"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_six_team_two" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_seven_team_two"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_six_team_two" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_seven_team_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:gravity="end"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_seven_team_two"
+                app:layout_constraintEnd_toStartOf="@id/iv_player_seven_team_two"
+                app:layout_constraintStart_toEndOf="@+id/divider"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_seven_team_two"
+                tools:text="Player Seven" />
+
+            <View
+                android:id="@+id/divider_t2_p78"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/iv_player_seven_team_two"
+                app:layout_constraintStart_toStartOf="@+id/divider"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_seven_team_two" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_eight_team_two"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_seven_team_two" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_eight_team_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:gravity="end"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_eight_team_two"
+                app:layout_constraintEnd_toStartOf="@id/iv_player_eight_team_two"
+                app:layout_constraintStart_toEndOf="@+id/divider"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_eight_team_two"
+                tools:text="Player Eight" />
+
+            <View
+                android:id="@+id/divider_t2_p89"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/iv_player_eight_team_two"
+                app:layout_constraintStart_toStartOf="@+id/divider"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_eight_team_two" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_nine_team_two"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_eight_team_two" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_nine_team_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:gravity="end"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_nine_team_two"
+                app:layout_constraintEnd_toStartOf="@id/iv_player_nine_team_two"
+                app:layout_constraintStart_toEndOf="@+id/divider"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_nine_team_two"
+                tools:text="Player Nine" />
+
+            <View
+                android:id="@+id/divider_t2_p910"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/iv_player_nine_team_two"
+                app:layout_constraintStart_toStartOf="@+id/divider"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_nine_team_two" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_ten_team_two"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_nine_team_two" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_ten_team_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:gravity="end"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_ten_team_two"
+                app:layout_constraintEnd_toStartOf="@id/iv_player_ten_team_two"
+                app:layout_constraintStart_toEndOf="@+id/divider"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_ten_team_two"
+                tools:text="Player Ten" />
+
+            <View
+                android:id="@+id/divider_t2_p1011"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/divider"
+                app:layout_constraintEnd_toEndOf="@id/iv_player_ten_team_two"
+                app:layout_constraintStart_toStartOf="@+id/divider"
+                app:layout_constraintTop_toBottomOf="@id/iv_player_ten_team_two" />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_player_eleven_team_two"
+                style="@style/RoundedImageViewStyle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="@dimen/_10sdp"
+                android:padding="@dimen/_1sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/iv_player_ten_team_two" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_player_eleven_team_two"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:gravity="end"
+                app:layout_constraintBottom_toBottomOf="@id/iv_player_eleven_team_two"
+                app:layout_constraintEnd_toStartOf="@id/iv_player_eleven_team_two"
+                app:layout_constraintStart_toEndOf="@+id/divider"
+                app:layout_constraintTop_toTopOf="@+id/iv_player_eleven_team_two"
+                tools:text="Player Eleven" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_1sdp"
+    android:transitionName="item_match"
+    app:cardBackgroundColor="@color/card_background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10sdp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_round"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="2nd T20I" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_bullet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:text="@string/special_bullet"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_round"
+            app:layout_constraintStart_toEndOf="@+id/tv_round"
+            app:layout_constraintTop_toTopOf="@+id/tv_round" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_venue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_round"
+            app:layout_constraintStart_toEndOf="@+id/tv_bullet"
+            app:layout_constraintTop_toTopOf="@+id/tv_round"
+            tools:text="Dhaka" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_flag_team1"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_round" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_score_team1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_flag_team1"
+            app:layout_constraintStart_toEndOf="@+id/iv_flag_team1"
+            app:layout_constraintTop_toTopOf="@id/iv_flag_team1"
+            tools:text="282-6" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_name_team1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@+id/iv_flag_team1"
+            app:layout_constraintTop_toBottomOf="@id/iv_flag_team1"
+            tools:text="WI" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_vs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:text="@string/vs"
+            app:layout_constraintBottom_toBottomOf="@id/iv_flag_team1"
+            app:layout_constraintEnd_toStartOf="@+id/tv_name_team2"
+            app:layout_constraintStart_toEndOf="@+id/tv_name_team1"
+            app:layout_constraintTop_toTopOf="@id/iv_flag_team1" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_flag_team2"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_flag_team1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_flag_team1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_score_team2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_flag_team2"
+            app:layout_constraintEnd_toStartOf="@+id/iv_flag_team2"
+            app:layout_constraintTop_toTopOf="@id/iv_flag_team2"
+            tools:text="282-6" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_name_team2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_flag_team2"
+            app:layout_constraintTop_toBottomOf="@id/iv_flag_team2"
+            tools:text="ZIM" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:gravity="center"
+            android:textColor="@android:color/holo_blue_dark"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name_team1"
+            tools:text="West Indies won by 3 wickets" />
+
+        <!--<androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_starting_at"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_note"
+            tools:text="time here"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_stage_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_starting_at"
+            tools:text="stage name here"
+            />-->
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/start_view"
+        android:transitionName="shared_element_container"
+        android:layout_height="0dp"
+        android:layout_width="0dp"/>
+
+</com.google.android.material.card.MaterialCardView>

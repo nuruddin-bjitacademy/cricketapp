@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Cricket App</string>
+    <string name="special_bullet">•</string>
+    <string name="vs">VS</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home">Home</string>
+    <string name="settings">Settings</string>
+    <string name="matches">Matches</string>
+    <string name="t20sa">T20SA</string>
+    <string name="bbc">BBL</string>
+    <string name="t20i">T20I</string>
+    <string name="over">Over</string>
+</resources>

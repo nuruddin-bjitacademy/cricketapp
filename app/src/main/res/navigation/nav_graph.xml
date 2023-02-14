@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav_menu"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.graphicless.cricketapp.ui.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_matchesByStageFragment"
+            app:destination="@id/matchesByStageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.graphicless.cricketapp.ui.fragment.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/matchesByStageFragment"
+        android:name="com.graphicless.cricketapp.ui.fragment.MatchesByStageFragment"
+        android:label="fragment_matches_by_stage"
+        tools:layout="@layout/fragment_matches_by_stage" >
+        <argument
+            android:name="stageId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_matchesByStageFragment_to_matchDetailsContainerFragment"
+            app:destination="@id/matchDetailsContainerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fixtureFragment"
+        android:name="com.graphicless.cricketapp.ui.fragment.FixtureFragment"
+        android:label="FixtureFragment" >
+        <action
+            android:id="@+id/action_fixtureFragment_to_matchesByStageFragment"
+            app:destination="@id/matchesByStageFragment" />
+        <action
+            android:id="@+id/action_fixtureFragment_to_matchDetailsContainerFragment"
+            app:destination="@id/matchDetailsContainerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/matchDetailsContainerFragment"
+        android:name="com.graphicless.cricketapp.ui.fragment.MatchDetailsContainerFragment"
+        android:label="MatchDetailsContainerFragment" >
+        <argument
+            android:name="fixtureId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/matchesFragment"
+        android:name="com.graphicless.cricketapp.ui.fragment.MatchesFragment"
+        android:label="fragment_matches"
+        tools:layout="@layout/fragment_matches" >
+        <action
+            android:id="@+id/action_matchesFragment_to_matchDetailsContainerFragment"
+            app:destination="@id/matchDetailsContainerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/matchDetailsFragment"
+        android:name="com.graphicless.cricketapp.ui.fragment.MatchDetailsFragment"
+        android:label="fragment_match_details"
+        tools:layout="@layout/fragment_match_details" />
+</navigation>
