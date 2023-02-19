@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <plurals name="remaining_days">
+        <item quantity="one">%1$d day %2$d hours and %3$02d minutes remaining</item>
+        <item quantity="other">%1$d days %2$d hours and %3$02d minutes remaining</item>
+    </plurals>
+</resources>
