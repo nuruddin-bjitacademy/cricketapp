@@ -30,11 +30,10 @@ class MatchesByStageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.tvStage.text = args.stageId.toString()
 
-
-        /*viewModel.getFixturesByStageId(args.stageId).observe(requireActivity()){
+        viewModel.getFixturesByStageId(args.stageId).observe(requireActivity()){
             val adapter = MatchAdapter(it, null, null, requireActivity())
             binding.recyclerView.adapter = adapter
-        }*/
+        }
 
     }
 }

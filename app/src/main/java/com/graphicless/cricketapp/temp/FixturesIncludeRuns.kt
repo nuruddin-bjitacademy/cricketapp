@@ -9,45 +9,45 @@ import com.squareup.moshi.Json
 
 data class FixturesIncludeRuns(
     @Json(name = "data")
-    var `data`: List<Data>,
+    var `data`: List<Data>?,
     @Json(name = "links")
-    var links: Links,
+    var links: Links?,
     @Json(name = "meta")
-    var meta: Meta
+    var meta: Meta?
 ) {
     @Entity(tableName = "Fixture")
     data class Data(
         @Ignore
         @Json(name = "resource")
-        var resource: String = "",
+        var resource: String? = "",
         @PrimaryKey(autoGenerate = false)
         @Json(name = "id")
         var id: Int = 0,
         @Json(name = "league_id")
-        var leagueId: Int = 0,
+        var leagueId: Int? = 0,
         @Json(name = "season_id")
-        var seasonId: Int = 0,
+        var seasonId: Int? = 0,
         @Json(name = "stage_id")
-        var stageId: Int = 0,
+        var stageId: Int? = 0,
         @Json(name = "round")
-        var round: String = "",
+        var round: String? = "",
         @Json(name = "localteam_id")
-        var localteamId: Int = 0,
+        var localteamId: Int? = 0,
         @Json(name = "visitorteam_id")
-        var visitorteamId: Int = 0,
+        var visitorteamId: Int? = 0,
         @Json(name = "starting_at")
-        var startingAt: String = "",
+        var startingAt: String? = "",
         @Json(name = "type")
-        var type: String = "",
+        var type: String? = "",
         @Json(name = "live")
-        var live: Boolean = false,
+        var live: Boolean? = false,
         @Json(name = "status")
-        var status: String = "",
+        var status: String? = "",
         @Json(name = "last_period")
         @Ignore
         var lastPeriod: Any? = null,
         @Json(name = "note")
-        var note: String = "",
+        var note: String? = "",
         @Json(name = "venue_id")
         var venueId: Int? = 0,
         @Json(name = "toss_won_team_id")
@@ -74,10 +74,10 @@ data class FixturesIncludeRuns(
         var elected: String? = "",
         @Ignore
         @Json(name = "super_over")
-        var superOver: Boolean =false,
+        var superOver: Boolean? =false,
         @Ignore
         @Json(name = "follow_on")
-        var followOn: Boolean = false,
+        var followOn: Boolean? = false,
         @Ignore
         @Json(name = "localteam_dl_data")
         var localteamDlData: LocalteamDlData? = null,
@@ -125,22 +125,22 @@ data class FixturesIncludeRuns(
         data class Run(
             @Ignore
             @Json(name = "resource")
-            var resource: String = "",
+            var resource: String? = "",
             @Json(name = "id")
             @PrimaryKey(autoGenerate = false)
             var id: Int = 0,
             @Json(name = "fixture_id")
-            var fixtureId: Int = 0,
+            var fixtureId: Int? = 0,
             @Json(name = "team_id")
-            var teamId: Int = 0,
+            var teamId: Int? = 0,
             @Json(name = "inning")
-            var inning: Int = 0,
+            var inning: Int? = 0,
             @Json(name = "score")
-            var score: Int = 0,
+            var score: Int? = 0,
             @Json(name = "wickets")
-            var wickets: Int = 0,
+            var wickets: Int? = 0,
             @Json(name = "overs")
-            var overs: Double = 0.0,
+            var overs: Double? = 0.0,
             @Json(name = "pp1")
             var pp1: String? = null,
             @Json(name = "pp2")
@@ -149,15 +149,15 @@ data class FixturesIncludeRuns(
             var pp3: String? = null,
             @Ignore
             @Json(name = "updated_at")
-            var updatedAt: String = ""
+            var updatedAt: String? = ""
         )
     }
 
     data class Links(
         @Json(name = "first")
-        var first: String,
+        var first: String?,
         @Json(name = "last")
-        var last: String,
+        var last: String?,
         @Json(name = "prev")
         var prev: Any?,
         @Json(name = "next")
@@ -166,29 +166,29 @@ data class FixturesIncludeRuns(
 
     data class Meta(
         @Json(name = "current_page")
-        var currentPage: Int,
+        var currentPage: Int?,
         @Json(name = "from")
-        var from: Int,
+        var from: Int?,
         @Json(name = "last_page")
-        var lastPage: Int,
+        var lastPage: Int?,
         @Json(name = "links")
-        var links: List<Link>,
+        var links: List<Link>?,
         @Json(name = "path")
-        var path: String,
+        var path: String?,
         @Json(name = "per_page")
-        var perPage: Int,
+        var perPage: Int?,
         @Json(name = "to")
-        var to: Int,
+        var to: Int?,
         @Json(name = "total")
-        var total: Int
+        var total: Int?
     ) {
         data class Link(
             @Json(name = "url")
             var url: String?,
             @Json(name = "label")
-            var label: String,
+            var label: String?,
             @Json(name = "active")
-            var active: Boolean
+            var active: Boolean?
         )
     }
 }

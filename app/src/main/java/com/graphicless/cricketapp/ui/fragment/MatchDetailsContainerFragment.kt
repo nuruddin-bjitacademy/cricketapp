@@ -52,7 +52,7 @@ class MatchDetailsContainerFragment : Fragment() {
 
         val fixtureId = args.fixtureId
 
-        val adapter = ViewPagerAdapter(this, fragmentList, fixtureId)
+        val adapter = ViewPagerAdapter(this, fragmentList, fixtureId, null)
         binding.viewPager.adapter = adapter
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->

@@ -7,31 +7,31 @@ import com.squareup.moshi.Json
 
 data class Venues(
     @Json(name = "data")
-    val `data`: List<Data>
+    val `data`: List<Data>?
 ) {
     @Entity(tableName = "Venue")
     data class Data(
         @Ignore
         @Json(name = "resource")
-        var resource: String,
+        var resource: String?,
         @PrimaryKey(autoGenerate = false)
         @Json(name = "id")
         var id: Int,
         @Json(name = "country_id")
-        var countryId: Int,
+        var countryId: Int?,
         @Json(name = "name")
-        var name: String,
+        var name: String?,
         @Json(name = "city")
-        var city: String,
+        var city: String?,
         @Json(name = "image_path")
-        var imagePath: String,
+        var imagePath: String?,
         @Json(name = "capacity")
         var capacity: Int?,
         @Json(name = "floodlight")
-        var floodlight: Boolean,
+        var floodlight: Boolean?,
         @Ignore
         @Json(name = "updated_at")
-        var updatedAt: String
+        var updatedAt: String?
     ){
         constructor(): this(
             resource = "",

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.temp.FixtureDetailsById
 import com.graphicless.cricketapp.temp.FixtureScoreCard
+import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
 class MatchDetailsBatsManAdapter(private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<MatchDetailsBatsManAdapter.PlayerStatisticsViewHolder>() {
@@ -52,7 +53,7 @@ class MatchDetailsBatsManAdapter(private val lifecycleOwner: LifecycleOwner) : R
 
             if (playerId != null) {
                 viewModel.player.observe(lifecycleOwner){
-                    playerName.text = it.data.fullname
+                    playerName.text = it.data?.fullname ?: MyConstants.NOT_AVAILABLE
                 }
                 viewModel.launchPlayer(playerId)
             }

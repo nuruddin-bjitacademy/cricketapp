@@ -1,36 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/_10sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragment.MatchDetailsOverFragment">
+    tools:context=".ui.fragment.MatchDetailsOverFragment"
+    >
 
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        />
-    <!--<ProgressBar
-        android:id="@+id/container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_gravity="center" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_no_data"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="No data"
-        android:gravity="center"
-        android:visibility="gone"
-        />-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/_10sdp">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/team_one"
@@ -64,6 +44,7 @@
         app:layout_constraintTop_toBottomOf="@+id/team_one"
         android:layout_marginTop="@dimen/_20sdp"
         app:cardBackgroundColor="@color/app_background"
+        android:elevation="0dp"
         >
 
         <androidx.recyclerview.widget.RecyclerView
@@ -74,4 +55,13 @@
             />
     </androidx.cardview.widget.CardView>
 
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        />
+</RelativeLayout>

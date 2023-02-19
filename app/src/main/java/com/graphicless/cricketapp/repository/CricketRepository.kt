@@ -6,10 +6,15 @@ import com.graphicless.cricketapp.model.Continent
 import com.graphicless.cricketapp.model.Country
 import com.graphicless.cricketapp.model.CountryWithContinent
 import com.graphicless.cricketapp.model.League
+import com.graphicless.cricketapp.network.CricketApi
+import com.graphicless.cricketapp.network.NewsApi
 import com.graphicless.cricketapp.temp.*
 import com.graphicless.cricketapp.temp.joined.FixtureAndTeam
 import com.graphicless.cricketapp.temp.map.FixtureDetails
 import com.graphicless.cricketapp.temp.map.StageByLeague
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.await
 
 class CricketRepository(private val cricketDao: CricketDao) {
 
@@ -78,6 +83,10 @@ class CricketRepository(private val cricketDao: CricketDao) {
         return cricketDao.getFixturesByStageId(stageId)
     }
 
+    fun getUpcomingFixturesByStageId(stageId: Int): LiveData<List<FixtureAndTeam>> {
+        return cricketDao.getUpcomingFixturesByStageId(stageId)
+    }
+
     fun getFixtureDetails(fixtureId: Int): LiveData<FixtureDetails> {
         return cricketDao.getFixtureDetails(fixtureId)
     }
@@ -90,12 +99,24 @@ class CricketRepository(private val cricketDao: CricketDao) {
         return cricketDao.getStageNameById(stageId)
     }
 
-    fun getTeamNameByFixtureId(teamId: Int): LiveData<Teams.Data> {
-        return cricketDao.getTeamNameByFixtureId(teamId)
+    fun getTeamById(teamId: Int): LiveData<Teams.Data> {
+        return cricketDao.getTeamById(teamId)
     }
 
     fun getStageByLeagueId(leagueId: Int): LiveData<List<StageByLeague>> {
         return cricketDao.getStageByLeagueId(leagueId)
+    }
+
+    fun getVenueNameByFixtureId(venueId: Int): LiveData<String> {
+        return cricketDao.getVenueNameByFixtureId(venueId)
+    }
+
+    fun getLocalTeamById(localTeamId: Int): LiveData<Teams.Data> {
+        return cricketDao.getLocalTeamById(localTeamId)
+    }
+
+    fun getVisitorTeamById(visitorTeamId: Int): LiveData<Teams.Data> {
+        return cricketDao.getVisitorTeamById(visitorTeamId)
     }
 
     fun getUpcomingMatchSummaryByLeagueId(leagueId: Int): LiveData<List<StageByLeague>> {
@@ -106,11 +127,92 @@ class CricketRepository(private val cricketDao: CricketDao) {
         return cricketDao.getPreviousMatchSummaryByLeagueId(leagueId)
     }
 
+    fun getPreviousMatchesByDate(
+        leagueId: Int,
+        startingAt: String
+    ): LiveData<List<FixtureAndTeam>> {
+        return cricketDao.getPreviousMatchesByDate(leagueId, startingAt)
+    }
+
+    fun getAllPreviousMatchDateByType(leagueId: Int): LiveData<List<String>> {
+        return cricketDao.getAllPreviousMatchDateByType(leagueId)
+    }
+
+    fun getAllUpcomingMatchDateByType(leagueId: Int): LiveData<List<String>> {
+        return cricketDao.getAllUpcomingMatchDateByType(leagueId)
+    }
+
     fun getDistinctStageName(): LiveData<List<StageName>> {
         return cricketDao.getDistinctStageName()
     }
 
     fun getDistinctStages(): LiveData<List<DistinctStages>> {
         return cricketDao.getDistinctStages()
+    }
+
+    suspend fun getVenueById(venueId: Int): VenueLiveScore.Data {
+        return withContext(Dispatchers.IO) {
+            CricketApi.retrofitService.getVenueById(venueId).await()
+        }
+    }
+
+    suspend fun getSquadByTeamAndSeason(teamId: Int,seasonId: Int): List<SquadByTeamAndSeason.Data.Squad?>? {
+        return withContext(Dispatchers.IO) {
+            CricketApi.retrofitService.getSquadByTeamAndSeason(teamId,seasonId).await().data?.squad
+        }
+    }
+
+    suspend fun getPlayer2(playerId: Int): Player {
+        return withContext(Dispatchers.IO) {
+            CricketApi.retrofitService.getPlayerByPlayerId2(playerId).await()
+        }
+    }
+
+    suspend fun getPlayer(playerId: Int): Player {
+        return withContext(Dispatchers.IO) {
+            CricketApi.retrofitService.getPlayerByPlayerId(playerId).await()
+        }
+    }
+
+    suspend fun getFixtureOver(fixtureId: Int): FixtureOver {
+        return withContext(Dispatchers.IO) {
+            CricketApi.retrofitService.getFixtureOver(fixtureId).await()
+        }
+    }
+
+    suspend fun getFixtureScoreCard(fixtureId: Int): FixtureScoreCard {
+        return withContext(Dispatchers.IO) {
+            CricketApi.retrofitService.getFixtureScoreCard(fixtureId).await()
+        }
+    }
+
+    suspend fun getFixtureWithLineUp(fixtureId: Int): FixtureWithLineUp {
+        return withContext(Dispatchers.IO) {
+            CricketApi.retrofitService.getFixtureWithLineUp(fixtureId).await()
+        }
+    }
+
+    suspend fun getTeamByTeamId2(teamId: Int): TeamByTeamId {
+        return CricketApi.retrofitService.getTeamByTeamId2(teamId).await()
+    }
+
+    suspend fun getTeamByTeamId(teamId: Int): TeamByTeamId {
+        return CricketApi.retrofitService.getTeamByTeamId(teamId).await()
+    }
+
+    suspend fun getNews(): List<News.Article?>? {
+        return withContext(Dispatchers.IO) {
+            NewsApi.retrofitServiceNews.fetchNews().await().articles
+        }
+    }
+
+    fun getAllTeam(national: Int): LiveData<List<Teams.Data>> {
+        return cricketDao.getAllTeam(national)
+    }
+    fun getAllTeamByQuery(national: Int, query: String): LiveData<List<Teams.Data>> {
+        return cricketDao.getAllTeamByQuery(national, query)
+    }
+    fun getAllSeasonId(year: String): LiveData<List<Int>> {
+        return cricketDao.getAllSeasonId(year)
     }
 }

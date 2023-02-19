@@ -9,9 +9,9 @@
         android:title="@string/matches"
         android:icon="@drawable/baseline_sports_baseball_24"/>
 
-    <item android:id="@+id/settingsFragment"
+    <item android:id="@+id/moreFragment"
         android:title="@string/settings"
-        android:icon="@drawable/ic_baseline_settings_24"/>
+        android:icon="@drawable/baseline_more_vert_24"/>
 
 
 </menu>

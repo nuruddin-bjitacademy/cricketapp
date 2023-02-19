@@ -1,6 +1,7 @@
 package com.graphicless.cricketapp.adapter
 
 import android.app.Application
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,10 +18,12 @@ import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.ItemMatchBinding
 import com.graphicless.cricketapp.temp.FixturesIncludeRuns
 import com.graphicless.cricketapp.temp.joined.FixtureAndTeam
-import com.graphicless.cricketapp.ui.fragment.FixtureFragmentDirections
-import com.graphicless.cricketapp.ui.fragment.MatchesFragmentDirections
+import com.graphicless.cricketapp.ui.fragment.MatchSummaryContainerOuterFragmentDirections
 import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
+import java.util.*
+import java.util.concurrent.TimeUnit
+import java.text.SimpleDateFormat
 
 private const val TAG = "MatchAdapter"
 
@@ -81,16 +84,22 @@ class MatchAdapter(
                 Log.d(TAG, "teamOneRun: $teamOneRun")
                 Log.d(TAG, "teamTwoRun: $teamTwoRun")
 
-                if (teamOneRun != null)
-                    binding.tvScoreTeam1.text = teamOneRun.score.toString().plus("-").plus(
-                        teamOneRun.wickets
-                    ).plus(" (").plus(teamOneRun.overs).plus(") ")
-                else binding.tvScoreTeam1.text = "N/A"
-                if (teamTwoRun != null)
-                    binding.tvScoreTeam2.text = teamTwoRun.score.toString().plus("-").plus(
-                        teamTwoRun.wickets
-                    ).plus("(").plus(teamTwoRun.overs).plus(")")
-                else binding.tvScoreTeam2.text = "N/A"
+                if (teamOneRun != null){
+                    binding.tvScoreTeam1.text = teamOneRun.score.toString().plus("-").plus(it[0].wickets)
+                    binding.tvOversTeam1.text = teamOneRun.overs.toString().plus(" overs")
+                }else {
+                    binding.tvScoreTeam1.visibility = View.GONE
+                    binding.tvOversTeam1.visibility = View.GONE
+                    binding.tvNotAvailableTeam1.visibility = View.VISIBLE
+                }
+                if (teamTwoRun != null){
+                    binding.tvScoreTeam2.text = teamTwoRun.score.toString().plus("-").plus(it[1].wickets)
+                    binding.tvOversTeam2.text = teamTwoRun.overs.toString().plus(" overs")
+                }else {
+                    binding.tvScoreTeam1.visibility = View.GONE
+                    binding.tvOversTeam1.visibility = View.GONE
+                    binding.tvNotAvailableTeam2.visibility = View.VISIBLE
+                }
 
             }
 
@@ -100,10 +109,44 @@ class MatchAdapter(
             Glide.with(itemView.context).load(fixture.teamOneFlag).into(binding.ivFlagTeam1)
             Glide.with(itemView.context).load(fixture.teamTwoFlag).into(binding.ivFlagTeam2)
 
-            binding.tvNote.text = fixture.note
+            if(fixture.note == ""){
+
+                val countdownTimerTextView = binding.tvNote
+
+                // Set the target date and time for the countdown
+                val targetDate = fixture.startingAT
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
+                val targetDateTime = dateFormat.parse(targetDate)
+                val targetMillis = targetDateTime?.time
+
+                // Start the countdown timer
+                val countDownTimer = object : CountDownTimer(targetMillis?.minus(System.currentTimeMillis())!!, 1000) {
+                    override fun onTick(millisUntilFinished: Long) {
+                        val days = TimeUnit.MILLISECONDS.toDays(millisUntilFinished)
+                        val hours = TimeUnit.MILLISECONDS.toHours(millisUntilFinished) % 24
+                        val minutes = TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) % 60
+                        val seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60
+
+                        val remainingTimeText = if (days > 0) {
+                            itemView.resources.getQuantityString(R.plurals.remaining_days, days.toInt(), days.toInt(), hours.toInt(), minutes.toInt())
+                        } else {
+                            String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds)
+                        }
+                        countdownTimerTextView.text = itemView.resources.getString(R.string.remaining_time, remainingTimeText)
+                    }
+
+                    override fun onFinish() {
+                        countdownTimerTextView.text = itemView.resources.getString(R.string.countdown_finished)
+                    }
+                }
+
+                countDownTimer.start()
+
+            }else
+                binding.tvNote.text = fixture.note
 
             binding.root.setOnClickListener{
-                val direction = FixtureFragmentDirections.actionFixtureFragmentToMatchDetailsContainerFragment(fixture.fixtureId)
+                val direction = MatchSummaryContainerOuterFragmentDirections.actionMatchSummaryContainerOuterFragmentToMatchDetailsContainerFragment(fixture.fixtureId)
                 val extras = FragmentNavigatorExtras(binding.root to "shared_element_container")
                 itemView.findNavController().navigate(direction, extras)
             }
@@ -127,7 +170,7 @@ class MatchAdapter(
         expandableTextView?.setOnClickListener {
             if (isExpanded) {
                 val action =
-                    FixtureFragmentDirections.actionFixtureFragmentToMatchesByStageFragment(
+                    MatchSummaryContainerOuterFragmentDirections.actionMatchSummaryContainerOuterFragmentToMatchesByStageFragment(
                         stageId!!
                     )
                 holder.itemView.findNavController().navigate(action)

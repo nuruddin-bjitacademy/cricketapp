@@ -21,11 +21,11 @@ import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
 private const val TAG = "StageAdapter"
 
-class StageAdapter(
+class StageAdapterForPrevious(
     private val fixtures: List<StageByLeague>,
     private val lifecycleOwner: LifecycleOwner,
     private val context: Context
-) : ListAdapter<StageName, StageAdapter.DataViewHolder>(DiffCallback) {
+) : ListAdapter<StageName, StageAdapterForPrevious.DataViewHolder>(DiffCallback) {
 
     class DataViewHolder(view: View) : ViewHolder(view) {
         private val viewModel: CricketViewModel = CricketViewModel(application = Application())
@@ -35,6 +35,7 @@ class StageAdapter(
         fun bind(fixture: StageByLeague, lifecycleOwner: LifecycleOwner, context: Context) {
 
             binding.tvStage.text = fixture.stageName.plus(", ").plus(fixture.seasonName)
+
 
             viewModel.getFixturesByStageId(fixture.stageId).removeObservers(lifecycleOwner)
             viewModel.getFixturesByStageId(fixture.stageId).distinctUntilChanged().observe(lifecycleOwner) {
@@ -46,6 +47,7 @@ class StageAdapter(
                 binding.rvMatchesByStage.layoutManager =
                     LinearLayoutManager(context, VERTICAL, false)
                 binding.rvMatchesByStage.adapter = adapter
+
             }
 
         }
@@ -60,6 +62,7 @@ class StageAdapter(
         val lifecycleOwner: LifecycleOwner = this.lifecycleOwner
         val fixture = fixtures[position]
         holder.bind(fixture, lifecycleOwner, context)
+        holder.setIsRecyclable(false)
     }
 
     override fun getItemCount(): Int {

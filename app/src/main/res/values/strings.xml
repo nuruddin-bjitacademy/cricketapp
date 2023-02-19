@@ -11,4 +11,7 @@
     <string name="bbc">BBL</string>
     <string name="t20i">T20I</string>
     <string name="over">Over</string>
+
+    <string name="remaining_time">%s</string>
+    <string name="countdown_finished">Countdown finished!</string>
 </resources>

@@ -46,111 +46,99 @@ class MatchDetailsScoreCardFragment : Fragment() {
         matchDetailsBallerAdapter = MatchDetailsBallerAdapter(this)
         binding.recyclerViewBaller.adapter = matchDetailsBallerAdapter
 
+        val loadingView =
+            LayoutInflater.from(context).inflate(R.layout.layout_loading, binding.container, false)
+        binding.container.addView(loadingView)
+
+        binding.scrollView.visibility = View.GONE
+
+        fetchDataFromApi()
+
         return binding.root
     }
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun fetchDataFromApi(){
 
         arguments?.takeIf { it.containsKey(MyConstants.FIXTURE_ID) }?.apply {
+
             val fixtureId: Int = getInt(MyConstants.FIXTURE_ID)
 
-            try {
-                viewModel.fixtureScoreCard.observe(viewLifecycleOwner) {
-                    val teamOneId = it.data?.localteamId
-                    val teamTwoId = it.data?.visitorteamId
+            viewModel.launchFixtureScoreCard(fixtureId)
 
-                    if (it.data?.runs?.size!! >= 2) {
+            viewModel.fixtureScoreCard.observe(viewLifecycleOwner) {
 
-                        val teamOneTotalRun =
-                            if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(0)?.score else it.data?.runs?.get(
-                                1
-                            )?.score
-                        val teamTwoTotalRun =
-                            if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(0)?.score else it.data?.runs?.get(
-                                1
-                            )?.score
-                        val teamOneWickets =
-                            if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(0)?.wickets else it.data?.runs?.get(
-                                1
-                            )?.wickets
-                        val teamTwoWickets =
-                            if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(0)?.wickets else it.data?.runs?.get(
-                                1
-                            )?.wickets
-                        val teamOneOvers =
-                            if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(0)?.overs else it.data?.runs?.get(
-                                1
-                            )?.overs
-                        val teamTwoOvers =
-                            if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(0)?.overs else it.data?.runs?.get(
-                                1
-                            )?.overs
+                val teamOneId = it.data?.localteamId
+                val teamTwoId = it.data?.visitorteamId
 
 
+                if (it.data?.runs?.size!! == 2) {
 
+                    binding.scrollView.visibility = View.VISIBLE
 
+                    try {
                         if (teamOneId != null) {
-                            viewModel.getTeamNameByFixtureId(teamOneId)
+                            val teamOneTotalRun =
+                                if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(
+                                    0
+                                )?.score else it.data?.runs?.get(
+                                    1
+                                )?.score
+                            val teamOneWickets =
+                                if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(
+                                    0
+                                )?.wickets else it.data?.runs?.get(
+                                    1
+                                )?.wickets
+                            val teamOneOvers =
+                                if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(
+                                    0
+                                )?.overs else it.data?.runs?.get(
+                                    1
+                                )?.overs
+
+                            viewModel.getLocalTeamById(teamOneId)
                                 .observe(requireActivity()) { team ->
                                     binding.teamOne.text =
-                                        team.code.plus(teamOneTotalRun).plus("-")
+                                        team.code.plus(" [ ").plus(teamOneTotalRun).plus("-")
                                             .plus(teamOneWickets).plus(" (").plus(teamOneOvers)
-                                            .plus(")")
-                                    /*Glide.with(MyApplication.instance)
-                                        .load(team.imagePath)
-                                        .into(object : CustomTarget<Drawable>() {
-                                            override fun onResourceReady(
-                                                resource: Drawable,
-                                                transition: Transition<in Drawable>?
-                                            ) {
-                                                resource.setBounds(0, 0, 60, 60)
-                                                binding.teamOne.setCompoundDrawables(
-                                                    resource,
-                                                    null,
-                                                    null,
-                                                    null
-                                                )
-                                            }
-
-                                            override fun onLoadCleared(placeholder: Drawable?) {
-                                                // Do nothing
-                                            }
-                                        })*/
+                                            .plus(") ]")
                                 }
                         }
+                    } catch (exception: Exception) {
+                        Log.e("error", "ex mdof team one info $exception")
+                    }
 
+                    try {
                         if (teamTwoId != null) {
-                            viewModel.getTeamNameByFixtureId(teamTwoId)
+                            val teamTwoTotalRun =
+                                if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(
+                                    0
+                                )?.score else it.data?.runs?.get(
+                                    1
+                                )?.score
+                            val teamTwoWickets =
+                                if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(
+                                    0
+                                )?.wickets else it.data?.runs?.get(
+                                    1
+                                )?.wickets
+                            val teamTwoOvers =
+                                if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(
+                                    0
+                                )?.overs else it.data?.runs?.get(
+                                    1
+                                )?.overs
+                            viewModel.getVisitorTeamById(teamTwoId)
                                 .observe(requireActivity()) { team ->
                                     binding.teamTwo.text =
-                                        team.code.plus(teamTwoTotalRun).plus("-")
+                                        team.code.plus(" [ ").plus(teamTwoTotalRun).plus("-")
                                             .plus(teamTwoWickets).plus(" (").plus(teamTwoOvers)
-                                            .plus(")")
-                                    /*Glide.with(MyApplication.instance)
-                                        .load(team.imagePath)
-                                        .into(object : CustomTarget<Drawable>() {
-                                            override fun onResourceReady(
-                                                resource: Drawable,
-                                                transition: Transition<in Drawable>?
-                                            ) {
-                                                resource.setBounds(0, 0, 60, 60)
-                                                binding.teamTwo.setCompoundDrawables(
-                                                    resource,
-                                                    null,
-                                                    null,
-                                                    null
-                                                )
-                                            }
-
-                                            override fun onLoadCleared(placeholder: Drawable?) {
-                                                // Do nothing
-                                            }
-                                        })*/
+                                            .plus(") ]")
                                 }
                         }
-
+                    } catch (exception: Exception) {
+                        Log.e("error", "ex mdof team two info $exception")
                     }
 
                     showInfo(true, it)
@@ -164,16 +152,22 @@ class MatchDetailsScoreCardFragment : Fragment() {
                         showInfo(false, it)
 
                     }
-                }
 
-                viewModel.launchFixtureScoreCard(fixtureId)
-            } catch (e: HttpException) {
-                if (e.code() == 400) {
-                    // Handle the error
-                    Log.e(TAG, "Bad Request")
-                } else {
-                    // Handle other errors
-                    Log.e(TAG, e.message())
+                    try {
+                        binding.container.removeViewAt(0)
+                    } catch (exception: Exception) {
+                        Log.e(TAG, "remove view from container: $exception")
+                    }
+
+                }else {
+                    try {
+                        binding.container.removeViewAt(0)
+                    } catch (exception: Exception) {
+                        Log.e(TAG, "remove view from container: $exception")
+                    }
+                    val noDataView = LayoutInflater.from(context)
+                        .inflate(R.layout.layout_no_data, binding.container, false)
+                    binding.container.addView(noDataView)
                 }
             }
 

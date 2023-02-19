@@ -13,6 +13,7 @@ import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.adapter.OverAdapter
 import com.graphicless.cricketapp.databinding.FragmentMatchDetailsOverBinding
 import com.graphicless.cricketapp.temp.FixtureOver
+import com.graphicless.cricketapp.utils.MyApplication
 import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 import retrofit2.HttpException
@@ -44,44 +45,41 @@ class MatchDetailsOverFragment : Fragment() {
 //        binding.container.visibility =View.VISIBLE
 
         arguments?.takeIf { it.containsKey(MyConstants.FIXTURE_ID) }?.apply {
+
             val fixtureId: Int = getInt(MyConstants.FIXTURE_ID)
 
             Log.d(TAG, "fixture id : $fixtureId")
 
-            try {
-                viewModel.fixtureOver.observe(viewLifecycleOwner) {
-                    if (it?.data?.balls?.size!! > 0) {
+            viewModel.launchFixtureOver(fixtureId)
 
-                        val teamOneId = it.data?.localteamId
-                        val teamTwoId = it.data?.visitorteamId
+            viewModel.fixtureOver.observe(viewLifecycleOwner) {
 
-                        val teamOneTotalRun =
-                            if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(0)?.score else it.data?.runs?.get(
-                                1
-                            )?.score
-                        val teamTwoTotalRun =
-                            if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(0)?.score else it.data?.runs?.get(
-                                1
-                            )?.score
-                        val teamOneWickets =
-                            if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(0)?.wickets else it.data?.runs?.get(
-                                1
-                            )?.wickets
-                        val teamTwoWickets =
-                            if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(0)?.wickets else it.data?.runs?.get(
-                                1
-                            )?.wickets
-                        val teamOneOvers =
-                            if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(0)?.overs else it.data?.runs?.get(
-                                1
-                            )?.overs
-                        val teamTwoOvers =
-                            if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(0)?.overs else it.data?.runs?.get(
-                                1
-                            )?.overs
+                if (it?.data?.runs?.size!! == 2) {
 
+                    val teamOneId = it.data?.localteamId
+                    val teamTwoId = it.data?.visitorteamId
+
+                    try {
                         if (teamOneId != null) {
-                            viewModel.getTeamNameByFixtureId(teamOneId)
+                            val teamOneTotalRun =
+                                if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(
+                                    0
+                                )?.score else it.data?.runs?.get(
+                                    1
+                                )?.score
+                            val teamOneWickets =
+                                if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(
+                                    0
+                                )?.wickets else it.data?.runs?.get(
+                                    1
+                                )?.wickets
+                            val teamOneOvers =
+                                if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(
+                                    0
+                                )?.overs else it.data?.runs?.get(
+                                    1
+                                )?.overs
+                            viewModel.getLocalTeamById(teamOneId)
                                 .observe(requireActivity()) { team ->
                                     binding.teamOne.text =
                                         team.code.plus(" [ ").plus(teamOneTotalRun).plus("-")
@@ -89,9 +87,32 @@ class MatchDetailsOverFragment : Fragment() {
                                             .plus(") ]")
                                 }
                         }
+                    } catch (exception: Exception) {
+                        Log.e("error", "ex mdof team one info $exception")
+                    }
 
+
+                    try {
                         if (teamTwoId != null) {
-                            viewModel.getTeamNameByFixtureId(teamTwoId)
+                            val teamTwoTotalRun =
+                                if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(
+                                    0
+                                )?.score else it.data?.runs?.get(
+                                    1
+                                )?.score
+                            val teamTwoWickets =
+                                if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(
+                                    0
+                                )?.wickets else it.data?.runs?.get(
+                                    1
+                                )?.wickets
+                            val teamTwoOvers =
+                                if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(
+                                    0
+                                )?.overs else it.data?.runs?.get(
+                                    1
+                                )?.overs
+                            viewModel.getVisitorTeamById(teamTwoId)
                                 .observe(requireActivity()) { team ->
                                     binding.teamTwo.text =
                                         team.code.plus(" [ ").plus(teamTwoTotalRun).plus("-")
@@ -99,41 +120,39 @@ class MatchDetailsOverFragment : Fragment() {
                                             .plus(") ]")
                                 }
                         }
-
-                        showInfo(true, it)
-
-                        binding.teamOne.setOnClickListener { _ ->
-                            showInfo(true, it)
-                        }
-
-                        binding.teamTwo.setOnClickListener { _ ->
-                            showInfo(false, it)
-                        }
-                        // removes the view of the container otherwise it will update the view continuously
-                        binding.container.removeViewAt(0)
-
-                    } else {
-                        val layoutParams = binding.cardView.layoutParams as ViewGroup.MarginLayoutParams
-                        layoutParams.topMargin = binding.root.height
-                        binding.cardView.layoutParams = layoutParams
-                        binding.container.removeViewAt(0)
-                        val noDataView = LayoutInflater.from(context).inflate(R.layout.layout_no_data, binding.container, false)
-                        binding.container.addView(noDataView)
+                    } catch (exception: Exception) {
+                        Log.e("error", "ex mdof team two info $exception")
                     }
-                }
 
-                viewModel.launchFixtureOver(fixtureId)
 
-            } catch (e: HttpException) {
-                if (e.code() == 400) {
-                    // Handle the error
-                    Log.e(TAG, "Bad Request")
+                    showInfo(true, it)
+
+                    binding.teamOne.setOnClickListener { _ ->
+                        showInfo(true, it)
+                    }
+
+                    binding.teamTwo.setOnClickListener { _ ->
+                        showInfo(false, it)
+                    }
+
+                    // removes the view of the container otherwise it will update the view continuously
+                    try {
+                        binding.container.removeViewAt(0)
+                    } catch (exception: Exception) {
+                        Log.e(TAG, "remove view from container: $exception")
+                    }
+
                 } else {
-                    // Handle other errors
-                    Log.e(TAG, e.message())
+                    try {
+                        binding.container.removeViewAt(0)
+                    } catch (exception: Exception) {
+                        Log.e(TAG, "remove view from container: $exception")
+                    }
+                    val noDataView = LayoutInflater.from(context)
+                        .inflate(R.layout.layout_no_data, binding.container, false)
+                    binding.container.addView(noDataView)
                 }
             }
-
 
         }
 

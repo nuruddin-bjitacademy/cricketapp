@@ -7,6 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF0000</color>
 
     // Custom color
     <color name="status_bar">#00796B</color>
@@ -22,4 +23,13 @@
     <color name="over_ball_six">#FF5722</color>
     <color name="over_ball_four">#FFC107</color>
     <color name="over_ball_no_ball">#673AB7</color>
+
+
+    <color name="info_text">#454545</color>
+    <color name="title_text">#000000</color>
+    <color name="button_text">#FFFFFF</color>
+
+
+    <color name="partnership_bar_left">#004D40</color>
+    <color name="partnership_bar_right">#1A237E</color>
 </resources>

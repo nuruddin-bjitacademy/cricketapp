@@ -2,6 +2,10 @@ package com.graphicless.cricketapp.utils
 
 import android.view.View
 import android.view.ViewTreeObserver
+import org.ocpsoft.prettytime.PrettyTime
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 class Utils {
 
@@ -14,5 +18,27 @@ class Utils {
                 }
             }
         })
+    }
+
+    fun DateToTimeFormat(oldstringDate: String?): String? {
+        val p = PrettyTime(Locale(getCountry()))
+        var isTime: String? = null
+        try {
+            val sdf = SimpleDateFormat(
+                "yyyy-MM-dd'T'HH:mm:ss'Z'",
+                Locale.ENGLISH
+            )
+            val date: Date? = oldstringDate?.let { sdf.parse(it) }
+            isTime = p.format(date)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+        return isTime
+    }
+
+    private fun getCountry(): String {
+        val locale: Locale = Locale.getDefault()
+        val country: String = java.lang.String.valueOf(locale.getCountry())
+        return country.lowercase(Locale.getDefault())
     }
 }
