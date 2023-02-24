@@ -6,16 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.transition.MaterialElevationScale
+import com.graphicless.cricketapp.Model.LiveMatchInfo
 import com.graphicless.cricketapp.adapter.ViewPagerAdapter
 import com.graphicless.cricketapp.databinding.FragmentMatchDetailsContainerBinding
 import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
+import com.graphicless.cricketapp.viewmodel.NetworkConnectionViewModel
 
 class LiveMatchDetailsContainerFragment : Fragment() {
 
@@ -24,6 +27,7 @@ class LiveMatchDetailsContainerFragment : Fragment() {
 
     private val args: MatchDetailsContainerFragmentArgs by navArgs()
     private val viewModel: CricketViewModel by viewModels()
+    private val networkConnectionViewModel: NetworkConnectionViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,18 +50,31 @@ class LiveMatchDetailsContainerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val fragmentList: List<Fragment> =
-            listOf(MatchDetailsLiveFragment(), MatchDetailsInfoFragment(), MatchDetailsSquadFragment(), MatchDetailsScoreCardFragment(), MatchDetailsOverFragment())
-        val tabNameList: List<String> = listOf("Live", "Info", "Squad", "Score Card", "Over")
+        networkConnectionViewModel.isNetworkAvailable.observe(requireActivity()){
+            if(it){
+                val fragmentList: List<Fragment> =
+                    listOf(MatchDetailsLiveFragment(), LiveMatchDetailsInfoFragment(), MatchDetailsSquadFragment(), MatchDetailsScoreCardFragment(), MatchDetailsOverFragment())
+                val tabNameList: List<String> = listOf("Live", "Info", "Squad", "Score Card", "Over")
 
-        val fixtureId = args.fixtureId
+                val fixtureId = args.fixtureId
 
-        val adapter = ViewPagerAdapter(this, fragmentList, fixtureId, "live")
-        binding.viewPager.adapter = adapter
+                val adapter = ViewPagerAdapter(this, fragmentList, fixtureId, "live")
+                binding.viewPager.adapter = adapter
 
-        TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = tabNameList[position]
-        }.attach()
+                TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+                    tab.text = tabNameList[position]
+                }.attach()
+            }else{
+
+            }
+        }
+
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.viewPager.adapter = null
     }
 
 }

@@ -1,14 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.RankingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/progressbar"
+        android:elevation="@dimen/_10sdp"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:text="@string/no_data_available"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:id="@+id/tv_no_data"
+        android:elevation="@dimen/_10sdp"
+        android:gravity="center"
+        android:visibility="gone"
+        />
 
-</FrameLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/batsman"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        app:cardBackgroundColor="@color/card_background"
+        android:elevation="0dp"
+        app:cardCornerRadius="@dimen/_2sdp"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/heading"
+                android:padding="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_10sdp">
+
+                <TableRow>
+
+                    <TextView
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/flag"
+                        android:gravity="center"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/name"
+                        android:gravity="center"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/rank"
+                        android:gravity="center"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/match"
+                        android:gravity="center"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/point"
+                        android:gravity="center"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/rating"
+                        android:gravity="end"
+                        android:textStyle="bold" />
+                </TableRow>
+            </TableLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/item_team_ranking"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:padding="@dimen/_10sdp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

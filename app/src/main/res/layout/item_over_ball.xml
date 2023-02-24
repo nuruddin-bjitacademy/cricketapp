@@ -8,6 +8,7 @@
     android:background="@drawable/boarder_over_ball"
     android:gravity="center"
     android:textStyle="bold"
+    android:textColor="@color/black"
     android:layout_margin="@dimen/_3sdp"
     android:padding="@dimen/_3sdp"
     tools:text="0" />

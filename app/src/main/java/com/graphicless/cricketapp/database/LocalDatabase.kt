@@ -5,13 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.graphicless.cricketapp.model.Continent
-import com.graphicless.cricketapp.model.Country
-import com.graphicless.cricketapp.model.League
-import com.graphicless.cricketapp.temp.*
+import com.graphicless.cricketapp.Model.*
+import com.graphicless.cricketapp.utils.TypeConverter
 
 @Database(
-    entities = [Continent::class, Country::class, League::class, FixturesIncludeRuns.Data::class, Teams.Data::class, Venues.Data::class, Stages.Data::class, Seasons.Data::class, FixturesIncludeRuns.Data.Run::class, Officials.Data::class],
+    entities = [Countries.Data::class, Leagues.Data::class, FixturesIncludeRuns.Data::class, Teams.Data::class, Venues.Data::class, Stages.Data::class, Seasons.Data::class, FixturesIncludeRuns.Data.Run::class, Officials.Data::class, TeamRankingsLocal::class, PlayerAll.Data::class, CurrentPlayers.Data.Squad::class],
     version = 1,
     exportSchema = false
 )

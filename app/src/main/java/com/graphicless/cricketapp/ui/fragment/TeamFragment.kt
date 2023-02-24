@@ -25,18 +25,10 @@ class TeamFragment : Fragment() {
     //    private val args: DetailsFragmentArgs by navArgs()
     private val viewModel: CricketViewModel by viewModels()
 
+    // This is for searching
     var national = 1
 
-//    lateinit var search: MenuItem
-//    private var searchView: SearchView? = null
-//    private var queryTextListener: SearchView.OnQueryTextListener? = null
-
-//    private lateinit var toolbar: MaterialToolbar
-//    private lateinit var searchView: MaterialSearchView
-
-
     private lateinit var searchView: SearchView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -44,37 +36,37 @@ class TeamFragment : Fragment() {
         exitTransition = MaterialElevationScale(/* growing = */ false)
         reenterTransition = MaterialElevationScale(/* growing = */ true)
 
-        (activity as AppCompatActivity).supportActionBar?.title = MyConstants.TEAMS
+        (activity as AppCompatActivity).supportActionBar?.title = MyConstants.TEAMS_LABEL
         (activity as AppCompatActivity).supportActionBar?.elevation = 0f
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentTeamBinding.inflate(inflater, container, false)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-//        (activity as AppCompatActivity).supportActionBar?.hide()
         
         arguments?.takeIf { it.containsKey(MyConstants.CATEGORY_TAB_NUMBER) }?.apply {
             when (getInt(MyConstants.CATEGORY_TAB_NUMBER)) {
 
                 0 -> {
                     viewModel.getAllTeam(1).observe(requireActivity()) {
-                        val adapter = TeamsAdapter(it)
+                        val adapter = TeamsAdapter(it, 1, requireActivity())
                         binding.recyclerView.adapter = adapter
+                        binding.progressbar.visibility = View.GONE
                     }
                     national = 1
                 }
                 1 -> {
                     viewModel.getAllTeam(0).observe(requireActivity()) {
-                        val adapter = TeamsAdapter(it)
+                        val adapter = TeamsAdapter(it, 0, requireActivity())
                         binding.recyclerView.adapter = adapter
+                        binding.progressbar.visibility = View.GONE
                     }
                     national = 0
                 }
@@ -101,7 +93,7 @@ class TeamFragment : Fragment() {
                 Log.d(TAG, "onQueryTextChange: $newText")
                 if (newText != null && newText != "") {
                     viewModel.getAllTeamByQuery(national, newText).observe(requireActivity()){
-                        val adapter = TeamsAdapter(it)
+                        val adapter = TeamsAdapter(it, national, requireActivity())
                         binding.recyclerView.adapter = adapter
                     }
                 }

@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.ItemStageBinding
-import com.graphicless.cricketapp.temp.StageName
-import com.graphicless.cricketapp.temp.map.StageByLeague
+import com.graphicless.cricketapp.Model.StageName
+import com.graphicless.cricketapp.Model.map.StageByLeague
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
 private const val TAG = "StageAdapterForUpcoming"

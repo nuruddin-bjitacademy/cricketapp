@@ -1,38 +1,39 @@
 package com.graphicless.cricketapp.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.graphicless.cricketapp.database.CricketDao
-import com.graphicless.cricketapp.model.Continent
-import com.graphicless.cricketapp.model.Country
-import com.graphicless.cricketapp.model.CountryWithContinent
-import com.graphicless.cricketapp.model.League
 import com.graphicless.cricketapp.network.CricketApi
 import com.graphicless.cricketapp.network.NewsApi
-import com.graphicless.cricketapp.temp.*
-import com.graphicless.cricketapp.temp.joined.FixtureAndTeam
-import com.graphicless.cricketapp.temp.map.FixtureDetails
-import com.graphicless.cricketapp.temp.map.StageByLeague
+import com.graphicless.cricketapp.Model.*
+import com.graphicless.cricketapp.Model.joined.FixtureAndTeam
+import com.graphicless.cricketapp.Model.map.FixtureDetails
+import com.graphicless.cricketapp.Model.map.StageByLeague
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.await
 
 class CricketRepository(private val cricketDao: CricketDao) {
-
-    val getContinents: LiveData<List<Continent>> = cricketDao.getContinents()
-    val getCountries: LiveData<List<Country>> = cricketDao.getCountries()
-    val getLeagues: LiveData<List<League>> = cricketDao.getLeagues()
     val getFixtures: LiveData<List<FixturesIncludeRuns.Data>> = cricketDao.getFixtures()
 
-    suspend fun insertContinent(continent: Continent) {
-        cricketDao.insertContinent(continent)
+    suspend fun insertCountry(countries: List<Countries.Data>) {
+        cricketDao.insertCountry(countries)
     }
 
-    suspend fun insertCountry(country: Country) {
-        cricketDao.insertCountry(country)
+    suspend fun insertLeagues(leagues: List<Leagues.Data>) {
+        cricketDao.insertLeague(leagues)
     }
 
-    suspend fun insertLeagues(league: League) {
-        cricketDao.insertLeague(league)
+    suspend fun insertPlayers(players: List<PlayerAll.Data?>?) {
+        cricketDao.insertPlayers(players)
+    }
+
+    suspend fun insertCurrentPlayer(players: List<CurrentPlayers.Data.Squad?>?) {
+        cricketDao.insertCurrentPlayer(players)
+    }
+
+    suspend fun insertTeamRankings(teamRanking: TeamRankingsLocal) {
+        cricketDao.insertTeamRankings(teamRanking)
     }
 
     suspend fun insertFixture(fixtures: List<FixturesIncludeRuns.Data>) {
@@ -44,6 +45,7 @@ class CricketRepository(private val cricketDao: CricketDao) {
     }
 
     suspend fun insertTeam(teams: List<Teams.Data>) {
+        Log.d("TAG", "insertTeam: called")
         cricketDao.insertTeam(teams)
     }
 
@@ -63,21 +65,15 @@ class CricketRepository(private val cricketDao: CricketDao) {
         cricketDao.insertOfficials(officials)
     }
 
-    fun getContinentName(id: Int): LiveData<String> {
-        return cricketDao.getContinentName(id)
+    fun deleteTeamRanking() {
+        cricketDao.deleteTeamRanking()
     }
-
-    fun getCountryWithContinent(): LiveData<List<CountryWithContinent>> {
-        return cricketDao.getCountryWithContinent()
+    fun deleteFixture() {
+        cricketDao.deleteFixture()
     }
-
-    /*fun getFixtureAndTeam(): LiveData<List<FixtureAndTeam>> {
-        return cricketDao.getFixtureAndTeam()
-    }*/
-
-    /*fun getFixtureAndTeam2(): LiveData<List<test>> {
-        return cricketDao.getFixtureAndTeam2()
-    }*/
+    fun deleteRun() {
+        cricketDao.deleteRun()
+    }
 
     fun getFixturesByStageId(stageId: Int): LiveData<List<FixtureAndTeam>> {
         return cricketDao.getFixturesByStageId(stageId)
@@ -122,9 +118,16 @@ class CricketRepository(private val cricketDao: CricketDao) {
     fun getUpcomingMatchSummaryByLeagueId(leagueId: Int): LiveData<List<StageByLeague>> {
         return cricketDao.getUpcomingMatchSummaryByLeagueId(leagueId)
     }
+    fun getRecentMatchSummaryByLeagueId(leagueId: Int): LiveData<List<FixtureAndTeam>> {
+        return cricketDao.getRecentMatchSummaryByLeagueId(leagueId)
+    }
 
     fun getPreviousMatchSummaryByLeagueId(leagueId: Int): LiveData<List<StageByLeague>> {
         return cricketDao.getPreviousMatchSummaryByLeagueId(leagueId)
+    }
+
+    fun getAllUpcomingFixture(): LiveData<List<Match>> {
+        return cricketDao.getAllUpcomingFixture()
     }
 
     fun getPreviousMatchesByDate(
@@ -132,6 +135,13 @@ class CricketRepository(private val cricketDao: CricketDao) {
         startingAt: String
     ): LiveData<List<FixtureAndTeam>> {
         return cricketDao.getPreviousMatchesByDate(leagueId, startingAt)
+    }
+
+    fun getUpcomingMatchesByDate(
+        leagueId: Int,
+        startingAt: String
+    ): LiveData<List<FixtureAndTeam>> {
+        return cricketDao.getUpcomingMatchesByDate(leagueId, startingAt)
     }
 
     fun getAllPreviousMatchDateByType(leagueId: Int): LiveData<List<String>> {
@@ -162,6 +172,38 @@ class CricketRepository(private val cricketDao: CricketDao) {
         }
     }
 
+    suspend fun getSquadByTeam(teamId: Int): List<TeamSquad.Data.Squad?>? {
+        return withContext(Dispatchers.IO) {
+            CricketApi.retrofitService.getSquadByTeam(teamId).await().data?.squad
+        }
+    }
+
+    suspend fun getPlayerDetails(playerId: Int): PlayerDetailsNew.Data? {
+        return withContext(Dispatchers.IO) {
+            CricketApi.retrofitService.getPlayerDetails(playerId).await().data
+        }
+    }
+    suspend fun getSeasonById(seasonId: Int): SeasonById {
+        return withContext(Dispatchers.IO) {
+            CricketApi.retrofitService.getSeasonById(seasonId).await()
+        }
+    }
+    suspend fun getLeagueById(leagueId: Int): LeagueById {
+        return withContext(Dispatchers.IO) {
+            CricketApi.retrofitService.getLeagueById(leagueId).await()
+        }
+    }
+    suspend fun getFixturesByTeamId(teamId: Int): FixturesByTeamId {
+        return withContext(Dispatchers.IO) {
+            CricketApi.retrofitService.getFixturesByTeamId(teamId).await()
+        }
+    }
+    /*suspend fun getTeamRankings(): TeamRankings {
+        return withContext(Dispatchers.IO) {
+            CricketApi.retrofitService.getTeamRankings().await()
+        }
+    }*/
+
     suspend fun getPlayer2(playerId: Int): Player {
         return withContext(Dispatchers.IO) {
             CricketApi.retrofitService.getPlayerByPlayerId2(playerId).await()
@@ -180,9 +222,15 @@ class CricketRepository(private val cricketDao: CricketDao) {
         }
     }
 
-    suspend fun getFixtureScoreCard(fixtureId: Int): FixtureScoreCard {
+    suspend fun getFixtureScoreCard(fixtureId: Int): FixtureDetailsScoreCard {
         return withContext(Dispatchers.IO) {
             CricketApi.retrofitService.getFixtureScoreCard(fixtureId).await()
+        }
+    }
+
+    suspend fun getFixtureScoreCard526(fixtureId: Int): FixtureDetailsScoreCard {
+        return withContext(Dispatchers.IO) {
+            CricketApi.retrofitService.getFixtureScoreCard526(fixtureId).await()
         }
     }
 
@@ -215,4 +263,28 @@ class CricketRepository(private val cricketDao: CricketDao) {
     fun getAllSeasonId(year: String): LiveData<List<Int>> {
         return cricketDao.getAllSeasonId(year)
     }
+    fun getSeasonNameById(seasonId: Int): LiveData<String> {
+        return cricketDao.getSeasonNameById(seasonId)
+    }
+    fun getLeagueNameById(leagueId: Int): LiveData<String> {
+        return cricketDao.getLeagueNameById(leagueId)
+    }
+    fun getCountryNameById(countryId: Int): LiveData<String> {
+        return cricketDao.getCountryNameById(countryId)
+    }
+    fun getTeamRankings(format: String, gender: String): LiveData<List<TeamRankingsLocal>> {
+        return cricketDao.getTeamRankings(format, gender)
+    }
+    fun getAllPlayer(): LiveData<List<PlayerAll.Data>> {
+        return cricketDao.getAllPlayer()
+    }
+    fun getPlayerByQuery(query: String): LiveData<List<PlayerAll.Data>> {
+        return cricketDao.getPlayerByQuery(query)
+    }
+
+    /*suspend fun fetchTeamRankings(): List<TeamRankings.Data?>? {
+        return withContext(Dispatchers.IO){
+            CricketApi.retrofitService.getTeamRankings().await().data
+        }
+    }*/
 }

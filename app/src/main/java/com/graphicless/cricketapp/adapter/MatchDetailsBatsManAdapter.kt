@@ -7,15 +7,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
+import com.graphicless.cricketapp.Model.FixtureDetailsScoreCard
 import com.graphicless.cricketapp.R
-import com.graphicless.cricketapp.temp.FixtureDetailsById
-import com.graphicless.cricketapp.temp.FixtureScoreCard
+import com.graphicless.cricketapp.Model.FixtureScoreCard
 import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
 class MatchDetailsBatsManAdapter(private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<MatchDetailsBatsManAdapter.PlayerStatisticsViewHolder>() {
 
-    private var playerStatisticsList: List<FixtureScoreCard.Data.Batting?>? = ArrayList()
+    private var playerStatisticsList: List<FixtureDetailsScoreCard.Data.Batting?>? = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerStatisticsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_batter, parent, false)
@@ -31,7 +31,7 @@ class MatchDetailsBatsManAdapter(private val lifecycleOwner: LifecycleOwner) : R
         return playerStatisticsList?.size ?: 0
     }
 
-    fun setPlayerStatisticsList(playerStatisticsList: List<FixtureScoreCard.Data.Batting?>?) {
+    fun setPlayerStatisticsList(playerStatisticsList: List<FixtureDetailsScoreCard.Data.Batting?>?) {
         this.playerStatisticsList = playerStatisticsList
         notifyDataSetChanged()
     }
@@ -47,7 +47,7 @@ class MatchDetailsBatsManAdapter(private val lifecycleOwner: LifecycleOwner) : R
         private val fours: TextView = itemView.findViewById(R.id.fours)
         private val strikeRate: TextView = itemView.findViewById(R.id.strikeRate)
 
-        fun bind(playerStatistics: FixtureScoreCard.Data.Batting?, lifecycleOwner: LifecycleOwner) {
+        fun bind(playerStatistics: FixtureDetailsScoreCard.Data.Batting?, lifecycleOwner: LifecycleOwner) {
 
             val playerId = playerStatistics?.playerId
 

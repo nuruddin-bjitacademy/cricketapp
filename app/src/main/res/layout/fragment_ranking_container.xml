@@ -8,20 +8,23 @@
     tools:context=".ui.fragment.RankingContainerFragment"
     >
 
+
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@color/tab_background_nested"
         android:outlineProvider="none"
-        app:tabIndicatorColor="@null"
-        app:tabTextColor="@android:color/darker_gray"
+        app:tabIndicatorColor="@color/tab_indicator_nested"
+        app:tabTextColor="@color/tab_text_nested"
         app:tabMode="scrollable"
         app:tabIndicatorAnimationMode="elastic"
-        app:tabSelectedTextColor="@color/status_bar"
-        app:tabBackground="@color/card_background"
+        app:tabSelectedTextColor="@color/tab_text_selected_nested"
+        app:tabBackground="@color/tab_background_nested"
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorGravity="bottom"
+        app:tabGravity="center"
         />
 
 
@@ -31,6 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_marginTop="50dp"
+        android:saveEnabled="false"
         />
 
     <View

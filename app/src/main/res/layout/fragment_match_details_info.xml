@@ -11,469 +11,507 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_info"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_10sdp"
-            android:text="INFO"
-            android:textSize="16sp"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:elevation="@dimen/_3sdp"
+            android:layout_margin="@dimen/_10sdp"
+            android:padding="@dimen/_5sdp"
             android:background="@color/card_background"
-            app:layout_constraintTop_toBottomOf="@+id/tv_info">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_series"
-                android:layout_width="0dp"
+                android:id="@+id/tv_info"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="Series"
+                android:padding="@dimen/_10sdp"
+                android:textStyle="bold"
+                android:text="INFO"
+                android:textColor="@color/heading_text"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/label_visitor_team"
-                app:layout_constraintStart_toStartOf="parent"
+                android:background="@color/heading"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_match"
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="Match"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/label_visitor_team"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/series" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_info">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_match_no"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="Match No."
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/label_visitor_team"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/match" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_matches"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Series"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/label_high_score"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_local_team"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="Local Team"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/label_visitor_team"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/match_no" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_runs"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Match"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/label_high_score"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/series" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_visitor_team"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="Visitor Team"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/local_team" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_innings"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Match No."
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/label_high_score"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/match" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="Date"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/label_visitor_team"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/visitor_team" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_balls"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Local Team"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/label_high_score"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/matchNo" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="Time"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/label_visitor_team"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/date" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_high_score"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Visitor Team"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/localTeam" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_status"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="Status"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/label_visitor_team"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/time" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_100s"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Date"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/label_high_score"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/visitorTeam" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_result"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="Result"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/label_visitor_team"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/status" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_50s"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Time"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/label_high_score"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/date" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_toss"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="Toss"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/label_visitor_team"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/result" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_average"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Status"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/label_high_score"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/time" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/series"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="Australia tour of India, 2023"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_series"
-                app:layout_constraintTop_toTopOf="@id/label_series" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_not_out"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Result"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/label_high_score"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/status" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/match"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="Australia vs India"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_match"
-                app:layout_constraintTop_toTopOf="@id/label_match" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_4s"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Toss"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/label_high_score"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/result" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/match_no"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="1st T20I"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_match_no"
-                app:layout_constraintTop_toTopOf="@id/label_match_no" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/series"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_matches"
+                    app:layout_constraintTop_toTopOf="@id/label_matches"
+                    tools:text="Australia tour of India, 2023" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/local_team"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="Australia"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_local_team"
-                app:layout_constraintTop_toTopOf="@id/label_local_team" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/match"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_runs"
+                    app:layout_constraintTop_toTopOf="@id/label_runs"
+                    tools:text="Australia vs India" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/visitor_team"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="India"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_visitor_team"
-                app:layout_constraintTop_toTopOf="@id/label_visitor_team" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/matchNo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_innings"
+                    app:layout_constraintTop_toTopOf="@id/label_innings"
+                    tools:text="1st T20I" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="Thu, Feb 09"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_date"
-                app:layout_constraintTop_toTopOf="@id/label_date" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/localTeam"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_balls"
+                    app:layout_constraintTop_toTopOf="@id/label_balls"
+                    tools:text="Australia" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/time"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="10.00 AM, Your Time"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_time"
-                app:layout_constraintTop_toTopOf="@id/label_time" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/visitorTeam"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_high_score"
+                    app:layout_constraintTop_toTopOf="@id/label_high_score"
+                    tools:text="India" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/status"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="Finished"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_status"
-                app:layout_constraintTop_toTopOf="@id/label_status" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_100s"
+                    app:layout_constraintTop_toTopOf="@id/label_100s"
+                    tools:text="Thu, Feb 09" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/result"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="India won by 20 runs"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_result"
-                app:layout_constraintTop_toTopOf="@id/label_result" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_50s"
+                    app:layout_constraintTop_toTopOf="@id/label_50s"
+                    tools:text="10.00 AM, Your Time" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/toss"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="Australia opt to bat"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_toss"
-                app:layout_constraintTop_toTopOf="@id/label_toss" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_average"
+                    app:layout_constraintTop_toTopOf="@id/label_average"
+                    tools:text="Finished" />
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/result"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_not_out"
+                    app:layout_constraintTop_toTopOf="@id/label_not_out"
+                    tools:text="India won by 20 runs" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/toss"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_4s"
+                    app:layout_constraintTop_toTopOf="@id/label_4s"
+                    tools:text="Australia opt to bat" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_venue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_10sdp"
-            android:text="VENUE"
-            android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/layout_info" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_venue"
+            android:id="@id/layout_venue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/card_background"
-            app:layout_constraintTop_toBottomOf="@+id/tv_venue">
+            android:layout_margin="@dimen/_10sdp"
+            android:elevation="@dimen/_3sdp"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintTop_toBottomOf="@id/layout_info">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_stadium"
-                android:layout_width="0dp"
+                android:id="@+id/tv_venue"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="Stadium"
+                android:padding="@dimen/_10sdp"
+                android:textStyle="bold"
+                android:text="VENUE"
+                android:background="@color/heading"
+                android:textColor="@color/heading_text"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/label_flood_light"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_location"
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="Location"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/label_flood_light"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/stadium" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_venue">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_capacity"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="Capacity"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/label_flood_light"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/location" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_stadium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Stadium"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/label_flood_light"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_flood_light"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="Flood light"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/capacity" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Location"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/label_flood_light"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stadium" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/stadium"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="Shere bangla national stadium"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_stadium"
-                app:layout_constraintTop_toTopOf="@id/label_stadium" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_capacity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Capacity"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/label_flood_light"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/location" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/location"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="Dhaka, Bangladesh"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_location"
-                app:layout_constraintTop_toTopOf="@id/label_location" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_flood_light"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Flood light"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/capacity" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/capacity"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="45,000"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_capacity"
-                app:layout_constraintTop_toTopOf="@id/label_capacity" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/stadium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_stadium"
+                    app:layout_constraintTop_toTopOf="@id/label_stadium"
+                    tools:text="Shere bangla national stadium" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/flood_light"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="false"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_flood_light"
-                app:layout_constraintTop_toTopOf="@id/label_flood_light" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_location"
+                    app:layout_constraintTop_toTopOf="@id/label_location"
+                    tools:text="Dhaka, Bangladesh" />
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/capacity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_capacity"
+                    app:layout_constraintTop_toTopOf="@id/label_capacity"
+                    tools:text="45,000" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/flood_light"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_flood_light"
+                    app:layout_constraintTop_toTopOf="@id/label_flood_light"
+                    tools:text="false" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/header_umpire"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/_10sdp"
-            android:text="UMPIRE"
-            android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/layout_venue" />
-
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:paddingBottom="80dp"
-            android:id="@+id/layout_umpire"
+            android:id="@+id/layout_referee"
             android:layout_width="match_parent"
+            android:elevation="@dimen/_3sdp"
             android:layout_height="wrap_content"
+            android:padding="@dimen/_5sdp"
+            android:layout_margin="@dimen/_10sdp"
             android:background="@color/card_background"
-            app:layout_constraintTop_toBottomOf="@+id/header_umpire">
+            app:layout_constraintTop_toBottomOf="@+id/layout_venue">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_first_umpire"
-                android:layout_width="0dp"
+                android:id="@+id/header_umpire"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="First Umpire"
+                android:padding="@dimen/_10sdp"
+                android:background="@color/heading"
+                android:text="UMPIRE"
+                android:textColor="@color/heading_text"
                 android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/label_second_umpire"
-                app:layout_constraintStart_toStartOf="parent"
+                android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_second_umpire"
-                android:layout_width="0dp"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_umpire"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="Second Umpire"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/label_first_umpire" />
+                app:layout_constraintTop_toBottomOf="@+id/header_umpire">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_tv_umpire"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="TV Umpire"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/label_second_umpire"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/label_second_umpire" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_first_umpire"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="First Umpire"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/label_second_umpire"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/label_referee"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:text="Referee"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="@+id/label_second_umpire"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/label_tv_umpire" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_second_umpire"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Second Umpire"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/label_first_umpire" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/first_umpire"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="Alim dar"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_first_umpire"
-                app:layout_constraintTop_toTopOf="@id/label_first_umpire" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_tv_umpire"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="TV Umpire"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/label_second_umpire"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/label_second_umpire" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/second_umpire"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="Ryan ray"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_second_umpire"
-                app:layout_constraintTop_toTopOf="@id/label_second_umpire" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_referee"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="Referee"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/label_second_umpire"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/label_tv_umpire" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_umpire"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="Jhon Doe"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_tv_umpire"
-                app:layout_constraintTop_toTopOf="@id/label_tv_umpire" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/first_umpire"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_first_umpire"
+                    app:layout_constraintTop_toTopOf="@id/label_first_umpire"
+                    tools:text="Alim dar" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/referee"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_10sdp"
-                android:padding="@dimen/_5sdp"
-                android:text="Referee"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/label_referee"
-                app:layout_constraintTop_toTopOf="@id/label_referee" />
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/second_umpire"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_second_umpire"
+                    app:layout_constraintTop_toTopOf="@id/label_second_umpire"
+                    tools:text="Ryan ray" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_umpire"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_tv_umpire"
+                    app:layout_constraintTop_toTopOf="@id/label_tv_umpire"
+                    tools:text="Jhon Doe" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/referee"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_referee"
+                    app:layout_constraintTop_toTopOf="@id/label_referee"
+                    tools:text="Referee" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

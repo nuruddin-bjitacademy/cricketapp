@@ -92,6 +92,17 @@ dependencies {
     // Material
     implementation 'com.google.android.material:material:1.5.0'
 
+    // For delay in insert players
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
+
+    implementation 'com.squareup.okhttp3:okhttp:4.10.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
+
+
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
+
+//    implementation 'com.android.support:support-compat:28.0.0'
+
 
 
     testImplementation 'junit:junit:4.13.2'

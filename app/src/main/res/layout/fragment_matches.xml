@@ -6,70 +6,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background"
-    android:paddingTop="@dimen/_5sdp"
     tools:context=".ui.fragment.MatchesFragment">
-
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_t20i"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp"
-        android:background="@color/action_bar"
-        android:padding="@dimen/_5sdp"
-        android:paddingStart="@dimen/_15sdp"
-        android:paddingEnd="@dimen/_15sdp"
-        android:text="@string/t20i"
-        android:textColor="@color/tab_text"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@id/tv_bbc"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_bbc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp"
-        android:background="@drawable/boarder_rectangle"
-        android:padding="@dimen/_5sdp"
-        android:paddingStart="@dimen/_15sdp"
-        android:paddingEnd="@dimen/_15sdp"
-        android:text="@string/bbc"
-        android:textColor="@color/tab_text"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_t20c"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_5sdp"
-        android:background="@drawable/boarder_rectangle"
-        android:padding="@dimen/_5sdp"
-        android:paddingStart="@dimen/_15sdp"
-        android:paddingEnd="@dimen/_15sdp"
-        android:text="@string/t20sa"
-        android:textColor="@color/tab_text"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@id/tv_bbc"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_10sdp"
+        android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/tv_bbc" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_by_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/_10sdp"
+        android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/tv_bbc" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:id="@+id/tv_no_data"
+        android:text="No Data Available"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        />
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="visible"
+        />
 
     <!--<View
         android:id="@+id/start_view"

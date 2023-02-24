@@ -37,6 +37,14 @@
         app:iconTint="@color/title_text"
         android:textAlignment="viewStart"/>
 
+    <androidx.appcompat.widget.SwitchCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Night Mode"
+        android:id="@+id/switch_theme"
+        android:padding="@dimen/_10sdp"
+        />
+
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -49,10 +49,38 @@ class MatchSummaryContainerFragment : Fragment() {
             when (getInt(MyConstants.CATEGORY_TAB_NUMBER)) {
 
                 0 -> {// Upcoming
+                    val fragmentList: List<Fragment> = listOf(
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment()
+                    )
+                    val tabNameList: List<String> = listOf("BPL", "IPL", "BBL", "ODI", "T20I")
 
+                    val viewPagerAdapter = ViewPagerAdapter(this@MatchSummaryContainerFragment, fragmentList, null, "upcoming")
+
+                    binding.viewPager.adapter = viewPagerAdapter
+                    TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+                        tab.text = tabNameList[position]
+                    }.attach()
                 }
                 1 -> {// Recent
+                    val fragmentList: List<Fragment> = listOf(
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment()
+                    )
+                    val tabNameList: List<String> = listOf("BPL", "IPL", "BBL", "ODI", "T20I")
 
+                    val viewPagerAdapter = ViewPagerAdapter(this@MatchSummaryContainerFragment, fragmentList, null, "recent")
+
+                    binding.viewPager.adapter = viewPagerAdapter
+                    TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
+                        tab.text = tabNameList[position]
+                    }.attach()
                 }
                 2 -> {// Previous
                     val fragmentList: List<Fragment> = listOf(
@@ -62,7 +90,7 @@ class MatchSummaryContainerFragment : Fragment() {
                         MatchesFragment(),
                         MatchesFragment()
                     )
-                    val tabNameList: List<String> = listOf("BPL", "IPL", "BBL----------", "ODI", "T20I")
+                    val tabNameList: List<String> = listOf("BPL", "IPL", "BBL", "ODI", "T20I")
 
                     val viewPagerAdapter = ViewPagerAdapter(this@MatchSummaryContainerFragment, fragmentList, null, "previous")
 
@@ -73,10 +101,10 @@ class MatchSummaryContainerFragment : Fragment() {
                 }
             }
         }
-
-
     }
 
-
-
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.viewPager.adapter = null
+    }
 }

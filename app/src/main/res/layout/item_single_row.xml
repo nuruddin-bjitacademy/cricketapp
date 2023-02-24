@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_margin="@dimen/_5sdp"
+    android:layout_marginTop="@dimen/_5sdp"
+    android:layout_marginStart="@dimen/_5sdp"
+    android:layout_marginEnd="@dimen/_5sdp"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +22,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_launcher_background"
-            app:shapeAppearance="@style/RoundedImageViewStyle"
+            app:shapeAppearance="@style/ShapeAppearance.Rounded"
             android:padding="@dimen/_1sdp"
             />
 
@@ -30,10 +32,24 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/image"
+            app:layout_constraintBottom_toTopOf="@id/country"
             app:layout_constraintStart_toEndOf="@+id/image"
             app:layout_constraintTop_toTopOf="@+id/image"
             tools:text="Bangladesh" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/country"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/image"
+            app:layout_constraintStart_toEndOf="@+id/image"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            android:visibility="gone"
+            tools:text="country: Bangladesh" />
+
+
         <!--<View
             android:layout_width="match_parent"
             android:layout_height="1dp"

@@ -5,9 +5,13 @@
         android:title="@string/home"
         android:icon="@drawable/ic_baseline_home_24"/>
 
-    <item android:id="@+id/fixtureFragment"
+    <item android:id="@+id/MatchSummaryContainerOuterFragment"
         android:title="@string/matches"
         android:icon="@drawable/baseline_sports_baseball_24"/>
+
+    <item android:id="@+id/rankingContainerOuterFragment"
+        android:title="@string/ranking"
+        android:icon="@drawable/icon_ranking"/>
 
     <item android:id="@+id/moreFragment"
         android:title="@string/settings"

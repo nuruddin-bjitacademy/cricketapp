@@ -2,17 +2,23 @@ package com.graphicless.cricketapp.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.graphicless.cricketapp.temp.LiveScoreDetails
-import com.graphicless.cricketapp.temp.LiveScores
-import com.graphicless.cricketapp.temp.LiveScoresIncludeRuns
+import com.graphicless.cricketapp.Model.LiveScoreDetails
+import com.graphicless.cricketapp.Model.LiveScoresIncludeRuns
+import com.graphicless.cricketapp.Model.StandingByStageId
 import com.graphicless.cricketapp.utils.MyConstants
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import okhttp3.OkHttpClient
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Retrofit
+import retrofit2.await
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 class LiveScoreRepository {
     private val apiService = CricketApiClient.service
@@ -30,6 +36,13 @@ class LiveScoreRepository {
             emit(response.data)
         }
     }
+
+    fun getStandingByStageId(stageId: Int): LiveData<StandingByStageId> {
+        return liveData {
+            val response = apiService.getStandingByStageId(stageId)
+            emit(response)
+        }
+    }
 }
 
 object CricketApiClient {
@@ -39,13 +52,21 @@ object CricketApiClient {
         .add(KotlinJsonAdapterFactory())
         .build()
 
+//    val okHttpClient = OkHttpClient.Builder()
+//        .connectTimeout(30, TimeUnit.SECONDS)
+//        .readTimeout(30, TimeUnit.SECONDS)
+//        .writeTimeout(30, TimeUnit.SECONDS)
+//        .build()
+
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
+//        .client(okHttpClient)
         .build()
 
     val service: CricketApiService = retrofit.create(CricketApiService::class.java)
 }
+
 
 interface CricketApiService {
     @GET("livescores")
@@ -60,4 +81,11 @@ interface CricketApiService {
         @Query("include") include: String = "bowling,batting,runs,lineup,balls",
         @Query("api_token") apiToken: String = MyConstants.API_KEY
     ): LiveScoreDetails
+
+    @GET("standings/stage/{stageId}")
+    suspend fun getStandingByStageId(
+        @Path("stageId") stageId: Int,
+        @Query("api_token") apiToken: String = MyConstants.API_KEY
+    ): StandingByStageId
+
 }

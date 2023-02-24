@@ -1,16 +1,20 @@
 package com.graphicless.cricketapp.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.ItemSingleRowBinding
-import com.graphicless.cricketapp.temp.SquadByTeamAndSeason
+import com.graphicless.cricketapp.Model.SquadByTeamAndSeason
+import com.graphicless.cricketapp.ui.fragment.TeamDetailsContainerFragmentDirections
 import com.graphicless.cricketapp.utils.MyApplication
 import com.graphicless.cricketapp.utils.MyConstants
 
+private const val TAG = "SquadAdapter"
 class SquadAdapter(private var squad: List<SquadByTeamAndSeason.Data.Squad?>): RecyclerView.Adapter<SquadAdapter.DataViewHolder>() {
     class DataViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
@@ -25,6 +29,19 @@ class SquadAdapter(private var squad: List<SquadByTeamAndSeason.Data.Squad?>): R
 
             if (item != null) {
                 Glide.with(MyApplication.instance).load(item.imagePath).into(binding.image)
+            }
+
+            binding.root.setOnClickListener {
+                val direction = item?.id?.let { it1 ->
+                    TeamDetailsContainerFragmentDirections.actionTeamDetailsContainerFragmentToPlayerDetailsFragment(
+                        it1
+                    )
+                }
+                if (direction != null) {
+                    try{ itemView.findNavController().navigate(direction) }catch (exception: Exception){
+                        Log.e(TAG, "Team details to Player details: $exception" )
+                    }
+                }
             }
         }
 
@@ -43,10 +60,5 @@ class SquadAdapter(private var squad: List<SquadByTeamAndSeason.Data.Squad?>): R
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         val item = squad[position]
         holder.bind(item)
-    }
-
-    fun reCall(squadList: List<SquadByTeamAndSeason.Data.Squad?>) {
-        squad = squadList
-        notifyDataSetChanged()
     }
 }

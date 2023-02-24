@@ -7,14 +7,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
+import com.graphicless.cricketapp.Model.FixtureDetailsScoreCard
 import com.graphicless.cricketapp.R
-import com.graphicless.cricketapp.temp.FixtureScoreCard
+import com.graphicless.cricketapp.Model.FixtureScoreCard
 import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
 class MatchDetailsBallerAdapter(private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<MatchDetailsBallerAdapter.PlayerStatisticsViewHolder>() {
 
-    private var ballerList: List<FixtureScoreCard.Data.Bowling?>? = ArrayList()
+    private var ballerList: List<FixtureDetailsScoreCard.Data.Bowling?>? = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerStatisticsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_batter, parent, false)
@@ -30,7 +31,7 @@ class MatchDetailsBallerAdapter(private val lifecycleOwner: LifecycleOwner) : Re
         return ballerList?.size ?: 0
     }
 
-    fun setBallerList(ballerList: List<FixtureScoreCard.Data.Bowling?>?) {
+    fun setBallerList(ballerList: List<FixtureDetailsScoreCard.Data.Bowling?>?) {
         this.ballerList = ballerList
         notifyDataSetChanged()
     }
@@ -46,7 +47,7 @@ class MatchDetailsBallerAdapter(private val lifecycleOwner: LifecycleOwner) : Re
         private val fours: TextView = itemView.findViewById(R.id.fours)
         private val strikeRate: TextView = itemView.findViewById(R.id.strikeRate)
 
-        fun bind(baller: FixtureScoreCard.Data.Bowling?, lifecycleOwner: LifecycleOwner) {
+        fun bind(baller: FixtureDetailsScoreCard.Data.Bowling?, lifecycleOwner: LifecycleOwner) {
 
             val playerId = baller?.playerId
 

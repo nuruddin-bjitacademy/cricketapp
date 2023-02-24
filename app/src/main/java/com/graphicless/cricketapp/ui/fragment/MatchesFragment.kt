@@ -3,18 +3,16 @@ package com.graphicless.cricketapp.ui.fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
-import com.google.android.material.tabs.TabLayoutMediator
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.adapter.MatchAdapter
 import com.graphicless.cricketapp.adapter.StageAdapterForPrevious
 import com.graphicless.cricketapp.adapter.StageAdapterForUpcoming
-import com.graphicless.cricketapp.adapter.ViewPagerAdapter
 import com.graphicless.cricketapp.databinding.FragmentMatchesBinding
 import com.graphicless.cricketapp.utils.DateValidator
 import com.graphicless.cricketapp.utils.MyApplication
@@ -28,6 +26,8 @@ private const val TAG = "MatchesFragment"
 
 class MatchesFragment : Fragment() {
 
+    private var shouldCalenderVisible = true
+
     private lateinit var _binding: FragmentMatchesBinding
     private val binding get() = _binding
 
@@ -36,8 +36,8 @@ class MatchesFragment : Fragment() {
 
     lateinit var calendar: MenuItem
 
-    var tabSelected: String = "upcoming"
-    var typeSelected: Int = 3
+    var tabSelected: String = "recent"
+    var selectedLeagueId: Int = 9
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,80 +56,112 @@ class MatchesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        arguments?.takeIf { it.containsKey(MyConstants.CATEGORY_TAB_NUMBER) }?.apply {
-            when (getInt(MyConstants.CATEGORY_TAB_NUMBER)) {
+        arguments?.takeIf { it.containsKey(MyConstants.COMING_FROM) }?.apply {
 
-                /*0 -> {// BPL
+//            tabSelected = getString(MyConstants.COMING_FROM).toString()
+//            Log.d(TAG, "onViewCreated: tabSelected $tabSelected")
+            Log.d(TAG, "onViewCreated: ${getString(MyConstants.COMING_FROM)}")
 
-                }
-                1 -> {// IPL
-
-                }
-                2 -> {// BBL
-
-                }
-                3 -> {// ODI
-
-                }
-                4 -> {// T20I
-
-                }*/
-
-
-
-
-                0 -> {
-
-                    tabSelected = "upcoming"
-                    itemSelected("t20i")
-                    upcomingMatchSummaryByLeagueId(3)
-                    showAllFixture()
-
-                    binding.tvBbc.setOnClickListener {
-                        typeSelected = 5
-                        itemSelected("bbc")
-                        upcomingMatchSummaryByLeagueId(5)
-                        showAllFixture()
-                    }
-                    binding.tvT20i.setOnClickListener {
-                        typeSelected = 3
-                        itemSelected("t20i")
-                        upcomingMatchSummaryByLeagueId(3)
-                        showAllFixture()
-                    }
-                    binding.tvT20c.setOnClickListener {
-                        typeSelected = 10
-                        itemSelected("t20c")
-                        upcomingMatchSummaryByLeagueId(10)
-                        showAllFixture()
-                    }
-                }
-                1 -> {
+            when (getString(MyConstants.COMING_FROM)) {
+                "upcoming" -> {
+                    setOptionMenuVisibility(false)
                     tabSelected = "previous"
-                    typeSelected = 3
-                    itemSelected("t20i")
-                    previousMatchSummaryByLeagueId(3)
-                    showAllFixture()
-
-                    binding.tvBbc.setOnClickListener {
-                        typeSelected = 5
-                        itemSelected("bbc")
-                        previousMatchSummaryByLeagueId(5)
-                        showAllFixture()
-                    }
-                    binding.tvT20i.setOnClickListener {
-                        typeSelected = 3
-                        itemSelected("t20i")
-                        previousMatchSummaryByLeagueId(3)
-                        showAllFixture()
-                    }
-                    binding.tvT20c.setOnClickListener {
-                        typeSelected = 10
-                        itemSelected("t20c")
-                        previousMatchSummaryByLeagueId(10)
-                        showAllFixture()
+                    arguments?.takeIf { it.containsKey(MyConstants.CATEGORY_TAB_NUMBER) }?.apply {
+                        when (getInt(MyConstants.CATEGORY_TAB_NUMBER)) {
+                            0 -> {// BPL
+                                Log.d(TAG, "upcoming BPL")
+                                upcomingMatchSummaryByLeagueId(9)
+                                selectedLeagueId = 9
+                            }
+                            1 -> {// IPL
+                                Log.d(TAG, "upcoming IPL")
+                                upcomingMatchSummaryByLeagueId(1)
+                                selectedLeagueId = 1
+                            }
+                            2 -> {// BBL
+                                Log.d(TAG, "upcoming BBL")
+                                upcomingMatchSummaryByLeagueId(5)
+                                selectedLeagueId = 5
+                            }
+                            3 -> {// ODI
+                                Log.d(TAG, "upcoming ODI")
+                                upcomingMatchSummaryByLeagueId(2)
+                                selectedLeagueId = 2
+                            }
+                            4 -> {// T20I
+                                Log.d(TAG, "upcoming T20I")
+                                upcomingMatchSummaryByLeagueId(3)
+                                selectedLeagueId = 3
+                            }
+                        }
                     }
                 }
+                "recent" -> {
+                    setOptionMenuVisibility(false)
+                    tabSelected = "recent"
+                    when (getInt(MyConstants.CATEGORY_TAB_NUMBER)) {
+                        0 -> {// BPL
+                            recentMatchSummaryByLeagueId(9)
+                            selectedLeagueId = 9
+                        }
+                        1 -> {// IPL
+                            recentMatchSummaryByLeagueId(1)
+                            selectedLeagueId = 1
+                        }
+                        2 -> {// BBL
+                            recentMatchSummaryByLeagueId(5)
+                            selectedLeagueId = 5
+                        }
+                        3 -> {// ODI
+                            recentMatchSummaryByLeagueId(2)
+                            selectedLeagueId = 2
+                        }
+                        4 -> {// T20I
+                            recentMatchSummaryByLeagueId(3)
+                            selectedLeagueId = 3
+                        }
+                    }
+                }
+                "previous" -> {
+                    setOptionMenuVisibility(true)
+                    tabSelected = "previous"
+                    arguments?.takeIf { it.containsKey(MyConstants.CATEGORY_TAB_NUMBER) }?.apply {
+                        /*val tabPosition = getInt(MyConstants.CATEGORY_TAB_NUMBER)
+                        val leagueNameList = listOf("BPL", "IPL", "BBL", "ODI", "T20I")
+                        val leagueIdList = listOf<Int>(9, 1, 5, 2, 3)
+                        val selectedLeagueId = leagueIdList[tabPosition]
+                        previousMatchSummaryByLeagueId(selectedLeagueId)
+                        typeSelected = selectedLeagueId*/
+                        when (getInt(MyConstants.CATEGORY_TAB_NUMBER)) {
+                            0 -> {// BPL
+                                Log.d(TAG, "previous T20I")
+                                previousMatchSummaryByLeagueId(9)
+                                selectedLeagueId = 9
+                            }
+                            1 -> {// IPL
+                                Log.d(TAG, "previous IPL")
+                                previousMatchSummaryByLeagueId(1)
+                                selectedLeagueId = 1
+                            }
+                            2 -> {// BBL
+                                Log.d(TAG, "previous BBL")
+                                previousMatchSummaryByLeagueId(5)
+                                selectedLeagueId = 5
+                            }
+                            3 -> {// ODI
+                                Log.d(TAG, "previous ODI")
+                                previousMatchSummaryByLeagueId(2)
+                                selectedLeagueId = 2
+                            }
+                            4 -> {// T20I
+                                Log.d(TAG, "previous T20I")
+                                previousMatchSummaryByLeagueId(3)
+                                selectedLeagueId = 3
+                            }
+                        }
+                    }
+                }
+
             }
         }
     }
@@ -139,29 +171,74 @@ class MatchesFragment : Fragment() {
         calendar = menu.add("Calendar")
         calendar.setShowAsAction(1)
         calendar.setIcon(R.drawable.baseline_calendar_month_24)
+        calendar.isVisible = shouldCalenderVisible
     }
 
-    private fun showCalender(tabSelected: String, typeSelected: Int) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+//            R.id.calendar ->
+//                // Not implemented here
+//                return false
+            calendar.itemId -> {
+                showCalender(tabSelected, selectedLeagueId)
+                Log.d(TAG, "onOptionsItemSelected: $tabSelected")
+                /*if (tabSelected == "recent") {
+                    Toast.makeText(
+                        MyApplication.instance,
+                        "Filter Date is not available in this section",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+//                    showCalender(tabSelected, selectedLeagueId)
+                    Toast.makeText(
+                        MyApplication.instance,
+                        "Filter Date is available in this section",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }*/
+//                getPreviousMatchesByDate(3, "2021-01-07")
+                return super.onOptionsItemSelected(item)
+
+            }
+            else -> {}
+        }
+        return false
+    }
+
+
+    private fun showCalender(tabSelected: String, selectedLeagueId: Int) {
 
         when (tabSelected) {
             "upcoming" -> {
-                getAllUpcomingMatchDateByType(typeSelected)
+                getAllUpcomingMatchDateByType(selectedLeagueId)
             }
             "previous" -> {
-                getAllPreviousMatchDateByType(typeSelected)
+                getAllPreviousMatchDateByType(selectedLeagueId)
             }
         }
-
-
     }
 
-    private fun showAllFixture(){
+    private fun getAllUpcomingMatchDateByType(leagueId: Int) {
+        viewModel.getAllUpcomingMatchDateByType(leagueId).observe(requireActivity()) { dates ->
+            myCalendar(dates, tabSelected)
+            Log.d(TAG, "getAllPreviousMatchDateByType: $dates")
+        }
+    }
+
+    private fun getAllPreviousMatchDateByType(leagueId: Int) {
+        viewModel.getAllPreviousMatchDateByType(leagueId).observe(requireActivity()) { dates ->
+            myCalendar(dates, tabSelected)
+            Log.d(TAG, "getAllPreviousMatchDateByType: $dates")
+        }
+    }
+
+    private fun showAllFixture() {
         (activity as AppCompatActivity).supportActionBar?.title = MyConstants.MATCHES
         binding.recyclerView.visibility = View.VISIBLE
         binding.recyclerViewByDate.visibility = View.GONE
     }
 
-    private fun myCalendar(dateStringRaw: List<String>) {
+    private fun myCalendar(dateStringRaw: List<String>, selectedTab: String) {
 
         val dateStringFormatted: MutableList<String> = mutableListOf()
         val dates: MutableList<Long> = mutableListOf()
@@ -192,7 +269,14 @@ class MatchesFragment : Fragment() {
             dateFormat.timeZone = TimeZone.getTimeZone("UTC")
             val formattedDate = dateFormat.format(Date(date))
             Log.d(TAG, "myCalendar: $formattedDate")
-            getPreviousMatchesByDate(typeSelected, formattedDate.substring(0, 10))
+            when (selectedTab) {
+                "upcoming" -> {
+                    getUpcomingMatchesByDate(selectedLeagueId, formattedDate.substring(0, 10))
+                }
+                "previous" -> {
+                    getPreviousMatchesByDate(selectedLeagueId, formattedDate.substring(0, 10))
+                }
+            }
         }
     }
 
@@ -217,9 +301,10 @@ class MatchesFragment : Fragment() {
         viewModel.getPreviousMatchesByDate(leagueId, startingAt).observe(this) {
             Log.d(TAG, "fixture by date size: ${it.size}")
             Log.d(TAG, "fixture by date: $it")
-            if(it != null){
-                binding.recyclerView.visibility = View.GONE
-                (activity as AppCompatActivity).supportActionBar?.title = startingAt
+            if (it != null) {
+                binding.recyclerView.adapter = null
+                (activity as AppCompatActivity).supportActionBar?.title =
+                    java.lang.StringBuilder("Matches on ").append(startingAt)
             }
             binding.recyclerViewByDate.visibility = View.VISIBLE
             val adapter = MatchAdapter(it, null, 0, requireActivity())
@@ -227,37 +312,24 @@ class MatchesFragment : Fragment() {
         }
     }
 
-    private fun getAllPreviousMatchDateByType(leagueId: Int) {
-        viewModel.getAllPreviousMatchDateByType(leagueId).observe(requireActivity()) {
-            myCalendar(it)
-            Log.d(TAG, "getAllPreviousMatchDateByType: $it")
-        }
-    }
-
-    private fun getAllUpcomingMatchDateByType(leagueId: Int) {
-        viewModel.getAllUpcomingMatchDateByType(leagueId).observe(requireActivity()) {
-            myCalendar(it)
-            Log.d(TAG, "getAllPreviousMatchDateByType: $it")
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-//            R.id.calendar ->
-//                // Not implemented here
-//                return false
-            calendar.itemId -> {
-//                showCalender(tabSelected, typeSelected)
-                showCalender(tabSelected, typeSelected)
-//                getPreviousMatchesByDate(3, "2021-01-07")
-                return true
-
+    private fun getUpcomingMatchesByDate(leagueId: Int, startingAt: String) {
+        Log.d(TAG, "getUpcomingMatchesByDate: league id : $leagueId starting at : $startingAt")
+        viewModel.getUpcomingMatchesByDate(leagueId, startingAt).observe(this) {
+            Log.d(TAG, "fixture by date size: ${it.size}")
+            Log.d(TAG, "fixture by date: $it")
+            if (it != null) {
+                binding.recyclerView.adapter = null
+                (activity as AppCompatActivity).supportActionBar?.title =
+                    java.lang.StringBuilder("Matches on ").append(startingAt)
             }
-            else -> {}
+            binding.recyclerViewByDate.visibility = View.VISIBLE
+            val adapter = MatchAdapter(it, null, 0, requireActivity())
+            binding.recyclerViewByDate.adapter = adapter
         }
-        return false
     }
 
+
+/*
     private fun itemSelected(item: String) {
         val unselectedBackground =
             ResourcesCompat.getDrawable(resources, R.drawable.boarder_rectangle, null)
@@ -291,22 +363,61 @@ class MatchesFragment : Fragment() {
             }
         }
     }
+*/
 
     private fun upcomingMatchSummaryByLeagueId(leagueId: Int) {
         viewModel.getUpcomingMatchSummaryByLeagueId(leagueId).observe(requireActivity()) {
             Log.d(TAG, "getUpcomingMatchSummaryByLeagueId total: ${it.size}")
             Log.d(TAG, "getUpcomingMatchSummaryByLeagueIds: $it")
-            val adapter = StageAdapterForUpcoming(it, requireActivity(), MyApplication.instance)
-            binding.recyclerView.adapter = adapter
+            try{
+                val adapter = StageAdapterForUpcoming(it, requireActivity(), MyApplication.instance)
+                binding.recyclerView.adapter = adapter
+                binding.progressbar.visibility = View.GONE
+                binding.recyclerViewByDate.adapter = null
+                if (binding.recyclerView.adapter?.itemCount == 0) {
+                    binding.tvNoData.visibility = View.VISIBLE
+                }
+            }catch (exception: Exception){
+                Log.e(TAG, "upcomingMatchSummaryByLeagueId: $exception")
+            }
+        }
+    }
+    private fun recentMatchSummaryByLeagueId(leagueId: Int) {
+        viewModel.getRecentMatchSummaryByLeagueId(leagueId).observe(requireActivity()) {
+            try{
+                val adapter = MatchAdapter(it, null, null, requireActivity())
+                binding.recyclerView.adapter = null
+                binding.recyclerViewByDate.adapter = adapter
+                binding.progressbar.visibility = View.GONE
+                if (binding.recyclerViewByDate.adapter?.itemCount == 0) {
+                    binding.tvNoData.visibility = View.VISIBLE
+                }
+            }catch (exception: Exception){
+                Log.e(TAG, "getRecentMatchSummaryByLeagueId: $exception")
+            }
         }
     }
 
     private fun previousMatchSummaryByLeagueId(leagueId: Int) {
         viewModel.getPreviousMatchSummaryByLeagueId(leagueId).observe(requireActivity()) {
             Log.d(TAG, "previousMatchSummaryByLeagueId total: ${it.size}")
-            val adapter = StageAdapterForPrevious(it, requireActivity(), MyApplication.instance)
-            binding.recyclerView.adapter = adapter
+            try{
+                val adapter = StageAdapterForPrevious(it, requireActivity(), MyApplication.instance)
+                binding.recyclerView.adapter = adapter
+                binding.progressbar.visibility = View.GONE
+                binding.recyclerViewByDate.adapter = null
+                if (binding.recyclerView.adapter?.itemCount == 0) {
+                    binding.tvNoData.visibility = View.VISIBLE
+                }
+            }catch (exception: Exception){
+                Log.e(TAG, "previousMatchSummaryByLeagueId: $exception")
+            }
         }
+    }
+
+    fun setOptionMenuVisibility(visible: Boolean) {
+        shouldCalenderVisible = visible
+        requireActivity().invalidateOptionsMenu()
     }
 
 

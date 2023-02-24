@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.ItemOverBinding
-import com.graphicless.cricketapp.temp.FixtureOver
+import com.graphicless.cricketapp.Model.FixtureOver
 import com.graphicless.cricketapp.utils.MyApplication
 
 class OverAdapter(private val overs:  Map<Int, List<Double>>, private val balls: List<FixtureOver.Data.Ball?>): RecyclerView.Adapter<OverAdapter.DataViewHolder>() {

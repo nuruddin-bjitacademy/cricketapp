@@ -61,4 +61,9 @@ class RankingContainerOuterFragment : Fragment() {
         }.attach()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.viewPager.adapter = null
+    }
+
 }

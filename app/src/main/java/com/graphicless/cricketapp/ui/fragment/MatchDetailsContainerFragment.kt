@@ -52,12 +52,17 @@ class MatchDetailsContainerFragment : Fragment() {
 
         val fixtureId = args.fixtureId
 
-        val adapter = ViewPagerAdapter(this, fragmentList, fixtureId, null)
+        val adapter = ViewPagerAdapter(this, fragmentList, fixtureId, "local")
         binding.viewPager.adapter = adapter
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = tabNameList[position]
         }.attach()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.viewPager.adapter = null
     }
 
 }

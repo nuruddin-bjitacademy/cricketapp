@@ -55,4 +55,9 @@ class TeamContainerFragment : Fragment() {
             tab.text = tabNameList[position]
         }.attach()
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.viewPager.adapter = null
+    }
 }

@@ -47,7 +47,7 @@
     <fragment
         android:id="@+id/matchDetailsContainerFragment"
         android:name="com.graphicless.cricketapp.ui.fragment.MatchDetailsContainerFragment"
-        android:label="MatchDetailsContainerFragment" >
+        android:label="Match Details" >
         <argument
             android:name="fixtureId"
             app:argType="integer" />
@@ -73,7 +73,7 @@
     <fragment
         android:id="@+id/liveMatchDetailsContainerFragment"
         android:name="com.graphicless.cricketapp.ui.fragment.LiveMatchDetailsContainerFragment"
-        android:label="LiveMatchDetailsContainerFragment" >
+        android:label="Match Details" >
         <argument
             android:name="fixtureId"
             app:argType="integer" />
@@ -81,19 +81,23 @@
     <fragment
         android:id="@+id/rankingContainerOuterFragment"
         android:name="com.graphicless.cricketapp.ui.fragment.RankingContainerOuterFragment"
-        android:label="fragment_ranking_container_outer"
-        tools:layout="@layout/fragment_ranking_container_outer" />
+        android:label="Team Ranking"
+        tools:layout="@layout/fragment_ranking_container_outer" >
+        <action
+            android:id="@+id/action_rankingContainerOuterFragment_to_rankingContainerFragment"
+            app:destination="@id/rankingContainerFragment" />
+    </fragment>
     <fragment
         android:id="@+id/moreFragment"
         android:name="com.graphicless.cricketapp.ui.fragment.MoreFragment"
-        android:label=""
+        android:label="More"
         tools:layout="@layout/fragment_more" >
-        <action
-            android:id="@+id/action_moreFragment_to_rankingContainerOuterFragment"
-            app:destination="@id/rankingContainerOuterFragment" />
         <action
             android:id="@+id/action_moreFragment_to_teamContainerFragment"
             app:destination="@id/teamContainerFragment" />
+        <action
+            android:id="@+id/action_moreFragment_to_playerListFragment"
+            app:destination="@id/playerListFragment" />
     </fragment>
     <fragment
         android:id="@+id/teamContainerFragment"
@@ -101,16 +105,64 @@
         android:label="Teams"
         tools:layout="@layout/fragment_team_container" >
         <action
-            android:id="@+id/action_teamContainerFragment_to_teamDetailsFragment"
-            app:destination="@id/teamDetailsFragment" />
+            android:id="@+id/action_teamContainerFragment_to_teamDetailsContainerFragment"
+            app:destination="@id/teamDetailsContainerFragment" />
     </fragment>
     <fragment
         android:id="@+id/teamDetailsFragment"
         android:name="com.graphicless.cricketapp.ui.fragment.TeamDetailsFragment"
-        android:label="fragment_team_details"
+        android:label="Team Squad"
         tools:layout="@layout/fragment_team_details" >
         <argument
             android:name="teamId"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamFragment"
+        android:name="com.graphicless.cricketapp.ui.fragment.TeamFragment"
+        android:label="Team"
+        tools:layout="@layout/fragment_team" />
+    <fragment
+        android:id="@+id/playerDetailsFragment"
+        android:name="com.graphicless.cricketapp.ui.fragment.PlayerDetailsFragment"
+        android:label="Player"
+        tools:layout="@layout/fragment_player_details" >
+        <argument
+            android:name="playerId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/rankingContainerFragment"
+        android:name="com.graphicless.cricketapp.ui.fragment.RankingContainerFragment"
+        android:label="Team Rankings"
+        tools:layout="@layout/fragment_ranking_container" />
+    <fragment
+        android:id="@+id/teamDetailsContainerFragment"
+        android:name="com.graphicless.cricketapp.ui.fragment.TeamDetailsContainerFragment"
+        android:label="Team Details"
+        tools:layout="@layout/fragment_team_details_container" >
+        <argument
+            android:name="teamId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_teamDetailsContainerFragment_to_playerDetailsFragment"
+            app:destination="@id/playerDetailsFragment" />
+        <action
+            android:id="@+id/action_teamDetailsContainerFragment_to_matchDetailsContainerFragment2"
+            app:destination="@id/matchDetailsContainerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamMatchesFragment"
+        android:name="com.graphicless.cricketapp.ui.fragment.TeamMatchesFragment"
+        android:label="Team Fixtures"
+        tools:layout="@layout/fragment_team_matches" />
+    <fragment
+        android:id="@+id/playerListFragment"
+        android:name="com.graphicless.cricketapp.ui.fragment.PlayerListFragment"
+        android:label="Player List"
+        tools:layout="@layout/fragment_player_list" >
+        <action
+            android:id="@+id/action_playerListFragment_to_playerDetailsFragment"
+            app:destination="@id/playerDetailsFragment" />
     </fragment>
 </navigation>

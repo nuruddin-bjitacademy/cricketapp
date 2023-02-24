@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -19,7 +20,9 @@ import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.FragmentMoreBinding
 import com.graphicless.cricketapp.databinding.FragmentRankingContainerBinding
 import com.graphicless.cricketapp.utils.MyConstants
+import com.graphicless.cricketapp.utils.SharedPreference
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
+import com.graphicless.cricketapp.viewmodel.NetworkConnectionViewModel
 
 private const val TAG = "MoreFragment"
 class MoreFragment : Fragment() {
@@ -29,6 +32,7 @@ class MoreFragment : Fragment() {
 
     //    private val args: DetailsFragmentArgs by navArgs()
     private val viewModel: CricketViewModel by viewModels()
+    private val netWorkConnectionViewModel: NetworkConnectionViewModel by activityViewModels()
 
 
 
@@ -45,14 +49,14 @@ class MoreFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentMoreBinding.inflate(inflater, container, false)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.isNetworkAvailable.observe(viewLifecycleOwner) { isNetworkAvailable ->
+        netWorkConnectionViewModel.isNetworkAvailable.observe(viewLifecycleOwner) { isNetworkAvailable ->
             if (isNetworkAvailable) {
                 // Network is available, update the UI as needed
                 Log.d(TAG, "network available")
@@ -62,8 +66,32 @@ class MoreFragment : Fragment() {
             }
         }
 
+        val sharedPreference = SharedPreference()
+
+        if (sharedPreference.getString("theme") != null) {
+            val myTheme = sharedPreference.getString("theme")
+            binding.switchTheme.isChecked = myTheme != "light"
+        } else {
+            binding.switchTheme.isChecked = false
+        }
+
+        binding.switchTheme.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                sharedPreference.save("theme", "dark")
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                sharedPreference.save("theme", "light")
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
+
         binding.browseTeam.setOnClickListener{
             val direction = MoreFragmentDirections.actionMoreFragmentToTeamContainerFragment()
+            view.findNavController().navigate(direction)
+        }
+
+        binding.browsePlayer.setOnClickListener {
+            val direction = MoreFragmentDirections.actionMoreFragmentToPlayerListFragment()
             view.findNavController().navigate(direction)
         }
     }

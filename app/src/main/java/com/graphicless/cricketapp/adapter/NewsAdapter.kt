@@ -3,17 +3,14 @@ package com.graphicless.cricketapp.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.graphicless.cricketapp.R
-import com.graphicless.cricketapp.databinding.NewsItemBinding
-import com.graphicless.cricketapp.temp.News
+import com.graphicless.cricketapp.databinding.ItemNewsBinding
+import com.graphicless.cricketapp.Model.News
 import com.graphicless.cricketapp.ui.fragment.HomeFragmentDirections
 import com.graphicless.cricketapp.utils.MyApplication
 import com.graphicless.cricketapp.utils.Utils
@@ -26,7 +23,7 @@ class NewsAdapter(private val localNews: List<News.Article?>?) :
 
     class DataViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
-        val binding = NewsItemBinding.bind(view)
+        val binding = ItemNewsBinding.bind(view)
 
         fun bind(localNews: News.Article) {
 
@@ -38,7 +35,7 @@ class NewsAdapter(private val localNews: List<News.Article?>?) :
             val author = article.author
 
             val timePrefix = "\u2022"
-            binding.time.text = timePrefix.plus(" ").plus(Utils().DateToTimeFormat(publishedAt))
+//            binding.time.text = timePrefix.plus(" ").plus(Utils().DateToTimeFormat(publishedAt))
             binding.title.text = title
 
             if(author != null)
@@ -80,7 +77,7 @@ class NewsAdapter(private val localNews: List<News.Article?>?) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
             layout = LayoutInflater
                 .from(parent.context)
-                .inflate(R.layout.news_item, parent, false)
+                .inflate(R.layout.item_news, parent, false)
         return DataViewHolder(layout)
     }
 

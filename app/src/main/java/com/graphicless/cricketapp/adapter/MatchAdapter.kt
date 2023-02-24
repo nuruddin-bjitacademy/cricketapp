@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.ItemMatchBinding
-import com.graphicless.cricketapp.temp.FixturesIncludeRuns
-import com.graphicless.cricketapp.temp.joined.FixtureAndTeam
+import com.graphicless.cricketapp.Model.FixturesIncludeRuns
+import com.graphicless.cricketapp.Model.joined.FixtureAndTeam
 import com.graphicless.cricketapp.ui.fragment.MatchSummaryContainerOuterFragmentDirections
 import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel

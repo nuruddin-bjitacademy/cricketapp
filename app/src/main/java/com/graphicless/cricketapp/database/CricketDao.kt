@@ -4,29 +4,38 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.Companion.IGNORE
+import androidx.room.OnConflictStrategy.Companion.REPLACE
 import androidx.room.Query
-import androidx.room.Transaction
-import com.graphicless.cricketapp.model.Continent
-import com.graphicless.cricketapp.model.Country
-import com.graphicless.cricketapp.model.CountryWithContinent
-import com.graphicless.cricketapp.model.League
-import com.graphicless.cricketapp.temp.*
-import com.graphicless.cricketapp.temp.joined.FixtureAndTeam
-import com.graphicless.cricketapp.temp.map.FixtureDetails
-import com.graphicless.cricketapp.temp.map.StageByLeague
+import com.graphicless.cricketapp.Model.*
+import com.graphicless.cricketapp.Model.joined.FixtureAndTeam
+import com.graphicless.cricketapp.Model.map.FixtureDetails
+import com.graphicless.cricketapp.Model.map.StageByLeague
 
 @Dao
 interface CricketDao {
 
     // ---------- INSERT ----------
-    @Insert(onConflict = IGNORE)
-    suspend fun insertContinent(continent: Continent)
 
     @Insert(onConflict = IGNORE)
-    suspend fun insertCountry(country: Country)
+    suspend fun insertCountry(countries: List<Countries.Data>)
 
     @Insert(onConflict = IGNORE)
-    suspend fun insertLeague(leagues: League)
+    suspend fun insertLeague(leagues: List<Leagues.Data>)
+
+    @Insert(onConflict = IGNORE)
+    suspend fun insertPlayers(players: List<PlayerAll.Data?>?)
+    @Insert(onConflict = IGNORE)
+    suspend fun insertCurrentPlayer(players: List<CurrentPlayers.Data.Squad?>?)
+
+    @Insert(onConflict = REPLACE)
+    suspend fun insertTeamRankings(teamRanking: TeamRankingsLocal)
+
+    @Query("DELETE FROM TeamRanking")
+    fun deleteTeamRanking()
+    @Query("DELETE FROM Fixture")
+    fun deleteFixture()
+    @Query("DELETE FROM Run")
+    fun deleteRun()
 
     @Insert(onConflict = IGNORE)
     suspend fun insertFixture(fixture: List<FixturesIncludeRuns.Data>)
@@ -52,32 +61,20 @@ interface CricketDao {
 
 
     // ---------- GET ALL ----------
-    @Query("SELECT * FROM continent")
-    fun getContinents(): LiveData<List<Continent>>
 
     @Query("SELECT * FROM country")
-    fun getCountries(): LiveData<List<Country>>
+    fun getCountries(): LiveData<List<Countries.Data>>
 
     @Query("SELECT * FROM league")
-    fun getLeagues(): LiveData<List<League>>
+    fun getLeagues(): LiveData<List<Leagues.Data>>
 
     @Query("SELECT * FROM fixture")
     fun getFixtures(): LiveData<List<FixturesIncludeRuns.Data>>
     // ---------- GET ALL ----------
 
-
-    // ---------- GET SINGLE ----------
-//    @Query("SELECT name FROM continent WHERE id = :id")
-//    fun getContinentName(id: Int): String
-
-    @Transaction
-    @Query("SELECT continent.name FROM continent INNER JOIN country ON continent.id = country.continent_id WHERE country.id = :countryId")
-    fun getContinentName(countryId: Int): LiveData<String>
     // ---------- GET SINGLE ----------
 
 
-    @Query("SELECT continent.id AS continent_id, continent.name AS continent_name, country.id AS country_id, country.name AS country_name, country.image_path AS country_flag FROM continent INNER JOIN country ON continent.id = country.continent_id")
-    fun getCountryWithContinent(): LiveData<List<CountryWithContinent>>
 
 //    @Query("SELECT fixture.id AS fixtureId, team.id AS teamOneId, team.imagePath AS teamOneFlag, fixture.note AS note FROM Fixture INNER JOIN team ON fixture.localteamId = team.id team.id AS teamTwoId, team.imagePath AS teamTwoFlag FROM Fixture INNER JOIN team ON fixture.visitorteamId = team.id")
 //    fun getFixtureAndTeam(): LiveData<List<FixtureAndTeam>>
@@ -186,8 +183,20 @@ interface CricketDao {
             "LEFT JOIN team AS visitorTeam ON fixture.visitorteamId = visitorTeam.id " +
             "LEFT JOIN venue ON fixture.venueId = venue.id " +
             "LEFT JOIN run ON fixture.id = run.fixtureId " +
-            "WHERE NOT fixture.status LIKE 'NS' AND fixture.leagueId = :leagueId AND startingAt LIKE '%' || :startingAt || '%'")
+            "WHERE NOT fixture.status LIKE 'NS' AND fixture.leagueId = :leagueId AND startingAt LIKE '%' || :startingAt || '%' GROUP BY fixtureId ")
     fun getPreviousMatchesByDate(leagueId: Int, startingAt: String): LiveData<List<FixtureAndTeam>>
+    @Query("SELECT fixture.id AS fixtureId, fixture.seasonId AS seasonId, stage.id AS stageId, stage.name AS stageName, " +
+            "fixture.round AS round, venue.city AS venue, fixture.startingAt AS startingAT, localTeam.code AS teamOneCode, " +
+            "localTeam.imagePath AS teamOneFlag, visitorTeam.code AS teamTwoCode, visitorTeam.imagePath AS teamTwoFlag, " +
+            "fixture.note AS note, run.id AS runId, fixture.localTeamId AS teamOneId, fixture.visitorTeamId AS teamTwoId " +
+            "FROM Fixture " +
+            "LEFT JOIN stage ON fixture.stageId = stage.id " +
+            "LEFT JOIN team AS localTeam ON fixture.localteamId = localTeam.id " +
+            "LEFT JOIN team AS visitorTeam ON fixture.visitorteamId = visitorTeam.id " +
+            "LEFT JOIN venue ON fixture.venueId = venue.id " +
+            "LEFT JOIN run ON fixture.id = run.fixtureId " +
+            "WHERE fixture.status LIKE 'NS' AND fixture.leagueId = :leagueId AND startingAt LIKE '%' || :startingAt || '%' GROUP BY fixtureId ")
+    fun getUpcomingMatchesByDate(leagueId: Int, startingAt: String): LiveData<List<FixtureAndTeam>>
 
     @Query("SELECT startingAt FROM fixture WHERE NOT fixture.status LIKE 'NS' AND fixture.leagueId = :leagueId")
     fun getAllPreviousMatchDateByType(leagueId: Int): LiveData<List<String>>
@@ -241,6 +250,18 @@ interface CricketDao {
             "LEFT JOIN season ON fixture.seasonId = season.id " +
             "WHERE fixture.leagueId = :leagueId AND fixture.status LIKE 'NS' ORDER BY fixture.seasonId DESC, fixture.stageId, fixture.startingAt DESC")
     fun getUpcomingMatchSummaryByLeagueId(leagueId: Int): LiveData<List<StageByLeague>>
+    @Query("SELECT DISTINCT fixture.id AS fixtureId, fixture.seasonId AS seasonId, stage.id AS stageId, stage.name AS stageName, " +
+            "fixture.round AS round, venue.city AS venue, fixture.startingAt AS startingAT, localTeam.code AS teamOneCode, " +
+            "localTeam.imagePath AS teamOneFlag, visitorTeam.code AS teamTwoCode, visitorTeam.imagePath AS teamTwoFlag, " +
+            "fixture.note AS note, run.id AS runId, fixture.localTeamId AS teamOneId, fixture.visitorTeamId AS teamTwoId " +
+            "FROM Fixture " +
+            "LEFT JOIN stage ON fixture.stageId = stage.id " +
+            "LEFT JOIN team AS localTeam ON fixture.localteamId = localTeam.id " +
+            "LEFT JOIN team AS visitorTeam ON fixture.visitorteamId = visitorTeam.id " +
+            "LEFT JOIN venue ON fixture.venueId = venue.id " +
+            "LEFT JOIN run ON fixture.id = run.fixtureId " +
+            "WHERE fixture.leagueId = :leagueId AND NOT fixture.status LIKE 'NS' GROUP BY fixture.id ORDER BY fixture.startingAt DESC LIMIT 20")
+    fun getRecentMatchSummaryByLeagueId(leagueId: Int): LiveData<List<FixtureAndTeam>>
 
     @Query("SELECT DISTINCT stage.id AS stageId, stage.name AS stageName, fixture.seasonId AS seasonId, season.name AS seasonName " +
             "FROM fixture " +
@@ -248,6 +269,25 @@ interface CricketDao {
             "LEFT JOIN season ON fixture.seasonId = season.id " +
             "WHERE fixture.leagueId = :leagueId AND NOT fixture.status LIKE 'NS' ORDER BY fixture.seasonId DESC, fixture.stageId, fixture.startingAt DESC")
     fun getPreviousMatchSummaryByLeagueId(leagueId: Int): LiveData<List<StageByLeague>>
+
+    @Query("SELECT fixture.id AS id, localTeam.code AS team1, visitorTeam.code AS team2, venue.city AS venue, fixture.startingAt AS startTime " +
+            "FROM fixture " +
+            "LEFT JOIN team AS localTeam ON fixture.localteamId = localTeam.id " +
+            "LEFT JOIN team AS visitorTeam ON fixture.visitorteamId = visitorTeam.id " +
+            "LEFT JOIN venue ON fixture.venueId = venue.id " +
+            "WHERE fixture.status LIKE 'NS' ")
+    fun getAllUpcomingFixture(): LiveData<List<Match>>
+    @Query("SELECT fixture.id AS id, localTeam.code AS team1, visitorTeam.code AS team2, venue.city AS venue, fixture.startingAt AS startTime " +
+            "FROM fixture " +
+            "LEFT JOIN team AS localTeam ON fixture.localteamId = localTeam.id " +
+            "LEFT JOIN team AS visitorTeam ON fixture.visitorteamId = visitorTeam.id " +
+            "LEFT JOIN venue ON fixture.venueId = venue.id " +
+            "WHERE fixture.id = :fixtureId AND fixture.status LIKE 'NS' ")
+    fun getFixtureById(fixtureId: Int): Match
+
+
+
+
 
 
     /*@Query("SELECT DISTINCT stage.id AS stageId" +
@@ -274,5 +314,19 @@ interface CricketDao {
 
     @Query("SELECT id FROM season WHERE code LIKE '%' || :year || '%' ")
     fun getAllSeasonId(year: String): LiveData<List<Int>>
+    @Query("SELECT name FROM season WHERE id = :seasonId ")
+    fun getSeasonNameById(seasonId: Int): LiveData<String>
+    @Query("SELECT name FROM league WHERE id = :leagueId ")
+    fun getLeagueNameById(leagueId: Int): LiveData<String>
+    @Query("SELECT name FROM country WHERE id = :countryId ")
+    fun getCountryNameById(countryId: Int): LiveData<String>
 
+    @Query("SELECT * FROM TeamRanking WHERE format = :format AND gender = :gender GROUP BY TeamRanking.position")
+    fun getTeamRankings(format: String, gender: String): LiveData<List<TeamRankingsLocal>>
+
+    @Query("SELECT * FROM player LIMIT 100")
+    fun getAllPlayer(): LiveData<List<PlayerAll.Data>>
+
+    @Query("SELECT * FROM player WHERE fullName LIKE '%' || :query || '%' ")
+    fun getPlayerByQuery(query: String): LiveData<List<PlayerAll.Data>>
 }

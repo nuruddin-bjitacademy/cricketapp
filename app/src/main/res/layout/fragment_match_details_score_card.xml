@@ -9,11 +9,19 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/data_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/app_background"
-        android:id="@+id/data_container"
         android:paddingTop="@dimen/_10sdp">
+
+        <Spinner
+            android:id="@+id/spinner_season"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/team_one"
@@ -57,8 +65,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_5sdp"
-                    android:background="@color/card_background"
                     android:elevation="0dp"
+                    app:cardBackgroundColor="@color/card_background"
                     app:cardCornerRadius="@dimen/_2sdp"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -88,40 +96,40 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2"
+                                    android:gravity="center"
                                     android:text="R"
-                                    android:gravity="center"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2"
+                                    android:gravity="center"
                                     android:text="B"
-                                    android:gravity="center"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2"
+                                    android:gravity="center"
                                     android:text="S"
-                                    android:gravity="center"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2"
-                                    android:text="F"
                                     android:gravity="center"
+                                    android:text="F"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="3"
-                                    android:text="SR"
                                     android:gravity="end"
+                                    android:text="SR"
                                     android:textStyle="bold" />
                             </TableRow>
                         </TableLayout>
@@ -131,14 +139,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/_10sdp" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/extra_runs"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/_5sdp"
-                            android:text="Extras: 1lb, 3 b 0"
-                            android:textSize="16sp" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -147,11 +147,11 @@
                     android:id="@+id/baller"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_20sdp"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:background="@color/card_background"
+                    android:layout_marginEnd="@dimen/_5sdp"
                     android:elevation="0dp"
+                    app:cardBackgroundColor="@color/card_background"
                     app:cardCornerRadius="@dimen/_2sdp"
                     app:layout_constraintTop_toBottomOf="@+id/batsman">
 
@@ -181,40 +181,40 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2"
+                                    android:gravity="center"
                                     android:text="O"
-                                    android:gravity="center"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2"
+                                    android:gravity="center"
                                     android:text="M"
-                                    android:gravity="center"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2"
+                                    android:gravity="center"
                                     android:text="R"
-                                    android:gravity="center"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2"
-                                    android:text="W"
                                     android:gravity="center"
+                                    android:text="W"
                                     android:textStyle="bold" />
 
                                 <TextView
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="3"
-                                    android:text="ER"
                                     android:gravity="end"
+                                    android:text="ER"
                                     android:textStyle="bold" />
                             </TableRow>
                         </TableLayout>
@@ -224,14 +224,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/_10sdp" />
-
-                        <androidx.appcompat.widget.AppCompatTextView
-                            android:id="@+id/extra_balls"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="@dimen/_5sdp"
-                            android:text="Extras: 1lb, 3 b 0"
-                            android:textSize="16sp" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -248,10 +240,42 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <FrameLayout
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/internet_unavailable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/icon_internet_unavailable"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/baseline_cloud_off_24" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/icon_internet_unavailable"
+            android:gravity="center"
+            android:text="@string/internet_not_available"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <!--<FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center" />
+        android:gravity="center" />-->
 
 </RelativeLayout>

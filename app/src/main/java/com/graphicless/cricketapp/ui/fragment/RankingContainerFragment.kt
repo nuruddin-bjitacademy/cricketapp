@@ -12,7 +12,6 @@ import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.adapter.ViewPagerAdapter
-import com.graphicless.cricketapp.databinding.FragmentMatchSummaryContainerBinding
 import com.graphicless.cricketapp.databinding.FragmentRankingContainerBinding
 import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
@@ -51,7 +50,7 @@ class RankingContainerFragment : Fragment() {
             when (getInt(MyConstants.CATEGORY_TAB_NUMBER)) {
 
                 0 -> {// ODI
-                    val fragmentList: List<Fragment> = listOf(RankingContainerFragment(), RankingContainerFragment())
+                    val fragmentList: List<Fragment> = listOf(RankingFragment(), RankingFragment())
                     val tabNameList: List<String> = listOf("Men", "Women")
 
                     val viewPagerAdapter = ViewPagerAdapter(this@RankingContainerFragment, fragmentList, null,"odi")
@@ -62,7 +61,7 @@ class RankingContainerFragment : Fragment() {
                     }.attach()
                 }
                 1 -> {// T20
-                    val fragmentList: List<Fragment> = listOf(RankingContainerFragment(), RankingContainerFragment())
+                    val fragmentList: List<Fragment> = listOf(RankingFragment(), RankingFragment())
                     val tabNameList: List<String> = listOf("Men", "Women")
 
                     val viewPagerAdapter = ViewPagerAdapter(this@RankingContainerFragment, fragmentList, null,"t20")
@@ -73,7 +72,7 @@ class RankingContainerFragment : Fragment() {
                     }.attach()
                 }
                 2 -> {// TEST
-                    val fragmentList: List<Fragment> = listOf(RankingContainerFragment())
+                    val fragmentList: List<Fragment> = listOf(RankingFragment())
                     val tabNameList: List<String> = listOf("Men")
 
                     val viewPagerAdapter = ViewPagerAdapter(this@RankingContainerFragment, fragmentList, null,"test")
@@ -85,6 +84,11 @@ class RankingContainerFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.viewPager.adapter = null
     }
 
 }

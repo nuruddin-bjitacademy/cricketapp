@@ -2,6 +2,7 @@ package com.graphicless.cricketapp.utils
 
 import android.view.View
 import android.view.ViewTreeObserver
+import android.widget.Toast
 import org.ocpsoft.prettytime.PrettyTime
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -40,5 +41,9 @@ class Utils {
         val locale: Locale = Locale.getDefault()
         val country: String = java.lang.String.valueOf(locale.getCountry())
         return country.lowercase(Locale.getDefault())
+    }
+    
+    fun networkUnavailable(){
+        Toast.makeText(MyApplication.instance, "No internet!! Please check your connection", Toast.LENGTH_SHORT).show()
     }
 }

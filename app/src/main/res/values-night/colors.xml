@@ -10,26 +10,49 @@
     <color name="red">#FF0000</color>
 
     // Custom color
-    <color name="status_bar">#00796B</color>
-    <color name="action_bar">#00796B</color>
-    <color name="app_background">#191919</color>
-    <color name="card_background">#000000</color>
-    <color name="heading">#FFFFFF</color>
-    <color name="tab_text">#311B92</color>
-    <color name="tab_text_selected">#FFFFFF</color>
-    <color name="divider">#B2DFDB</color>
-    <color name="button">#B2DFDB</color>
-    <color name="over_ball_wicket">#E91E1E</color>
-    <color name="over_ball_six">#FF5722</color>
-    <color name="over_ball_four">#FFC107</color>
-    <color name="over_ball_no_ball">#673AB7</color>
+<!--    <color name="status_bar">#141d26</color>-->
+<!--    <color name="action_bar">#141d26</color>-->
+    <color name="status_bar">#07182B</color>
+    <color name="action_bar">#07182B</color>
+    <color name="app_background">#07182B</color>
+    <color name="card_background">#233446</color>
+    <color name="heading">#182430</color>
+    <color name="heading_text">#BEF8FF</color>
 
+    <color name="tab_background">#0F131C</color>
+    <color name="tab_text">#929097</color>
+    <color name="tab_text_selected">#DADADA</color>
 
-    <color name="info_text">#454545</color>
-    <color name="title_text">#000000</color>
+    <color name="tab_background_nested">#182430</color>
+    <color name="tab_text_nested">#929097</color>
+    <color name="tab_text_selected_nested">@android:color/holo_blue_dark</color>
+    <color name="tab_indicator_nested">@android:color/holo_blue_dark</color>
+
+    <color name="divider">#29351F</color>
+
+    <color name="button">@android:color/holo_blue_dark</color>
     <color name="button_text">#FFFFFF</color>
+    <color name="button_text_selected">#FFFFFF</color>
+    <color name="button_text_unselected">@android:color/darker_gray</color>
+
+    <color name="over_ball_wicket">#F48FB1</color>
+    <color name="over_ball_six">#C5E1A5</color>
+    <color name="over_ball_four">#A5D6A7</color>
+    <color name="over_ball_no_ball">#B39DDB</color>
+    <color name="over_ball_zero">#6D849A</color>
+    <color name="over_ball_bye">#6D849A</color>
+    <color name="over_ball_other">@android:color/darker_gray</color>
 
 
-    <color name="partnership_bar_left">#004D40</color>
-    <color name="partnership_bar_right">#1A237E</color>
+    <color name="info_text">#BCBCBC</color>
+    <color name="title_text">#E3E3E3</color>
+
+
+    <color name="partnership_bar_left">#5EC800</color>
+    <color name="partnership_bar_right">#E64A19</color>
+
+    <color name="bottom_nav_background">@color/action_bar</color>
+
+    <color name="player_image_holder_background_start">#07182B</color>
+    <color name="player_image_holder_background_end">#247CDF</color>
 </resources>

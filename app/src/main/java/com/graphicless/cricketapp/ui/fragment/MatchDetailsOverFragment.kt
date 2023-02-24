@@ -12,11 +12,9 @@ import androidx.navigation.fragment.navArgs
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.adapter.OverAdapter
 import com.graphicless.cricketapp.databinding.FragmentMatchDetailsOverBinding
-import com.graphicless.cricketapp.temp.FixtureOver
-import com.graphicless.cricketapp.utils.MyApplication
+import com.graphicless.cricketapp.Model.FixtureOver
 import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
-import retrofit2.HttpException
 
 private const val TAG = "MatchDetailsOverFragment"
 

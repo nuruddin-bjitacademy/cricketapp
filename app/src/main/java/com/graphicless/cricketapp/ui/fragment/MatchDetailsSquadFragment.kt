@@ -30,15 +30,15 @@ class MatchDetailsSquadFragment : Fragment() {
     ): View {
         _binding = FragmentMatchDetailsSquadBinding.inflate(inflater, container, false)
 
-        val loadingView =
-            LayoutInflater.from(context).inflate(R.layout.layout_loading, binding.container, false)
-        binding.container.addView(loadingView)
+//        val loadingView =
+//            LayoutInflater.from(context).inflate(R.layout.layout_loading, binding.container, false)
+//        binding.container.addView(loadingView)
         binding.body.visibility = View.GONE
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+
         arguments?.takeIf { it.containsKey(MyConstants.FIXTURE_ID) }?.apply {
 
             val fixtureId: Int = getInt(MyConstants.FIXTURE_ID)
@@ -52,8 +52,13 @@ class MatchDetailsSquadFragment : Fragment() {
                 try{
                     if (teamOneId != null) {
                         viewModel.getLocalTeamById(teamOneId).observe(requireActivity()){ team ->
-                            binding.tvNameTeam1.text = team.name
-                            Glide.with(MyApplication.instance).load(team.imagePath).into(binding.ivFlagTeam1)
+                            try{
+                                binding.tvNameTeam1.text = team.name
+                                Glide.with(MyApplication.instance).load(team.imagePath)
+                                    .into(binding.ivFlagTeam1)
+                            }catch(exception: Exception){
+                                Log.e(TAG, "binding team one name and flag: $exception", )
+                            }
                         }
                     }
                 }catch(exception: Exception){
@@ -63,15 +68,22 @@ class MatchDetailsSquadFragment : Fragment() {
                 try{
                     if (teamTwoId != null) {
                         viewModel.getVisitorTeamById(teamTwoId).observe(requireActivity()){ team ->
-                            binding.tvNameTeam2.text = team.name
-                            Glide.with(MyApplication.instance).load(team.imagePath).into(binding.ivFlagTeam2)
+                            try{
+                                binding.tvNameTeam2.text = team.name
+                                Glide.with(MyApplication.instance).load(team.imagePath)
+                                    .into(binding.ivFlagTeam2)
+                            }catch(exception: Exception){
+                                Log.e(TAG, "binding team two name and flag: $exception", )
+                            }
                         }
                     }
                 }catch(exception: Exception){
                     Log.e("error", "ex mdsf teamTwoId: $exception", )
                 }
 
-                if(it.data.lineup?.size!! == 2){
+                Log.d(TAG, "data lineup size: ${it.data.lineup?.size}")
+
+                if(it.data.lineup?.size!! >= 22){
                     try{
                         binding.tvPlayerOne.text = it.data.lineup?.get(0)?.fullname ?: "N/A"
                         binding.tvPlayerTwo.text = it.data.lineup?.get(1)?.fullname ?: "N/A"
@@ -137,22 +149,26 @@ class MatchDetailsSquadFragment : Fragment() {
                     }
 
                     try {
-                        binding.container.removeViewAt(0)
+//                        binding.container.removeViewAt(0)
                     } catch (exception: Exception) {
                         Log.e(TAG, "remove view from container: $exception")
                     }
 
+                    binding.progressbar.visibility = View.GONE
                     binding.body.visibility = View.VISIBLE
+                    binding.tvNoData.visibility = View.GONE
 
                 }else{
+                    binding.progressbar.visibility = View.GONE
+                    binding.tvNoData.visibility = View.VISIBLE
                     try {
-                        binding.container.removeViewAt(0)
+//                        binding.container.removeViewAt(0)
                     } catch (exception: Exception) {
                         Log.e(TAG, "remove view from container: $exception")
                     }
-                    val noDataView = LayoutInflater.from(context)
-                        .inflate(R.layout.layout_no_data, binding.container, false)
-                    binding.container.addView(noDataView)
+//                    val noDataView = LayoutInflater.from(context)
+//                        .inflate(R.layout.layout_no_data, binding.container, false)
+//                    binding.container.addView(noDataView)
                 }
             }
 

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.ItemOverBallBinding
-import com.graphicless.cricketapp.temp.FixtureOver
+import com.graphicless.cricketapp.Model.FixtureOver
 
 private const val TAG = "BallAdapter"
 class BallAdapter(private val balls: List<Double>, private val ballScore: List<FixtureOver.Data.Ball?>): RecyclerView.Adapter<BallAdapter.DataViewHolder>() {
@@ -38,12 +38,22 @@ class BallAdapter(private val balls: List<Double>, private val ballScore: List<F
                     binding.ball.text = "N"
                     binding.ball.setBackgroundResource(R.drawable.boarder_over_ball_no_ball)
                 }
-                else if (score[0]?.score?.legBye != 0)
+                else if (score[0]?.score?.legBye != 0) {
                     binding.ball.text = "L"
-                else if (score[0]?.score?.bye != 0)
+                    binding.ball.setBackgroundResource(R.drawable.boarder_over_ball_bye)
+                }
+                else if (score[0]?.score?.bye != 0) {
                     binding.ball.text = "B"
-                else
+                    binding.ball.setBackgroundResource(R.drawable.boarder_over_ball_bye)
+                }
+                else if(score[0]?.score?.runs == 0){
+                    binding.ball.setBackgroundResource(R.drawable.boarder_over_ball_zero)
+                }
+                else{
                     binding.ball.text = score[0]?.score?.runs.toString()
+                    binding.ball.setBackgroundResource(R.drawable.boarder_over_ball_other)
+                }
+
             }catch (exception: Exception){
                 Log.d(TAG, "exception: $exception")
             }
