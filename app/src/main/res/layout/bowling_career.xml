@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/_20sdp"
+    android:elevation="@dimen/_3sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="t20"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/card_background"
+        app:layout_constraintTop_toBottomOf="@id/label_type"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_matches"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:text="Matches"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
+        app:layout_constraintStart_toStartOf="@id/label_type"
+        app:layout_constraintTop_toBottomOf="@id/label_type"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/matches"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="125 matchews"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/label_matches"
+        app:layout_constraintTop_toTopOf="@id/label_matches" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_overs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:text="Overs"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
+        app:layout_constraintStart_toStartOf="@id/label_type"
+        app:layout_constraintTop_toBottomOf="@+id/matches" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/overs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="Australia vs India"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/label_econ_rate"
+        app:layout_constraintTop_toTopOf="@id/label_overs" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_innings"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:text="Innings"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
+        app:layout_constraintStart_toStartOf="@id/label_type"
+        app:layout_constraintTop_toBottomOf="@+id/overs" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/innings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="1st T20I"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/label_econ_rate"
+        app:layout_constraintTop_toTopOf="@id/label_innings" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_econ_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:text="Economy Rate"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/label_type"
+        app:layout_constraintTop_toBottomOf="@+id/innings" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/econ_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="3.33"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/label_econ_rate"
+        app:layout_constraintTop_toTopOf="@id/label_econ_rate" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_medians"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:text="Medians"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/label_type"
+        app:layout_constraintTop_toBottomOf="@+id/econ_rate" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/medians"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="India"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/label_econ_rate"
+        app:layout_constraintTop_toTopOf="@id/label_medians" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_runs"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:text="Runs"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
+        app:layout_constraintStart_toStartOf="@id/label_type"
+        app:layout_constraintTop_toBottomOf="@+id/medians" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/runs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="Thu, Feb 09"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/label_econ_rate"
+        app:layout_constraintTop_toTopOf="@id/label_runs" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_wickets"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:text="Wickets"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
+        app:layout_constraintStart_toStartOf="@id/label_type"
+        app:layout_constraintTop_toBottomOf="@+id/runs" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/wickets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="55 wickets"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/label_econ_rate"
+        app:layout_constraintTop_toTopOf="@id/label_wickets" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_average"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:text="Average"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
+        app:layout_constraintStart_toStartOf="@id/label_type"
+        app:layout_constraintTop_toBottomOf="@+id/wickets" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/average"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="3.33"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/label_average"
+        app:layout_constraintTop_toTopOf="@id/label_average" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_no_balls"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:text="No Balls"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
+        app:layout_constraintStart_toStartOf="@id/label_type"
+        app:layout_constraintTop_toBottomOf="@+id/average" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/no_balls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="255 no balls"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/label_econ_rate"
+        app:layout_constraintTop_toTopOf="@id/label_no_balls" />
+
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_strike_rate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:text="Strike Rate"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
+        app:layout_constraintStart_toStartOf="@id/label_type"
+        app:layout_constraintTop_toBottomOf="@+id/no_balls" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/strike_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="Australia opt to bat"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/label_econ_rate"
+        app:layout_constraintTop_toTopOf="@id/label_strike_rate" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_wide"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:text="Wides"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
+        app:layout_constraintStart_toStartOf="@id/label_type"
+        app:layout_constraintTop_toBottomOf="@+id/strike_rate" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/wide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="123 wides"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/label_econ_rate"
+        app:layout_constraintTop_toTopOf="@id/label_wide" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_four_wickets"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:text="Four Wickets"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
+        app:layout_constraintStart_toStartOf="@id/label_type"
+        app:layout_constraintTop_toBottomOf="@+id/wide" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/four_wickets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="0 "
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/label_econ_rate"
+        app:layout_constraintTop_toTopOf="@id/label_four_wickets" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_five_wickets"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:text="Five Wickets"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
+        app:layout_constraintStart_toStartOf="@id/label_type"
+        app:layout_constraintTop_toBottomOf="@+id/four_wickets" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/five_wickets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="0 "
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/label_econ_rate"
+        app:layout_constraintTop_toTopOf="@id/label_five_wickets" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/label_ten_wickets"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_5sdp"
+        android:text="Ten Wickets"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
+        app:layout_constraintStart_toStartOf="@id/label_type"
+        app:layout_constraintTop_toBottomOf="@+id/five_wickets" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/ten_wickets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:padding="@dimen/_5sdp"
+        android:text="0 "
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@id/label_econ_rate"
+        app:layout_constraintTop_toTopOf="@id/label_ten_wickets" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
