@@ -18,9 +18,9 @@ class UpdateDataWorker(context: Context, workerParameters: WorkerParameters) : W
         viewModel.insertStages()
         viewModel.insertSeasons()
         viewModel.insertOfficials()
-//            viewModel.insertFixtures()
-        viewModel.insertUpcomingFixtures()
-        viewModel.insertPreviousFixtures()
+            viewModel.insertFixtures()
+//        viewModel.insertUpcomingFixtures()
+//        viewModel.insertPreviousFixtures()
         viewModel.insertPlayers()
         return Result.success()
     }

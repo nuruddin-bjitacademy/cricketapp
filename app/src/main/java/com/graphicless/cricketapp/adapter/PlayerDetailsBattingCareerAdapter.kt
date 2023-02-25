@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.BattingCareerBinding
 import com.graphicless.cricketapp.Model.PlayerDetailsBatting
+import com.graphicless.cricketapp.utils.SharedPreference
 import java.util.*
 
 private const val TAG = "PlayerDetailsCareerAdap"
@@ -19,12 +20,18 @@ class PlayerDetailsBattingCareerAdapter(
     class DataViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
         val binding = BattingCareerBinding.bind(view)
+        private val currentTheme = SharedPreference().getString("theme")
 
         fun bind(itemType: String, itemList: PlayerDetailsBatting) {
+            if(currentTheme != "light"){
+                binding.root.setBackgroundColor(getRandomLightColor(0))
+            }else{
+                binding.root.setBackgroundColor(getRandomLightColor(200))
+            }
             Log.d(TAG, "bind: $itemType")
             binding.labelType.text = itemType
             Log.d(TAG, "bind: label type text : ${binding.labelType.text}")
-            binding.root.setBackgroundColor(getRandomLightColor())
+
 
             binding.matches.text = itemList.matches.toString()
             binding.runs1.text = itemList.runs.toString()
@@ -39,11 +46,11 @@ class PlayerDetailsBattingCareerAdapter(
             binding.s6.text = itemList.s6.toString()
             binding.strikeRate.text = itemList.strikeRate.toString()
         }
-        private fun getRandomLightColor(): Int {
+        private fun getRandomLightColor(extra: Int): Int {
             val random = Random()
-            val red = random.nextInt(56) + 200 // 200-255
-            val green = random.nextInt(56) + 200 // 200-255
-            val blue = random.nextInt(56) + 200 // 200-255
+            val red = random.nextInt(56) + extra
+            val green = random.nextInt(56) + extra
+            val blue = random.nextInt(56) + extra
             return Color.rgb(red, green, blue)
         }
     }

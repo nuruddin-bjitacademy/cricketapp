@@ -34,14 +34,15 @@ class MatchesFragment : Fragment() {
     //    private val args: DetailsFragmentArgs by navArgs()
     private val viewModel: CricketViewModel by viewModels()
 
-    lateinit var calendar: MenuItem
+    private lateinit var calendar: MenuItem
 
-    var tabSelected: String = "recent"
+    var tabSelected: String = "upcoming"
     var selectedLeagueId: Int = 9
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        setOptionMenuVisibility(true)
 //        exitTransition = Hold()
 //        exitTransition = MaterialElevationScale(/* growing = */ false)
 //        reenterTransition = MaterialElevationScale(/* growing = */ true)
@@ -58,38 +59,28 @@ class MatchesFragment : Fragment() {
 
         arguments?.takeIf { it.containsKey(MyConstants.COMING_FROM) }?.apply {
 
-//            tabSelected = getString(MyConstants.COMING_FROM).toString()
-//            Log.d(TAG, "onViewCreated: tabSelected $tabSelected")
-            Log.d(TAG, "onViewCreated: ${getString(MyConstants.COMING_FROM)}")
-
             when (getString(MyConstants.COMING_FROM)) {
                 "upcoming" -> {
                     setOptionMenuVisibility(false)
-                    tabSelected = "previous"
                     arguments?.takeIf { it.containsKey(MyConstants.CATEGORY_TAB_NUMBER) }?.apply {
                         when (getInt(MyConstants.CATEGORY_TAB_NUMBER)) {
                             0 -> {// BPL
-                                Log.d(TAG, "upcoming BPL")
-                                upcomingMatchSummaryByLeagueId(9)
                                 selectedLeagueId = 9
+                                upcomingMatchSummaryByLeagueId(9)
                             }
                             1 -> {// IPL
-                                Log.d(TAG, "upcoming IPL")
                                 upcomingMatchSummaryByLeagueId(1)
                                 selectedLeagueId = 1
                             }
                             2 -> {// BBL
-                                Log.d(TAG, "upcoming BBL")
                                 upcomingMatchSummaryByLeagueId(5)
                                 selectedLeagueId = 5
                             }
                             3 -> {// ODI
-                                Log.d(TAG, "upcoming ODI")
                                 upcomingMatchSummaryByLeagueId(2)
                                 selectedLeagueId = 2
                             }
                             4 -> {// T20I
-                                Log.d(TAG, "upcoming T20I")
                                 upcomingMatchSummaryByLeagueId(3)
                                 selectedLeagueId = 3
                             }
@@ -98,7 +89,6 @@ class MatchesFragment : Fragment() {
                 }
                 "recent" -> {
                     setOptionMenuVisibility(false)
-                    tabSelected = "recent"
                     when (getInt(MyConstants.CATEGORY_TAB_NUMBER)) {
                         0 -> {// BPL
                             recentMatchSummaryByLeagueId(9)
@@ -124,7 +114,6 @@ class MatchesFragment : Fragment() {
                 }
                 "previous" -> {
                     setOptionMenuVisibility(true)
-                    tabSelected = "previous"
                     arguments?.takeIf { it.containsKey(MyConstants.CATEGORY_TAB_NUMBER) }?.apply {
                         /*val tabPosition = getInt(MyConstants.CATEGORY_TAB_NUMBER)
                         val leagueNameList = listOf("BPL", "IPL", "BBL", "ODI", "T20I")
@@ -134,27 +123,22 @@ class MatchesFragment : Fragment() {
                         typeSelected = selectedLeagueId*/
                         when (getInt(MyConstants.CATEGORY_TAB_NUMBER)) {
                             0 -> {// BPL
-                                Log.d(TAG, "previous T20I")
                                 previousMatchSummaryByLeagueId(9)
                                 selectedLeagueId = 9
                             }
                             1 -> {// IPL
-                                Log.d(TAG, "previous IPL")
                                 previousMatchSummaryByLeagueId(1)
                                 selectedLeagueId = 1
                             }
                             2 -> {// BBL
-                                Log.d(TAG, "previous BBL")
                                 previousMatchSummaryByLeagueId(5)
                                 selectedLeagueId = 5
                             }
                             3 -> {// ODI
-                                Log.d(TAG, "previous ODI")
                                 previousMatchSummaryByLeagueId(2)
                                 selectedLeagueId = 2
                             }
                             4 -> {// T20I
-                                Log.d(TAG, "previous T20I")
                                 previousMatchSummaryByLeagueId(3)
                                 selectedLeagueId = 3
                             }
@@ -176,59 +160,30 @@ class MatchesFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-//            R.id.calendar ->
-//                // Not implemented here
-//                return false
             calendar.itemId -> {
-                showCalender(tabSelected, selectedLeagueId)
-                Log.d(TAG, "onOptionsItemSelected: $tabSelected")
-                /*if (tabSelected == "recent") {
-                    Toast.makeText(
-                        MyApplication.instance,
-                        "Filter Date is not available in this section",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                } else {
-//                    showCalender(tabSelected, selectedLeagueId)
-                    Toast.makeText(
-                        MyApplication.instance,
-                        "Filter Date is available in this section",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }*/
-//                getPreviousMatchesByDate(3, "2021-01-07")
-                return super.onOptionsItemSelected(item)
-
+                showCalender(selectedLeagueId)
+                Log.d(TAG, "tabSelected: $tabSelected, leagueId $selectedLeagueId")
             }
-            else -> {}
+            else -> return super.onOptionsItemSelected(item)
         }
         return false
     }
 
 
-    private fun showCalender(tabSelected: String, selectedLeagueId: Int) {
-
-        when (tabSelected) {
-            "upcoming" -> {
-                getAllUpcomingMatchDateByType(selectedLeagueId)
-            }
-            "previous" -> {
-                getAllPreviousMatchDateByType(selectedLeagueId)
-            }
-        }
+    private fun showCalender(selectedLeagueId: Int) {
+        getAllPreviousMatchDateByType(selectedLeagueId)
     }
 
     private fun getAllUpcomingMatchDateByType(leagueId: Int) {
         viewModel.getAllUpcomingMatchDateByType(leagueId).observe(requireActivity()) { dates ->
-            myCalendar(dates, tabSelected)
+            myCalendar(dates)
             Log.d(TAG, "getAllPreviousMatchDateByType: $dates")
         }
     }
 
     private fun getAllPreviousMatchDateByType(leagueId: Int) {
         viewModel.getAllPreviousMatchDateByType(leagueId).observe(requireActivity()) { dates ->
-            myCalendar(dates, tabSelected)
-            Log.d(TAG, "getAllPreviousMatchDateByType: $dates")
+            myCalendar(dates)
         }
     }
 
@@ -238,7 +193,7 @@ class MatchesFragment : Fragment() {
         binding.recyclerViewByDate.visibility = View.GONE
     }
 
-    private fun myCalendar(dateStringRaw: List<String>, selectedTab: String) {
+    private fun myCalendar(dateStringRaw: List<String>) {
 
         val dateStringFormatted: MutableList<String> = mutableListOf()
         val dates: MutableList<Long> = mutableListOf()
@@ -256,31 +211,22 @@ class MatchesFragment : Fragment() {
             dates.add(i, timeStamp)
         }
 
-        Log.d(TAG, "myCalendar: dates: $dates")
-
         val builderRange = MaterialDatePicker.Builder.datePicker()
-        builderRange.setCalendarConstraints(matchCalendarConstraints(dates)!!.build())
+        builderRange.setCalendarConstraints(matchCalendarConstraints(dates).build()).setTheme(R.style.ThemeMaterialCalendar)
         builderRange.setTitleText("Select Date Range")
         val pickerRange = builderRange.build()
         pickerRange.show(requireActivity().supportFragmentManager, pickerRange.toString())
-
         pickerRange.addOnPositiveButtonClickListener { date ->
             val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.US)
             dateFormat.timeZone = TimeZone.getTimeZone("UTC")
             val formattedDate = dateFormat.format(Date(date))
             Log.d(TAG, "myCalendar: $formattedDate")
-            when (selectedTab) {
-                "upcoming" -> {
-                    getUpcomingMatchesByDate(selectedLeagueId, formattedDate.substring(0, 10))
-                }
-                "previous" -> {
-                    getPreviousMatchesByDate(selectedLeagueId, formattedDate.substring(0, 10))
-                }
-            }
+            getPreviousMatchesByDate(selectedLeagueId, formattedDate.substring(0, 10))
+            Log.d(TAG, "myCalendar: position button clicked")
         }
     }
 
-    private fun matchCalendarConstraints(dates: List<Long>): CalendarConstraints.Builder? {
+    private fun matchCalendarConstraints(dates: List<Long>): CalendarConstraints.Builder {
         val constraintsBuilderRange = CalendarConstraints.Builder()
         constraintsBuilderRange.setValidator(
             DateValidator(
@@ -302,7 +248,7 @@ class MatchesFragment : Fragment() {
             Log.d(TAG, "fixture by date size: ${it.size}")
             Log.d(TAG, "fixture by date: $it")
             if (it != null) {
-                binding.recyclerView.adapter = null
+                binding.recyclerView.visibility = View.GONE
                 (activity as AppCompatActivity).supportActionBar?.title =
                     java.lang.StringBuilder("Matches on ").append(startingAt)
             }
@@ -327,43 +273,6 @@ class MatchesFragment : Fragment() {
             binding.recyclerViewByDate.adapter = adapter
         }
     }
-
-
-/*
-    private fun itemSelected(item: String) {
-        val unselectedBackground =
-            ResourcesCompat.getDrawable(resources, R.drawable.boarder_rectangle, null)
-        val unselectedTextColor = ResourcesCompat.getColor(resources, R.color.tab_text, null)
-        val selectedBackground = ResourcesCompat.getColor(resources, R.color.action_bar, null)
-        val selectedTextColor = ResourcesCompat.getColor(resources, R.color.tab_text_selected, null)
-        when (item) {
-            "t20i" -> {
-                binding.tvT20i.setBackgroundColor(selectedBackground)
-                binding.tvT20i.setTextColor(selectedTextColor)
-                binding.tvBbc.background = unselectedBackground
-                binding.tvBbc.setTextColor(unselectedTextColor)
-                binding.tvT20c.background = unselectedBackground
-                binding.tvT20c.setTextColor(unselectedTextColor)
-            }
-            "bbc" -> {
-                binding.tvBbc.setBackgroundColor(selectedBackground)
-                binding.tvBbc.setTextColor(selectedTextColor)
-                binding.tvT20i.background = unselectedBackground
-                binding.tvT20i.setTextColor(unselectedTextColor)
-                binding.tvT20c.background = unselectedBackground
-                binding.tvT20c.setTextColor(unselectedTextColor)
-            }
-            "t20c" -> {
-                binding.tvT20c.setBackgroundColor(selectedBackground)
-                binding.tvT20c.setTextColor(selectedTextColor)
-                binding.tvBbc.background = unselectedBackground
-                binding.tvBbc.setTextColor(unselectedTextColor)
-                binding.tvT20i.background = unselectedBackground
-                binding.tvT20i.setTextColor(unselectedTextColor)
-            }
-        }
-    }
-*/
 
     private fun upcomingMatchSummaryByLeagueId(leagueId: Int) {
         viewModel.getUpcomingMatchSummaryByLeagueId(leagueId).observe(requireActivity()) {
@@ -415,7 +324,7 @@ class MatchesFragment : Fragment() {
         }
     }
 
-    fun setOptionMenuVisibility(visible: Boolean) {
+    private fun setOptionMenuVisibility(visible: Boolean) {
         shouldCalenderVisible = visible
         requireActivity().invalidateOptionsMenu()
     }

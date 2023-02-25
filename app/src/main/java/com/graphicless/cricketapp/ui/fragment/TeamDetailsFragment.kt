@@ -72,7 +72,6 @@ class TeamDetailsFragment( private val teamId: Int) : Fragment() {
                 binding.recyclerView.adapter = null
                 binding.progressbar.visibility = View.GONE
                 binding.tvNoData.visibility = View.VISIBLE
-                Utils().networkUnavailable()
                 binding.tvCurrentSeason.setOnClickListener {
                     itemSelected("current")
                 }

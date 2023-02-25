@@ -88,4 +88,7 @@
 
     <color name="player_image_holder_background_start">#303F9F</color>
     <color name="player_image_holder_background_end">#90CAF9</color>
+
+    <color name="bottom_nav_selected">#FFFFFF</color>
+    <color name="bottom_nav_unselected">#4C4C4C</color>
 </resources>

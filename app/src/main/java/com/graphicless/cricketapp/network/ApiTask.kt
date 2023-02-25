@@ -35,10 +35,10 @@ class ApiTask : AsyncTask<Void, Void, String>() {
             val result8 = viewModel.insertOfficials()
 
             // Call function 9
-            val result9 = viewModel.insertUpcomingFixtures()
-
-            // Call function 10
-            val result10 = viewModel.insertPreviousFixtures()
+//            val result9 = viewModel.insertUpcomingFixtures()
+//
+//            // Call function 10
+//            val result10 = viewModel.insertPreviousFixtures()
 
             // Call function 11
             val result11 = viewModel.insertPlayers()

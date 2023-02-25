@@ -70,15 +70,17 @@ class MainActivity : AppCompatActivity(), NetworkConnectivityCallback {
             else
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
+            sharedPreference.save("theme", "light")
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
         // Night Mode End
 
         if (!sharedPreference.isContain("data_inserted")) {
+            Log.d(TAG, "onCreate: data inserted")
             insertDataFromApiToLocalDatabase()
             sharedPreference.save("data_inserted", true)
         }
-        
+
 
         // Get the height of the BottomNavigationView
         bottomNavigationViewHeight = binding.bottomNavMenu.height
@@ -90,6 +92,7 @@ class MainActivity : AppCompatActivity(), NetworkConnectivityCallback {
         setupActionBarWithNavController(navController)
 
         binding.bottomNavMenu.setupWithNavController(navController)
+
 
         // Check internet for the first time when app starts
         if (!isNetworkAvailable()) {
@@ -103,7 +106,6 @@ class MainActivity : AppCompatActivity(), NetworkConnectivityCallback {
         networkConnectivityChecker.setCallback(this)
         networkConnectivityChecker.start()
 
-        
 
         /*// Update data 24 hours internal
         val updateDataWorkRequest = PeriodicWorkRequest.Builder(
@@ -118,7 +120,7 @@ class MainActivity : AppCompatActivity(), NetworkConnectivityCallback {
             updateDataWorkRequest
         )*/
 
-        viewModel.getAllUpcomingFixture().observe(this){
+        viewModel.getAllUpcomingFixture().observe(this) {
             // Get the list of matches from your Room database
             val matchList = it
             // Get the current time in milliseconds
@@ -179,9 +181,9 @@ class MainActivity : AppCompatActivity(), NetworkConnectivityCallback {
                     viewModel.insertStages()
                     viewModel.insertSeasons()
                     viewModel.insertOfficials()
-////            viewModel.insertFixtures()
-                    viewModel.insertUpcomingFixtures()
-                    viewModel.insertPreviousFixtures()
+                    viewModel.insertFixtures()
+//                    viewModel.insertUpcomingFixtures()
+//                    viewModel.insertPreviousFixtures()
                     viewModel.insertPlayers()
                 } catch (exception: Exception) {
                     Log.e(TAG, "insertDataFromApiToLocalDatabase: innner: $exception")

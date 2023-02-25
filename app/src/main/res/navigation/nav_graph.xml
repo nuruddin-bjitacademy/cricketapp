@@ -51,6 +51,9 @@
         <argument
             android:name="fixtureId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_matchDetailsContainerFragment_to_playerDetailsFragment"
+            app:destination="@id/playerDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/matchesFragment"
@@ -77,6 +80,9 @@
         <argument
             android:name="fixtureId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_liveMatchDetailsContainerFragment_to_playerDetailsFragment"
+            app:destination="@id/playerDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/rankingContainerOuterFragment"

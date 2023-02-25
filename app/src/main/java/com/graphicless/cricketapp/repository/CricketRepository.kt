@@ -1,7 +1,11 @@
 package com.graphicless.cricketapp.repository
 
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.bumptech.glide.load.engine.Resource
 import com.graphicless.cricketapp.database.CricketDao
 import com.graphicless.cricketapp.network.CricketApi
 import com.graphicless.cricketapp.network.NewsApi
@@ -9,10 +13,16 @@ import com.graphicless.cricketapp.Model.*
 import com.graphicless.cricketapp.Model.joined.FixtureAndTeam
 import com.graphicless.cricketapp.Model.map.FixtureDetails
 import com.graphicless.cricketapp.Model.map.StageByLeague
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.await
 
+private const val TAG = "CricketRepository"
 class CricketRepository(private val cricketDao: CricketDao) {
     val getFixtures: LiveData<List<FixturesIncludeRuns.Data>> = cricketDao.getFixtures()
 
@@ -281,10 +291,62 @@ class CricketRepository(private val cricketDao: CricketDao) {
     fun getPlayerByQuery(query: String): LiveData<List<PlayerAll.Data>> {
         return cricketDao.getPlayerByQuery(query)
     }
+    fun getPlayerById(playerId: Int): LiveData<PlayerAll.Data> {
+        return cricketDao.getPlayerById(playerId)
+    }
 
     /*suspend fun fetchTeamRankings(): List<TeamRankings.Data?>? {
         return withContext(Dispatchers.IO){
             CricketApi.retrofitService.getTeamRankings().await().data
         }
     }*/
+
+    /*suspend fun getTeamRankings(): List<TeamRankings.Data?>? {
+        return try {
+            val response = CricketApi.retrofitService.getTeamRankings().await()
+            response.data
+        } catch (e: Exception) {
+            // Handle the exception
+            null
+        }
+    }*/
+
+    fun getTeamRankings(callback: (List<TeamRankings.Data?>?) -> Unit) {
+        CricketApi.retrofitService.getTeamRankings().enqueue(object : Callback<TeamRankings> {
+            override fun onResponse(call: Call<TeamRankings>, response: Response<TeamRankings>) {
+                if (response.isSuccessful) {
+                    val teamRankings: List<TeamRankings.Data?>? = response.body()?.data
+                    callback(teamRankings)
+                } else {
+                    onFailure(call, Throwable("Error: ${response.code()}"))
+                }
+            }
+            override fun onFailure(call: Call<TeamRankings>, t: Throwable) {
+                Log.e(TAG, "onFailure: getTeamRankings", )
+                callback(null)
+            }
+        })
+    }
+
+    /*fun getLiveMatchInfo(fixtureId: Int, callback: (LiveMatchInfo?) -> Unit) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = CricketApi.retrofitService.getLiveMatchInfo(fixtureId).execute()
+                if (response.isSuccessful) {
+                    val liveMatchInfo: LiveMatchInfo? = response.body()
+                    withContext(Dispatchers.Main) {
+                        callback(liveMatchInfo)
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        callback(null)
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error loading live match info: $e")
+            }
+        }
+    }*/
+
+
 }

@@ -63,8 +63,6 @@ class TeamDetailsContainerFragment : Fragment() {
                 TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
                     tab.text = tabNameList[position]
                 }.attach()
-            }else{
-                Utils().networkUnavailable()
             }
         }
 

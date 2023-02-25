@@ -12,6 +12,7 @@ import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.ItemPlayerTeamBinding
 import com.graphicless.cricketapp.Model.PlayerDetailsNew
 import com.graphicless.cricketapp.utils.MyApplication
+import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
 private const val TAG = "PlayerDetailsTeamsAdapt"
@@ -32,7 +33,7 @@ class PlayerDetailsTeamsAdapter(
                     binding.teamName.text = item.name
                     item.inSquad?.seasonId?.let {seasonId ->
                         viewModel.getSeasonNameById(seasonId).observe(lifecycleOwner){seasonName ->
-                            binding.seasonName.text = "Season: ".plus(seasonName)
+                            binding.seasonName.text = MyConstants.SEASON.plus(seasonName)
                         }
                     }
                     item.inSquad?.leagueId?.let {leagueId ->
@@ -90,7 +91,7 @@ class PlayerDetailsTeamsAdapter(
             holder.bindCurrentTeam(item, lifecycleOwner)
         }
         if(teams?.size != null){
-            val item = teams.get(position)
+            val item = teams[position]
             holder.bindAllTeam(item, lifecycleOwner)
         }
     }

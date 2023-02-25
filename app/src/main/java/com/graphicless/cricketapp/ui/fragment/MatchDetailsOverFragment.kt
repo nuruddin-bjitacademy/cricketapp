@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.adapter.OverAdapter
 import com.graphicless.cricketapp.databinding.FragmentMatchDetailsOverBinding
@@ -224,8 +225,15 @@ class MatchDetailsOverFragment : Fragment() {
         teamOneOver: List<FixtureOver.Data.Ball?>
     ) {
         val groupedBalls = groupBallsByIntPart(balls)
+        val reversedValues = groupedBalls.mapValues { (_, values) ->
+            values.reversed()
+        }
+        val reversedMap = reversedValues.toSortedMap(reverseOrder())
         Log.d(TAG, "group balls: $groupedBalls")
-        val adapter = OverAdapter(groupedBalls, teamOneOver)
+        val adapter = OverAdapter(reversedMap, teamOneOver.reversed())
+//        val layoutManager = LinearLayoutManager(context)
+//        layoutManager.reverseLayout = true
+//        binding.rvOver.layoutManager = layoutManager
         binding.rvOver.adapter = adapter
         groupedBalls.forEach { (intPart, ballsWithSameIntPart) ->
             Log.d(

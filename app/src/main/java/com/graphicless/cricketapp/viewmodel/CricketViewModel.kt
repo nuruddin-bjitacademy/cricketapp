@@ -31,32 +31,15 @@ class CricketViewModel(application: Application) : AndroidViewModel(application)
     private val repository: CricketRepository
     private var cricketDao: CricketDao
 
-    //    val continents: LiveData<List<Continent>>
-//    val countries: LiveData<List<Country>>
-//    val leagues: LiveData<List<League>>
     val fixtures: LiveData<List<FixturesIncludeRuns.Data>>
-
-
-//    val getCountryWithContinent: LiveData<List<CountryWithContinent>>
-
-    //    val getFixtureAndTeam: LiveData<List<FixtureAndTeam>>
-//    val getFixtureAndTeam2: LiveData<List<test>>
-    val getDistinctStageName: LiveData<List<StageName>>
-    val getDistinctStages: LiveData<List<DistinctStages>>
+    private val getDistinctStageName: LiveData<List<StageName>>
+    private val getDistinctStages: LiveData<List<DistinctStages>>
 
     init {
         cricketDao = LocalDatabase.instance(application).cricketDao()
         repository = CricketRepository(cricketDao)
 
-//        continents = repository.getContinents
-//        countries = repository.getCountries
-//        leagues = repository.getLeagues
         fixtures = repository.getFixtures
-
-
-//        getCountryWithContinent = repository.getCountryWithContinent()
-//        getFixtureAndTeam = repository.getFixtureAndTeam()
-//        getFixtureAndTeam2 = repository.getFixtureAndTeam2()
         getDistinctStageName = repository.getDistinctStageName()
         getDistinctStages = repository.getDistinctStages()
     }
@@ -143,12 +126,9 @@ class CricketViewModel(application: Application) : AndroidViewModel(application)
     fun insertTeamRankings(){
         Log.d(TAG, "insertTeamRankings: called")
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val teamRankings: List<TeamRankings.Data?>? = CricketApi.retrofitService.getTeamRankings().await().data
+
+            repository.getTeamRankings {teamRankings->
                 if (teamRankings != null) {
-                    Log.d(TAG, "insertTeamRankings: before delete team rankings")
-                    repository.deleteTeamRanking()
-                    Log.d(TAG, "insertTeamRankings: after delete team rankings")
                     for(rankings in teamRankings.indices){
                         val format = teamRankings[rankings]!!.type
                         val gender = teamRankings[rankings]!!.gender
@@ -161,24 +141,25 @@ class CricketViewModel(application: Application) : AndroidViewModel(application)
                             val points = teamRankings[rankings]!!.team?.get(team)?.ranking?.points
                             val ratings = teamRankings[rankings]!!.team?.get(team)?.ranking?.rating
                             val teamRanking = TeamRankingsLocal(0, format, gender, teamId,teamName, flag, position, matches, points, ratings)
-                            repository.insertTeamRankings(teamRanking)
+                            viewModelScope.launch(Dispatchers.IO) {
+                                repository.insertTeamRankings(teamRanking)
+                            }
                         }
                     }
                 }
-            } catch (exception: Exception) {
-                Log.e(TAG, "insertTeamRankings: $exception")
             }
         }
     }
 
-    /*fun insertFixtures() {
+    fun insertFixtures() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val totalPage = CricketApi.retrofitService.fetchFixtures().meta?.lastPage
                 Log.d(TAG, "total page: $totalPage")
 
                 if (totalPage != null) {
-//                    repository.deleteFixture()
+                    repository.deleteFixture()
+                    repository.deleteRun()
                     for (page in totalPage downTo 1) {
                         Log.d(TAG, "page: $page")
                         val fixtures: List<FixturesIncludeRuns.Data>? =
@@ -187,7 +168,6 @@ class CricketViewModel(application: Application) : AndroidViewModel(application)
                             repository.insertFixture(fixtures)
                         }
                         if (fixtures != null) {
-//                            repository.deleteRun()
                             for (data in fixtures.size - 1 downTo 0) {
                                 val runs: List<FixturesIncludeRuns.Data.Run>? = fixtures[data].runs
                                 if (runs != null) {
@@ -201,16 +181,16 @@ class CricketViewModel(application: Application) : AndroidViewModel(application)
                 Log.e(TAG, "insertFixtures: $exception")
             }
         }
-    }*/
+    }
 
-    fun insertPreviousFixtures() {
+    /*fun insertPreviousFixtures() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val totalPage = CricketApi.retrofitService.fetchFixtures().meta?.lastPage
                 Log.d(TAG, "total page: $totalPage")
 
                 if (totalPage != null) {
-//                    repository.deleteFixture()
+                    repository.deleteFixture()
                     for (page in totalPage downTo 1) {
                         Log.d(TAG, "page: $page")
                         val fixtures: List<FixturesIncludeRuns.Data>? =
@@ -219,7 +199,7 @@ class CricketViewModel(application: Application) : AndroidViewModel(application)
                             repository.insertFixture(fixtures)
                         }
                         if (fixtures != null) {
-//                            repository.deleteRun()
+                            repository.deleteRun()
                             for (data in fixtures.size - 1 downTo 0) {
                                 val runs: List<FixturesIncludeRuns.Data.Run>? = fixtures[data].runs
                                 if (runs != null) {
@@ -265,7 +245,7 @@ class CricketViewModel(application: Application) : AndroidViewModel(application)
                 Log.e(TAG, "insertFixtures: $exception")
             }
         }
-    }
+    }*/
 
 
     private val _liveScores = MutableLiveData<List<LiveScoresIncludeRuns.Data?>?>()
@@ -303,10 +283,30 @@ class CricketViewModel(application: Application) : AndroidViewModel(application)
     }
 
     private suspend fun getLiveMatchInfo(fixtureId: Int): LiveMatchInfo {
-        return withContext(Dispatchers.IO) {
-            CricketApi.retrofitService.getLiveMatchInfo(fixtureId).await()
-        }
+        return CricketApi.retrofitService.getLiveMatchInfo(fixtureId).await()
     }
+
+    /*private val _liveMatchInfo = MutableLiveData<LiveMatchInfo?>()
+    val liveMatchInfo: LiveData<LiveMatchInfo?> = _liveMatchInfo
+
+    fun launchLiveMatchInfo(fixtureId: Int) {
+        viewModelScope.launch {
+            try {
+                val call = CricketApi.retrofitService.getLiveMatchInfo(fixtureId)
+                val response = call.execute()
+                if (response.isSuccessful) {
+                    val liveMatchInfo: LiveMatchInfo? = response.body()
+                    _liveMatchInfo.value = liveMatchInfo
+                } else {
+                    Log.e(TAG, "Error loading live match info: ${response.code()}")
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error loading live match info: $e")
+            }
+        }
+    }*/
+
+
 
     fun insertTeams() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -727,6 +727,9 @@ class CricketViewModel(application: Application) : AndroidViewModel(application)
     }
     fun getPlayerByQuery(query: String): LiveData<List<PlayerAll.Data>> {
         return repository.getPlayerByQuery(query)
+    }
+    fun getPlayerById(playerId: Int): LiveData<PlayerAll.Data> {
+        return repository.getPlayerById(playerId)
     }
 
 }

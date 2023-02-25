@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +26,7 @@ import com.graphicless.cricketapp.Model.PlayerDetailsNew
 import com.graphicless.cricketapp.utils.MyApplication
 import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
+import com.graphicless.cricketapp.viewmodel.NetworkConnectionViewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -36,6 +38,7 @@ class PlayerDetailsFragment : Fragment() {
 
     private val args: PlayerDetailsFragmentArgs by navArgs()
     private val viewModel: CricketViewModel by viewModels()
+    private val networkConnectionViewModel: NetworkConnectionViewModel by activityViewModels()
 
     var selectCareer = "batting"
     var selectedTab = "career"
@@ -62,41 +65,71 @@ class PlayerDetailsFragment : Fragment() {
         binding.playerImageHolder.layoutParams =
             ViewGroup.LayoutParams(screenWidth, screenHeight / 3)
 
-        viewModel.launchPlayerDetails(playerId)
+        networkConnectionViewModel.isNetworkAvailable.observe(viewLifecycleOwner){isNetworkAvailable ->
+            if(isNetworkAvailable){
+                viewModel.launchPlayerDetails(playerId)
+                try {
 
-        try {
-            viewModel.playerDetails.observe(requireActivity()) { it ->
-                binding.playerFirstName.text =
-                    if (it != null) it.firstname else MyConstants.NOT_AVAILABLE
-                binding.playerLastName.text =
-                    if (it != null) it.lastname else MyConstants.NOT_AVAILABLE
-                if (it != null) {
-                    Glide.with(MyApplication.instance).load(it.imagePath).into(binding.playerImage)
+                    binding.tvNoInternet.visibility = View.GONE
+                    binding.progressbar.visibility = View.VISIBLE
+                    binding.rvTeams.visibility = View.VISIBLE
+                    binding.rvCareer.visibility = View.VISIBLE
+                    viewModel.playerDetails.observe(requireActivity()) { it ->
+                        binding.playerFirstName.text =
+                            if (it != null) it.firstname else MyConstants.NOT_AVAILABLE
+                        binding.playerLastName.text =
+                            if (it != null) it.lastname else MyConstants.NOT_AVAILABLE
+                        if (it != null) {
+                            Glide.with(MyApplication.instance).load(it.imagePath).into(binding.playerImage)
+                        }
+                        val age = it?.dateofbirth?.let { it1 -> calculateAge(it1) }
+                        if (it != null) {
+                            binding.playerCountryAge.text =
+                                it.country?.name.plus(activity?.getString(R.string.special_bullet))
+                                    .plus(age).plus(activity?.getString(R.string.space)).plus(activity?.getString(R.string.years))
+                        }
+
+                        careerTab(it)
+                        changeTabColor(selectedTab)
+
+                        binding.tvCareer.setOnClickListener { _ ->
+                            selectedTab = "career"
+                            careerTab(it)
+                            changeTabColor(selectedTab)
+                        }
+
+                        binding.tvTeams.setOnClickListener { _ ->
+                            selectedTab = "teams"
+                            teamsTab(it)
+                            changeTabColor(selectedTab)
+                        }
+                    }
+                } catch (exception: Exception) {
+                    Log.e(TAG, "player details observe: $exception")
                 }
-                val age = it?.dateofbirth?.let { it1 -> calculateAge(it1) }
-                if (it != null) {
-                    binding.playerCountryAge.text =
-                        it.country?.name.plus(activity?.getString(R.string.special_bullet))
-                            .plus(age).plus(" years")
-                }
+            }else{
+                viewModel.getPlayerById(playerId).observe(viewLifecycleOwner){
+                    binding.playerFirstName.text =
+                        if (it != null) it.firstname else MyConstants.NOT_AVAILABLE
+                    binding.playerLastName.text =
+                        if (it != null) it.lastname else MyConstants.NOT_AVAILABLE
+                    if (it != null) {
+                        Glide.with(MyApplication.instance).load(it.imagePath).into(binding.playerImage)
+                    }
+                    val age = it?.dateofbirth?.let { it1 -> calculateAge(it1) }
 
-                careerTab(it)
-                changeTabColor(selectedTab)
+                    it.countryId?.let { it1 -> viewModel.getCountryNameById(it1).observe(viewLifecycleOwner){countryName->
+                        binding.playerCountryAge.text =
+                            countryName.plus(activity?.getString(R.string.special_bullet))
+                                .plus(age).plus(activity?.getString(R.string.space)).plus(activity?.getString(R.string.years))
+                    } }
 
-                binding.tvCareer.setOnClickListener { _ ->
-                    selectedTab = "career"
-                    careerTab(it)
-                    changeTabColor(selectedTab)
-                }
-
-                binding.tvTeams.setOnClickListener { _ ->
-                    selectedTab = "teams"
-                    teamsTab(it)
-                    changeTabColor(selectedTab)
+                    binding.tvNoInternet.visibility = View.VISIBLE
+                    binding.progressbar.visibility = View.GONE
+                    binding.rvTeams.visibility = View.GONE
+                    binding.rvCareer.visibility = View.GONE
                 }
             }
-        } catch (exception: Exception) {
-            Log.e(TAG, "player details observe: $exception")
         }
 
         binding.btnBack.setOnClickListener {

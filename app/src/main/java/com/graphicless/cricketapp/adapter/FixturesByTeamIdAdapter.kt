@@ -16,6 +16,7 @@ import com.graphicless.cricketapp.databinding.ItemMatchBinding
 import com.graphicless.cricketapp.Model.FixturesByTeamId
 import com.graphicless.cricketapp.Model.FixturesIncludeRuns
 import com.graphicless.cricketapp.ui.fragment.TeamDetailsContainerFragmentDirections
+import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -115,7 +116,7 @@ class FixturesByTeamIdAdapter(
 
                 if (fixture.note == "") {
 
-                    val countdownTimerTextView = binding.tvNote
+                    /*val countdownTimerTextView = binding.tvNote
 
                     // Set the target date and time for the countdown
                     val targetDate = fixture.startingAt
@@ -162,7 +163,8 @@ class FixturesByTeamIdAdapter(
                         }
                     }
 
-                    countDownTimer.start()
+                    countDownTimer.start()*/
+                    binding.tvNote.text = MyConstants.UPCOMING
 
                 } else
                     binding.tvNote.text = fixture.note

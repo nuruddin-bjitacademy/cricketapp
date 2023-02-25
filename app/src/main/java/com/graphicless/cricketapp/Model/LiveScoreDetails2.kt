@@ -3,7 +3,7 @@ package com.graphicless.cricketapp.Model
 
 import com.squareup.moshi.Json
 
-data class LiveScoreDetails(
+data class LiveScoreDetails2(
     @Json(name = "data")
     var `data`: Data?
 ) {
@@ -125,6 +125,7 @@ data class LiveScoreDetails(
             @Json(name = "updated_at")
             var updatedAt: String?
         )
+
         data class Visitorteam(
             @Json(name = "resource")
             var resource: String?,

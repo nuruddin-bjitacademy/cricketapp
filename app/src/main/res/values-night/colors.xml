@@ -55,4 +55,7 @@
 
     <color name="player_image_holder_background_start">#07182B</color>
     <color name="player_image_holder_background_end">#247CDF</color>
+
+    <color name="bottom_nav_selected">@android:color/holo_blue_dark</color>
+    <color name="bottom_nav_unselected">#4C4C4C</color>
 </resources>

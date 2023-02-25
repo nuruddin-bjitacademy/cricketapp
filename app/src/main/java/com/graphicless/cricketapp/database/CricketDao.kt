@@ -74,49 +74,6 @@ interface CricketDao {
 
     // ---------- GET SINGLE ----------
 
-
-
-//    @Query("SELECT fixture.id AS fixtureId, team.id AS teamOneId, team.imagePath AS teamOneFlag, fixture.note AS note FROM Fixture INNER JOIN team ON fixture.localteamId = team.id team.id AS teamTwoId, team.imagePath AS teamTwoFlag FROM Fixture INNER JOIN team ON fixture.visitorteamId = team.id")
-//    fun getFixtureAndTeam(): LiveData<List<FixtureAndTeam>>
-
-    /*@Query("SELECT fixture.id AS fixtureId, fixture.season_id AS seasonId, stage.id AS stageId, stage.name AS stageName, fixture.round AS round, venue.city AS venue, fixture.startingAt AS startingAT, localTeam.code AS teamOneCode, localTeam.imagePath AS teamOneFlag, visitorTeam.code AS teamTwoCode, visitorTeam.imagePath AS teamTwoFlag, fixture.note AS note " +
-            "FROM Fixture " +
-            "INNER JOIN team AS localTeam ON fixture.localteamId = localTeam.id " +
-            "INNER JOIN team AS visitorTeam ON fixture.visitorteamId = visitorTeam.id " +
-            "INNER JOIN stage ON fixture.stageId = stage.id " +
-            "INNER JOIN venue ON fixture.venueId = venue.id " +
-            "GROUP BY stageId " +
-            "ORDER BY fixture.seasonId DESC, fixture.stageId DESC, fixture.startingAt DESC")
-    fun getFixtureAndTeam(): LiveData<List<FixtureAndTeam>>*/
-
-    /*@Query("SELECT stage.id AS id, fixture.id AS fixtureId, stage.id AS stageId, stage.name AS stageName, fixture.round AS round, venue.city AS venue, fixture.startingAt AS startingAT, localTeam.code AS teamOneCode, localTeam.imagePath AS teamOneFlag, visitorTeam.code AS teamTwoCode, visitorTeam.imagePath AS teamTwoFlag, fixture.note AS note " +
-            "FROM Fixture " +
-            "INNER JOIN team AS localTeam ON fixture.localteamId = localTeam.id " +
-            "INNER JOIN team AS visitorTeam ON fixture.visitorteamId = visitorTeam.id " +
-            "INNER JOIN stage ON fixture.stageId = stage.id " +
-            "INNER JOIN venue ON fixture.venueId = venue.id " +
-            "GROUP BY stageId, fixtureId " +
-            "ORDER BY fixture.startingAt DESC, stageId")
-    fun getFixtureAndTeam2(): LiveData<List<test>>*/
-
-    /*@Query("SELECT stage.id AS id, fixture.id AS fixtureId, stage.id AS stageId, stage.name AS stageName, fixture.round AS round, venue.city AS venue, fixture.startingAt AS startingAT, localTeam.code AS teamOneCode, localTeam.imagePath AS teamOneFlag, visitorTeam.code AS teamTwoCode, visitorTeam.imagePath AS teamTwoFlag, fixture.note AS note " +
-            "FROM Fixture " +
-            "INNER JOIN team AS localTeam ON fixture.localteamId = localTeam.id " +
-            "INNER JOIN team AS visitorTeam ON fixture.visitorteamId = visitorTeam.id " +
-            "INNER JOIN stage ON fixture.stageId = stage.id " +
-            "INNER JOIN venue ON fixture.venueId = venue.id " +
-            "GROUP BY stageId, fixtureId " +
-            "ORDER BY fixture.startingAt DESC, stageId")
-    fun getTest(): LiveData<List<test>>*/
-
-    /*@Query("SELECT s.id, s.name, f.id as fixtureId, f.team1Id, f.team2Id, t1.name as team1Name, t2.name as team2Name " +
-            "FROM stage s " +
-            "LEFT JOIN fixture f ON s.id = f.stageId " +
-            "LEFT JOIN team t1 ON f.team1Id = t1.id " +
-            "LEFT JOIN team t2 ON f.team2Id = t2.id " +
-            "ORDER BY s.id")
-    fun getStagesWithFixtures(): List<FixtureAndStage>
-*/
     @Query("SELECT DISTINCT fixture.id AS fixtureId, fixture.seasonId AS seasonId, stage.id AS stageId, stage.name AS stageName, " +
             "fixture.round AS round, venue.city AS venue, fixture.startingAt AS startingAT, localTeam.code AS teamOneCode, " +
             "localTeam.imagePath AS teamOneFlag, visitorTeam.code AS teamTwoCode, visitorTeam.imagePath AS teamTwoFlag, " +
@@ -150,7 +107,7 @@ interface CricketDao {
             "localTeam.name AS localTeamName, visitorTeam.name AS visitorTeamName, tossWinTeam.name As tossWinTeamName, " +
             "fixture.elected As elected, venue.name AS stadiumName, venue.capacity AS capacity, " +
             "venue.floodLight AS floodLight, firstUmpire.fullname As firstUmpire, secondUmpire.fullname AS secondUmpire," +
-            "tvUmpire.fullname AS tvUmpire, referee.fullname AS referee, fixture.status AS status " +
+            "tvUmpire.fullname AS tvUmpire, referee.fullname AS referee, fixture.status AS status, fixture.manOfMatchId AS manOfTheMatchId " +
             "FROM Fixture " +
             "INNER JOIN team AS localTeam ON fixture.localteamId = localTeam.id " +
             "INNER JOIN team AS visitorTeam ON fixture.visitorteamId = visitorTeam.id " +
@@ -203,14 +160,6 @@ interface CricketDao {
     @Query("SELECT startingAt FROM fixture WHERE fixture.status LIKE 'NS' AND fixture.leagueId = :leagueId")
     fun getAllUpcomingMatchDateByType(leagueId: Int): LiveData<List<String>>
 
-//    @Query("SELECT name FROM ")
-
-    /*@Query("SELECT stage.id As stageId, stage.name AS stageName, fixture.startingAt AS startingAt " +
-            "FROM Fixture " +
-            "INNER JOIN stage ON fixture.stageId = stage.id " +
-            "WHERE stage.id = :stageId GROUP BY stageName ORDER BY fixture.startingAt ASC" )
-    fun getStageNameById(stageId: Int): DistinctStages*/
-
     @Query("SELECT name FROM stage WHERE id = :stageId" )
     fun getStageNameById(stageId: Int): LiveData<String>
 
@@ -230,12 +179,6 @@ interface CricketDao {
             "FROM Fixture " +
             "INNER JOIN stage ON fixture.stageId = stage.id " )
     fun getDistinctStages():  LiveData<List<DistinctStages>>
-
-    /*@Query("SELECT DISTINCT stage.id AS stageId, stage.name AS stageName, fixture.id AS fixtureId, fixture.leagueId AS leagueId, fixture.seasonId AS seasonId, fixture.startingAt AS startingAt " +
-            "FROM fixture " +
-            "INNER JOIN stage ON fixture.stageId = stage.id " +
-            "WHERE fixture.leagueId = :leagueId ORDER BY fixture.seasonId, fixture.stageId, fixture.startingAt")
-    fun getStageByLeagueId(leagueId: Int): LiveData<List<StageByLeague>>*/
 
     @Query("SELECT DISTINCT stage.id AS stageId, stage.name AS stageName, fixture.seasonId AS seasonId, season.name AS seasonName " +
             "FROM fixture " +
@@ -285,26 +228,8 @@ interface CricketDao {
             "WHERE fixture.id = :fixtureId AND fixture.status LIKE 'NS' ")
     fun getFixtureById(fixtureId: Int): Match
 
-
-
-
-
-
-    /*@Query("SELECT DISTINCT stage.id AS stageId" +
-            "FROM Fixture " +
-            "INNER JOIN stage ON fixture.stageId = stage.id" )
-    fun getDistinctStages(): LiveData<List<Int>>*/
-
-    /*@Query("SELECT fixture.id AS fixtureId, stage.id AS stageId, stage.name AS stageName, fixture.round AS round, venue.city AS venue, fixture.startingAt AS startingAT, localTeam.code AS teamOneCode, localTeam.imagePath AS teamOneFlag, visitorTeam.code AS teamTwoCode, visitorTeam.imagePath AS teamTwoFlag, fixture.note AS note " +
-            "FROM Fixture " +
-            "INNER JOIN team AS localTeam ON fixture.localteamId = localTeam.id " +
-            "INNER JOIN team AS visitorTeam ON fixture.visitorteamId = visitorTeam.id " +
-            "INNER JOIN stage ON fixture.stageId = stage.id " +
-            "INNER JOIN venue ON fixture.venueId = venue.id " +
-            "GROUP BY stageId" +
-            "ORDER BY startingAt" +
-            "WHERE stage.name =:stageName")
-    fun getMatchesWithStageName(stageName: String): LiveData<List<FixtureAndTeam>>*/
+    @Query("SELECT * FROM player WHERE player.id = :playerId")
+    fun getPlayerById(playerId: Int): LiveData<PlayerAll.Data>
 
     @Query("SELECT * FROM team WHERE nationalTeam = :national ORDER BY name")
     fun getAllTeam(national: Int): LiveData<List<Teams.Data>>

@@ -123,7 +123,7 @@
                 android:padding="@dimen/_5sdp"
                 android:paddingStart="@dimen/_25sdp"
                 android:paddingEnd="@dimen/_25sdp"
-                android:text="Career"
+                android:text="@string/career"
                 android:textColor="@color/button_text_selected"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toStartOf="@+id/tv_teams"
@@ -139,7 +139,7 @@
                 android:padding="@dimen/_5sdp"
                 android:paddingStart="@dimen/_25sdp"
                 android:paddingEnd="@dimen/_25sdp"
-                android:text="Teams"
+                android:text="@string/teams"
                 android:textColor="@color/button_text_unselected"
                 android:textSize="18sp"
                 app:layout_constraintStart_toEndOf="@id/tv_career"
@@ -224,7 +224,18 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:gravity="center"
-                android:text="No Data Available"
+                android:text="@string/no_data_available"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_no_internet"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:gravity="center"
+                android:text="@string/internet_not_available"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 android:visibility="gone" />

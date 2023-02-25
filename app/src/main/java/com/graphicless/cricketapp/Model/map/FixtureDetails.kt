@@ -32,6 +32,7 @@ data class FixtureDetails(
     val secondUmpire: String,
     val tvUmpire: String,
     val referee: String,
-    val status: String
+    val status: String,
+    val manOfTheMatchId: Int
 )
 

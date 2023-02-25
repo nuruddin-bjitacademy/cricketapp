@@ -32,7 +32,7 @@ class LiveScoreRepository {
 
     fun getLiveScoreDetails(fixtureId: Int, apiToken: String): LiveData<LiveScoreDetails.Data?> {
         return liveData {
-            val response = apiService.getLiveScoreDetails(fixtureId, include = "bowling,batting,runs,lineup,balls", apiToken)
+            val response = apiService.getLiveScoreDetails(fixtureId, include = "bowling,batting,runs,lineup,balls,localteam,visitorteam", apiToken)
             emit(response.data)
         }
     }
@@ -52,16 +52,16 @@ object CricketApiClient {
         .add(KotlinJsonAdapterFactory())
         .build()
 
-//    val okHttpClient = OkHttpClient.Builder()
-//        .connectTimeout(30, TimeUnit.SECONDS)
-//        .readTimeout(30, TimeUnit.SECONDS)
-//        .writeTimeout(30, TimeUnit.SECONDS)
-//        .build()
+    private val okHttpClient = OkHttpClient.Builder()
+        .connectTimeout(60, TimeUnit.SECONDS)
+        .readTimeout(60, TimeUnit.SECONDS)
+        .writeTimeout(60, TimeUnit.SECONDS)
+        .build()
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create(moshi))
-//        .client(okHttpClient)
+        .client(okHttpClient)
         .build()
 
     val service: CricketApiService = retrofit.create(CricketApiService::class.java)
@@ -78,7 +78,7 @@ interface CricketApiService {
     @GET("fixtures/{fixture_id}")
     suspend fun getLiveScoreDetails(
         @Path("fixture_id") fixtureId: Int,
-        @Query("include") include: String = "bowling,batting,runs,lineup,balls",
+        @Query("include") include: String = "bowling,batting,runs,lineup,balls,localteam,visitorteam",
         @Query("api_token") apiToken: String = MyConstants.API_KEY
     ): LiveScoreDetails
 

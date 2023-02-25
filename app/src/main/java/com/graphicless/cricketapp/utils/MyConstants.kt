@@ -40,6 +40,8 @@ class MyConstants {
         const val TEAM_DETAILS = "Team Details"
         const val TEAM_RANKINGS = "Team Rankings"
         const val PLAYER_LIST = "Player List"
+        const val UPCOMING = "Upcoming"
+        const val SEASON = "Season: "
 
 
     }

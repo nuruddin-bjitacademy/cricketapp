@@ -31,6 +31,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 private const val TAG = "LiveMatchDetailsInfoFragment"
+
 class LiveMatchDetailsInfoFragment : Fragment() {
 
 
@@ -56,33 +57,45 @@ class LiveMatchDetailsInfoFragment : Fragment() {
 
             val fixtureId: Int = getInt(MyConstants.FIXTURE_ID)
 
-            networkConnectionViewModel.isNetworkAvailable.observe(requireActivity()){isNetworkAvailable ->
-                if(isNetworkAvailable){
+            networkConnectionViewModel.isNetworkAvailable.observe(requireActivity()) { isNetworkAvailable ->
+                if (isNetworkAvailable) {
                     binding.tvNoData.visibility = View.GONE
                     viewModel.launchLiveMatchInfo(fixtureId)
-                    viewModel.liveMatchInfo.observe(requireActivity()){
-                        binding.series.text = it.data?.stage?.name ?: MyConstants.NOT_AVAILABLE
-                        binding.match.text = it.data?.localteam?.code.plus(" vs ").plus(it.data?.visitorteam?.code)
-                        binding.matchNo.text = it.data?.round
-                        binding.localTeam.text = it.data?.localteam?.name ?: MyConstants.NOT_AVAILABLE
-                        binding.visitorTeam.text = it.data?.visitorteam?.name ?: MyConstants.NOT_AVAILABLE
-                        binding.status.text = it.data?.status ?: MyConstants.NOT_AVAILABLE
-                        binding.toss.text = it.data?.tosswon?.name.plus(" chose ").plus(it.data?.elected).plus(" first.")
-                        binding.stadium.text = it.data?.venue?.name ?: MyConstants.NOT_AVAILABLE
-                        binding.location.text = it.data?.venue?.city ?: MyConstants.NOT_AVAILABLE
-                        binding.capacity.text = it.data?.venue?.capacity.toString()
-                        binding.floodLight.text = it.data?.venue?.floodlight.toString()
-                        binding.firstUmpire.text = it.data?.firstumpire?.fullname ?: MyConstants.NOT_AVAILABLE
-                        binding.secondUmpire.text = it.data?.secondumpire?.fullname?: MyConstants.NOT_AVAILABLE
-                        binding.tvUmpire.text = it.data?.tvumpire?.fullname?: MyConstants.NOT_AVAILABLE
-                        binding.referee.text = it.data?.referee?.fullname?: MyConstants.NOT_AVAILABLE
+                    viewModel.liveMatchInfo.observe(requireActivity()) {
+                        if (it != null) {
+                            binding.series.text = it.data?.stage?.name ?: MyConstants.NOT_AVAILABLE
+                            binding.match.text =
+                                it.data?.localteam?.code.plus(" vs ").plus(it.data?.visitorteam?.code)
+                            binding.matchNo.text = it.data?.round
+                            binding.localTeam.text =
+                                it.data?.localteam?.name ?: MyConstants.NOT_AVAILABLE
+                            binding.visitorTeam.text =
+                                it.data?.visitorteam?.name ?: MyConstants.NOT_AVAILABLE
+                            binding.status.text = it.data?.status ?: MyConstants.NOT_AVAILABLE
+                            binding.toss.text =
+                                it.data?.tosswon?.name.plus(" chose ").plus(it.data?.elected)
+                                    .plus(" first.")
+                            binding.stadium.text = it.data?.venue?.name ?: MyConstants.NOT_AVAILABLE
+                            binding.location.text = it.data?.venue?.city ?: MyConstants.NOT_AVAILABLE
+                            binding.capacity.text =
+                                if (it.data?.venue?.capacity != null) it.data?.venue?.capacity.toString() else MyConstants.NOT_AVAILABLE
+                            binding.floodLight.text =
+                                if (it.data?.venue?.floodlight == true) "Yes" else "No"
+                            binding.firstUmpire.text =
+                                it.data?.firstumpire?.fullname ?: MyConstants.NOT_AVAILABLE
+                            binding.secondUmpire.text =
+                                it.data?.secondumpire?.fullname ?: MyConstants.NOT_AVAILABLE
+                            binding.tvUmpire.text =
+                                it.data?.tvumpire?.fullname ?: MyConstants.NOT_AVAILABLE
+                            binding.referee.text =
+                                it.data?.referee?.fullname ?: MyConstants.NOT_AVAILABLE
+                        }
+
                     }
-                }else{
-                    Utils().networkUnavailable()
+                } else {
                     binding.tvNoData.visibility = View.VISIBLE
                 }
             }
-
 
 
         }
@@ -110,8 +123,10 @@ class LiveMatchDetailsInfoFragment : Fragment() {
             }
         }*/
     }
+
     private fun hideBottomNavigationWithAnimation() {
-        activity?.findViewById<BottomNavigationView>(R.id.bottom_nav_menu)?.animate()?.translationY(activity?.findViewById<BottomNavigationView>(R.id.bottom_nav_menu)?.height!!.toFloat())
+        activity?.findViewById<BottomNavigationView>(R.id.bottom_nav_menu)?.animate()
+            ?.translationY(activity?.findViewById<BottomNavigationView>(R.id.bottom_nav_menu)?.height!!.toFloat())
             ?.setInterpolator(AccelerateInterpolator(2f))?.start()
     }
 }

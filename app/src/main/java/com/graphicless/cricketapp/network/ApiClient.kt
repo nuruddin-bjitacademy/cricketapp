@@ -23,7 +23,6 @@ import javax.net.ssl.SSLSession
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
-
 private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
 val okHttpClient = OkHttpClient.Builder()
@@ -31,20 +30,6 @@ val okHttpClient = OkHttpClient.Builder()
     .readTimeout(60, TimeUnit.SECONDS)
     .writeTimeout(60, TimeUnit.SECONDS)
     .build()
-/*private val okHttpClient: OkHttpClient by lazy {
-    val sslContext = SSLContext.getInstance("TLSv1.2")
-    sslContext.init(null, arrayOf<TrustManager>(ApiClient.TrustAllCerts()), SecureRandom())
-    val loggingInterceptor = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
-    OkHttpClient.Builder()
-        .sslSocketFactory(sslContext.socketFactory, ApiClient.TrustAllCerts())
-        .hostnameVerifier { _, _ -> true }
-        .addInterceptor(loggingInterceptor)
-        .build()
-}*/
-
-
 
 private val retrofit: Retrofit by lazy {
     Retrofit.Builder().baseUrl(MyConstants.BASE_URL).addConverterFactory(
@@ -53,16 +38,10 @@ private val retrofit: Retrofit by lazy {
         )
     )
         .client(okHttpClient)
-//        .client(okHttpClient)
         .build()
 }
 
 interface ApiService {
-
-    /*@GET(ApiEnpoints.CONTINENTS)
-    suspend fun fetchContinents(
-        @Query(MyConstants.API_TOKEN) api_token: String = MyConstants.API_KEY
-    ): Continents*/
 
     @GET(ApiEnpoints.COUNTRIES)
     suspend fun fetchCountries(
@@ -262,6 +241,7 @@ interface ApiService {
     fun getTeamRankings(
         @Query("api_token") apiToken: String = MyConstants.API_KEY
     ): Call<TeamRankings>
+
     @GET("fixtures/{fixtureId}")
     fun getLiveMatchInfo(
         @Path("fixtureId") fixtureId: Int,

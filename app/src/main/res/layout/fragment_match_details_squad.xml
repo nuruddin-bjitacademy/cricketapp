@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="@dimen/_10sdp"
     tools:context=".ui.fragment.MatchDetailsSquadFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -67,40 +66,39 @@
             app:layout_constraintTop_toTopOf="@+id/iv_flag_team2"
             tools:text="AUS" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/heading"
+            android:gravity="center"
+            android:padding="@dimen/_5sdp"
+            android:text="@string/playing_xi"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@+id/iv_flag_team2" />
+
+
         <ScrollView
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/iv_flag_team1">
+            app:layout_constraintTop_toBottomOf="@+id/heading"
+            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp">
-
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/heading"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@color/heading"
-                    android:gravity="center"
-                    android:padding="@dimen/_5sdp"
-                    android:text="PLAYING XI"
-                    android:textSize="16sp"
-                    app:layout_constraintTop_toTopOf="parent" />
-
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_one"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/heading" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_player_one"
@@ -127,8 +125,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_two"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -159,8 +157,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_three"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -191,8 +189,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_four"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -223,8 +221,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_five"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -255,8 +253,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_six"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -287,8 +285,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_seven"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -319,8 +317,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_eight"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -351,8 +349,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_nine"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -383,8 +381,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_ten"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -415,8 +413,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_eleven"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -446,12 +444,12 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_one_team_two"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/heading" />
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_player_one_team_two"
@@ -479,8 +477,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_two_team_two"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -512,8 +510,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_three_team_two"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -545,8 +543,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_four_team_two"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -578,8 +576,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_five_team_two"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -611,8 +609,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_six_team_two"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -644,8 +642,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_seven_team_two"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -677,8 +675,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_eight_team_two"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -710,8 +708,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_nine_team_two"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -743,8 +741,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_ten_team_two"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -776,8 +774,8 @@
                 <com.google.android.material.imageview.ShapeableImageView
                     android:id="@+id/iv_player_eleven_team_two"
                     style="@style/RoundedImageViewStyle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintEnd_toEndOf="parent"

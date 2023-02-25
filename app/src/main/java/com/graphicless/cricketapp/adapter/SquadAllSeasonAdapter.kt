@@ -1,16 +1,20 @@
 package com.graphicless.cricketapp.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.ItemSingleRowBinding
 import com.graphicless.cricketapp.Model.TeamSquad
+import com.graphicless.cricketapp.ui.fragment.TeamDetailsContainerFragmentDirections
 import com.graphicless.cricketapp.utils.MyApplication
 import com.graphicless.cricketapp.utils.MyConstants
 
+private const val TAG = "SquadAllSeasonAdapter"
 class SquadAllSeasonAdapter(private var squad: List<TeamSquad.Data.Squad?>?): RecyclerView.Adapter<SquadAllSeasonAdapter.DataViewHolder>() {
 
     class DataViewHolder(view: View): RecyclerView.ViewHolder(view) {
@@ -26,6 +30,19 @@ class SquadAllSeasonAdapter(private var squad: List<TeamSquad.Data.Squad?>?): Re
 
             if (item != null) {
                 Glide.with(MyApplication.instance).load(item.imagePath).into(binding.image)
+            }
+
+            binding.root.setOnClickListener {
+                val direction = item?.id?.let { it1 ->
+                    TeamDetailsContainerFragmentDirections.actionTeamDetailsContainerFragmentToPlayerDetailsFragment(
+                        it1
+                    )
+                }
+                if (direction != null) {
+                    try{ itemView.findNavController().navigate(direction) }catch (exception: Exception){
+                        Log.e(TAG, "Team details to Player details: $exception" )
+                    }
+                }
             }
         }
 

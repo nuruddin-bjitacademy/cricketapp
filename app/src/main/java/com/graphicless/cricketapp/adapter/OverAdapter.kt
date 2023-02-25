@@ -36,6 +36,6 @@ class OverAdapter(private val overs:  Map<Int, List<Double>>, private val balls:
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         val item = overs[position]
-        holder.bind(position, item, balls)
+        holder.bind(overs.size - position -1, item, balls)
     }
 }

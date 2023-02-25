@@ -35,13 +35,13 @@ class TeamMatchesFragment(private val teamId: Int) : Fragment() {
         Log.d(TAG, "team id : $teamId")
         viewModel.launchFixturesByTeamId(teamId)
         viewModel.fixturesByTeamId.observe(requireActivity()){
-            Log.d(TAG, "it: $it")
             val adapter = FixturesByTeamIdAdapter(it.data?.fixtures, requireActivity())
             binding.recyclerView.adapter = adapter
             binding.progressbar.visibility = View.GONE
             if(binding.recyclerView.adapter?.itemCount == 0){
                 binding.tvNoData.visibility = View.VISIBLE
             }
+            viewModel.fixturesByTeamId.removeObservers(requireActivity())
         }
     }
 

@@ -137,6 +137,17 @@
                     app:layout_constraintTop_toBottomOf="@+id/status" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/label_mom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:text="M.O.M"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="@+id/label_high_score"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/toss" />
+
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/label_4s"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -266,6 +277,18 @@
                     app:layout_constraintStart_toEndOf="@id/label_4s"
                     app:layout_constraintTop_toTopOf="@id/label_4s"
                     tools:text="Australia opt to bat" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/mom"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/label_mom"
+                    app:layout_constraintTop_toTopOf="@id/label_mom"
+                    tools:text="Sakib" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -64,6 +64,11 @@ class MatchDetailsInfoFragment : Fragment() {
                     binding.tvUmpire.text = it.tvUmpire
                     binding.referee.text = it.referee
 
+                    viewModel.getPlayerById(it.manOfTheMatchId).observe(viewLifecycleOwner){PlayerAll ->
+                        binding.mom.text = PlayerAll.fullname
+                    }
+
+
                     val dtStart = it.startingAT
                     val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
                     try {

@@ -27,6 +27,15 @@
     <string name="no_data_available">No Data Available</string>
     <string name="internet_not_available">Internet Not Available</string>
     <string name="live">Live</string>
+    <string name="playing_xi">PLAYING XI</string>
+    <string name="years">years</string>
+    <string name="space"> </string>
+    <string name="teams">Teams</string>
+    <string name="career">Career</string>
+    <string name="all_season">All Season</string>
+    <string name="current_season">Current Season</string>
+    <string name="calendar">Calendar</string>
+
     <!--    <string name="current">current</string>-->
     <!--    <string name="all">all</string>-->
     <!--    <string name="career">career</string>-->
