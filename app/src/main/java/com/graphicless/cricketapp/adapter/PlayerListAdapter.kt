@@ -10,13 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.ItemSingleRowBinding
-import com.graphicless.cricketapp.Model.PlayerAll
+import com.graphicless.cricketapp.model.PlayerAll
 import com.graphicless.cricketapp.ui.fragment.PlayerListFragmentDirections
 import com.graphicless.cricketapp.utils.MyApplication
 import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
-class PlayerListAdapter(private val data: List<PlayerAll.Data>, private val lifecycleOwner: LifecycleOwner) :
+class PlayerListAdapter(
+    private val data: List<PlayerAll.Data>,
+    private val lifecycleOwner: LifecycleOwner
+) :
     RecyclerView.Adapter<PlayerListAdapter.DataViewHolder>() {
     class DataViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -30,11 +33,13 @@ class PlayerListAdapter(private val data: List<PlayerAll.Data>, private val life
             binding.country.text = item.position?.name ?: MyConstants.NOT_AVAILABLE
 
             binding.root.setOnClickListener {
-                val direction = PlayerListFragmentDirections.actionPlayerListFragmentToPlayerDetailsFragment(item.id)
+                val direction =
+                    PlayerListFragmentDirections.actionPlayerListFragmentToPlayerDetailsFragment(
+                        item.id
+                    )
                 itemView.findNavController().navigate(direction)
             }
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {

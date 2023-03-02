@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.ItemTeamRankingBinding
-import com.graphicless.cricketapp.Model.TeamRankingsLocal
+import com.graphicless.cricketapp.model.TeamRankingsLocal
 import com.graphicless.cricketapp.utils.MyApplication
 
-class TeamRankingAdapter(private val teamRankings: List<TeamRankingsLocal>) : RecyclerView.Adapter<TeamRankingAdapter.DataViewHolder>() {
-    class DataViewHolder(view: View): RecyclerView.ViewHolder(view) {
+class TeamRankingAdapter(private val teamRankings: List<TeamRankingsLocal>) :
+    RecyclerView.Adapter<TeamRankingAdapter.DataViewHolder>() {
+    class DataViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val binding = ItemTeamRankingBinding.bind(view)
 
@@ -24,13 +25,12 @@ class TeamRankingAdapter(private val teamRankings: List<TeamRankingsLocal>) : Re
             binding.ratings.text = item.ratings.toString()
 
             Glide.with(MyApplication.instance).load(item.flag).into(binding.flag)
-
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
-        val layout = LayoutInflater.from(parent.context).inflate(R.layout.item_team_ranking, parent, false)
+        val layout =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_team_ranking, parent, false)
         return DataViewHolder(layout)
     }
 

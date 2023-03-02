@@ -1,9 +1,7 @@
 package com.graphicless.cricketapp.adapter
 
-import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.app.Application
-import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -14,11 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.ItemMatchBinding
-import com.graphicless.cricketapp.Model.LiveScoresIncludeRuns
+import com.graphicless.cricketapp.model.LiveScoresIncludeRuns
 import com.graphicless.cricketapp.ui.fragment.HomeFragmentDirections
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
 private const val TAG = "LiveScoreAdapter"
+
 class LiveScoreAdapter(
     private val liveMatches: List<LiveScoresIncludeRuns.Data?>?,
     private val lifecycleOwner: LifecycleOwner
@@ -30,8 +29,6 @@ class LiveScoreAdapter(
 
         fun bind(item: LiveScoresIncludeRuns.Data, lifecycleOwner: LifecycleOwner) {
 
-            Log.d(TAG, "item: $item")
-//            val livePrefix = "\u2022"
             binding.tvLive.visibility = View.VISIBLE
 
             // Set up a value animator to animate the line's width
@@ -111,7 +108,7 @@ class LiveScoreAdapter(
                     }
                 }
             } catch (exception: Exception) {
-                Log.e(TAG, "localteamId: $exception")
+                Log.e(TAG, "Local team Id: $exception")
             }
 
             try {
@@ -124,7 +121,7 @@ class LiveScoreAdapter(
                     }
                 }
             } catch (exception: Exception) {
-                Log.e(TAG, "visitorteamId: $exception")
+                Log.e(TAG, "Visitor team Id: $exception")
             }
 
             try {
@@ -138,14 +135,11 @@ class LiveScoreAdapter(
                     Log.d(TAG, "fixture id : $it1")
                     HomeFragmentDirections.actionHomeFragmentToLiveMatchDetailsContainerFragment(it1)
                 }
-//                val extras = FragmentNavigatorExtras(binding.root to "shared_element_container")
                 if (direction != null) {
                     itemView.findNavController().navigate(direction)
                 }
             }
-
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {

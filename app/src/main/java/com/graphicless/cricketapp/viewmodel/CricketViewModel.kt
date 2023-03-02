@@ -11,17 +11,14 @@ import com.graphicless.cricketapp.database.LocalDatabase
 import com.graphicless.cricketapp.network.CricketApi
 import com.graphicless.cricketapp.repository.CricketRepository
 import com.graphicless.cricketapp.repository.LiveScoreRepository
-import com.graphicless.cricketapp.Model.*
-import com.graphicless.cricketapp.Model.joined.FixtureAndTeam
-import com.graphicless.cricketapp.Model.map.FixtureDetails
-import com.graphicless.cricketapp.Model.map.StageByLeague
+import com.graphicless.cricketapp.model.*
+import com.graphicless.cricketapp.model.map.FixtureAndTeam
+import com.graphicless.cricketapp.model.map.FixtureDetails
+import com.graphicless.cricketapp.model.map.StageByLeague
 import com.graphicless.cricketapp.utils.MyConstants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.await
 
 private const val TAG = "CricketViewModel"
@@ -83,25 +80,8 @@ class CricketViewModel(application: Application) : AndroidViewModel(application)
         Log.d(TAG, "insertPlayers: called")
         viewModelScope.launch(Dispatchers.IO) {
             try {
-//                var retryCount = 0
-//                var players: List<PlayerAll.Data?>? = null
-                /*while (retryCount < 5) {
-                    try {
-                        players = CricketApi.retrofitService.fetchPlayers().data
-                        Log.d(TAG, "insertPlayers: players: $players")
-                        break
-                    } catch (exception: Exception) {
-                        if (exception is SocketTimeoutException && retryCount < 5) {
-                            retryCount++
-                            delay(2000)
-                        } else {
-                            Log.e(TAG, "insertPlayers: $exception")
-                            break
-                        }
-                    }
-                }*/
                 for(i in 1..4){
-                    val players: List<PlayerAll.Data?>? = CricketApi.retrofitService.fetchPlayers(i).data
+                    val players: List<PlayerAll.Data?> = CricketApi.retrofitService.fetchPlayers(i).data
                     repository.insertPlayers(players)
                 }
             } catch (exception: Exception) {
@@ -109,18 +89,6 @@ class CricketViewModel(application: Application) : AndroidViewModel(application)
             }
         }
     }
-
-    /*fun insertCurrentPlayers(teamId: Int){
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val players = CricketApi.retrofitService.fetchCurrentPlayers(teamId).data?.squad
-                Log.d(TAG, "insertCurrentPlayers: $players")
-                repository.insertCurrentPlayer(players)
-            } catch (exception: Exception) {
-                Log.e(TAG, "insertCurrentPlayers: $exception")
-            }
-        }
-    }*/
 
 
     fun insertTeamRankings(){
@@ -183,70 +151,6 @@ class CricketViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    /*fun insertPreviousFixtures() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val totalPage = CricketApi.retrofitService.fetchFixtures().meta?.lastPage
-                Log.d(TAG, "total page: $totalPage")
-
-                if (totalPage != null) {
-                    repository.deleteFixture()
-                    for (page in totalPage downTo 1) {
-                        Log.d(TAG, "page: $page")
-                        val fixtures: List<FixturesIncludeRuns.Data>? =
-                            CricketApi.retrofitService.fetchFixturesByPage(page).data
-                        if (fixtures != null) {
-                            repository.insertFixture(fixtures)
-                        }
-                        if (fixtures != null) {
-                            repository.deleteRun()
-                            for (data in fixtures.size - 1 downTo 0) {
-                                val runs: List<FixturesIncludeRuns.Data.Run>? = fixtures[data].runs
-                                if (runs != null) {
-                                    repository.insertRun(runs)
-                                }
-                            }
-                        }
-                    }
-                }
-            } catch (exception: Exception) {
-                Log.e(TAG, "insertFixtures: $exception")
-            }
-        }
-    }
-
-    fun insertUpcomingFixtures() {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val totalPage = CricketApi.retrofitService.fetchUpcomingFixtures().meta?.lastPage
-                Log.d(TAG, "total page: $totalPage")
-
-                if (totalPage != null) {
-//                    repository.deleteFixture()
-                    for (page in totalPage downTo 1) {
-                        Log.d(TAG, "page: $page")
-                        val fixtures: List<FixturesIncludeRuns.Data>? =
-                            CricketApi.retrofitService.fetchUpcomingFixturesByPage(page).data
-                        if (fixtures != null) {
-                            repository.insertFixture(fixtures)
-                        }
-                        if (fixtures != null) {
-//                            repository.deleteRun()
-                            for (data in fixtures.size - 1 downTo 0) {
-                                val runs: List<FixturesIncludeRuns.Data.Run>? = fixtures[data].runs
-                                if (runs != null) {
-                                    repository.insertRun(runs)
-                                }
-                            }
-                        }
-                    }
-                }
-            } catch (exception: Exception) {
-                Log.e(TAG, "insertFixtures: $exception")
-            }
-        }
-    }*/
-
 
     private val _liveScores = MutableLiveData<List<LiveScoresIncludeRuns.Data?>?>()
     val liveScores: LiveData<List<LiveScoresIncludeRuns.Data?>?>
@@ -285,27 +189,6 @@ class CricketViewModel(application: Application) : AndroidViewModel(application)
     private suspend fun getLiveMatchInfo(fixtureId: Int): LiveMatchInfo {
         return CricketApi.retrofitService.getLiveMatchInfo(fixtureId).await()
     }
-
-    /*private val _liveMatchInfo = MutableLiveData<LiveMatchInfo?>()
-    val liveMatchInfo: LiveData<LiveMatchInfo?> = _liveMatchInfo
-
-    fun launchLiveMatchInfo(fixtureId: Int) {
-        viewModelScope.launch {
-            try {
-                val call = CricketApi.retrofitService.getLiveMatchInfo(fixtureId)
-                val response = call.execute()
-                if (response.isSuccessful) {
-                    val liveMatchInfo: LiveMatchInfo? = response.body()
-                    _liveMatchInfo.value = liveMatchInfo
-                } else {
-                    Log.e(TAG, "Error loading live match info: ${response.code()}")
-                }
-            } catch (e: Exception) {
-                Log.e(TAG, "Error loading live match info: $e")
-            }
-        }
-    }*/
-
 
 
     fun insertTeams() {
@@ -396,32 +279,6 @@ class CricketViewModel(application: Application) : AndroidViewModel(application)
             withContext(Dispatchers.IO) {
                 val fixtureScoreCard = repository.getFixtureScoreCard(fixtureId)
                 _fixtureScoreCard.postValue(fixtureScoreCard)
-            }
-        }
-    }
-    fun launchFixtureScoreCard256(fixtureId: Int) {
-        viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-//                val fixtureScoreCard = repository.getFixtureScoreCard526(fixtureId)
-//                _fixtureScoreCard.postValue(fixtureScoreCard)
-
-                val call = CricketApi.retrofitService.getFixtureScoreCard526(fixtureId)
-                call.enqueue(object : Callback<FixtureDetailsScoreCard> {
-                    override fun onResponse(call: Call<FixtureDetailsScoreCard>, response: Response<FixtureDetailsScoreCard>) {
-                        if (response.isSuccessful) {
-                            val fixtureDetails = response.body()
-                            // Handle the fixture details here
-                            Log.d(TAG, "onResponse: $fixtureDetails")
-                        } else {
-                            // Handle the error here
-                        }
-                    }
-
-                    override fun onFailure(call: Call<FixtureDetailsScoreCard>, t: Throwable) {
-                        // Handle the failure here
-                    }
-                })
-
             }
         }
     }

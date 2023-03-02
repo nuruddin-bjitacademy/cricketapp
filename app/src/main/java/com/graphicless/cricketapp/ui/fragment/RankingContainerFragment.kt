@@ -6,24 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
-import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.adapter.ViewPagerAdapter
 import com.graphicless.cricketapp.databinding.FragmentRankingContainerBinding
 import com.graphicless.cricketapp.utils.MyConstants
-import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
 class RankingContainerFragment : Fragment() {
 
-
     private lateinit var _binding: FragmentRankingContainerBinding
     private val binding get() = _binding
-
-    //    private val args: DetailsFragmentArgs by navArgs()
-    private val viewModel: CricketViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +31,7 @@ class RankingContainerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentRankingContainerBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -53,7 +46,8 @@ class RankingContainerFragment : Fragment() {
                     val fragmentList: List<Fragment> = listOf(RankingFragment(), RankingFragment())
                     val tabNameList: List<String> = listOf("Men", "Women")
 
-                    val viewPagerAdapter = ViewPagerAdapter(this@RankingContainerFragment, fragmentList, null,"odi")
+                    val viewPagerAdapter =
+                        ViewPagerAdapter(this@RankingContainerFragment, fragmentList, null, "odi")
 
                     binding.viewPager.adapter = viewPagerAdapter
                     TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
@@ -64,7 +58,8 @@ class RankingContainerFragment : Fragment() {
                     val fragmentList: List<Fragment> = listOf(RankingFragment(), RankingFragment())
                     val tabNameList: List<String> = listOf("Men", "Women")
 
-                    val viewPagerAdapter = ViewPagerAdapter(this@RankingContainerFragment, fragmentList, null,"t20")
+                    val viewPagerAdapter =
+                        ViewPagerAdapter(this@RankingContainerFragment, fragmentList, null, "t20")
 
                     binding.viewPager.adapter = viewPagerAdapter
                     TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
@@ -75,7 +70,8 @@ class RankingContainerFragment : Fragment() {
                     val fragmentList: List<Fragment> = listOf(RankingFragment())
                     val tabNameList: List<String> = listOf("Men")
 
-                    val viewPagerAdapter = ViewPagerAdapter(this@RankingContainerFragment, fragmentList, null,"test")
+                    val viewPagerAdapter =
+                        ViewPagerAdapter(this@RankingContainerFragment, fragmentList, null, "test")
 
                     binding.viewPager.adapter = viewPagerAdapter
                     TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
@@ -85,10 +81,4 @@ class RankingContainerFragment : Fragment() {
             }
         }
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding.viewPager.adapter = null
-    }
-
 }

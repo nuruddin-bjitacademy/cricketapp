@@ -19,6 +19,9 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.google.android.material.snackbar.Snackbar
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.ActivityMainBinding
@@ -26,11 +29,13 @@ import com.graphicless.cricketapp.network.NetworkConnectivityCallback
 import com.graphicless.cricketapp.network.NetworkConnectivityChecker
 import com.graphicless.cricketapp.utils.NotificationReceiver
 import com.graphicless.cricketapp.utils.SharedPreference
+import com.graphicless.cricketapp.utils.UpdateDataWorker
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 import com.graphicless.cricketapp.viewmodel.NetworkConnectionViewModel
 import kotlinx.coroutines.*
 import java.time.*
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 
 private const val TAG = "MainActivity"
@@ -40,9 +45,6 @@ class MainActivity : AppCompatActivity(), NetworkConnectivityCallback {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: CricketViewModel by viewModels()
 
-    //    private val viewModel: CricketViewModel by lazy {
-//    ViewModelProvider(this)[CricketViewModel::class.java]
-//    }
     private val netWorkConnectionViewModel: NetworkConnectionViewModel by viewModels()
     private lateinit var navController: NavController
 
@@ -81,7 +83,6 @@ class MainActivity : AppCompatActivity(), NetworkConnectivityCallback {
             sharedPreference.save("data_inserted", true)
         }
 
-
         // Get the height of the BottomNavigationView
         bottomNavigationViewHeight = binding.bottomNavMenu.height
 
@@ -107,7 +108,7 @@ class MainActivity : AppCompatActivity(), NetworkConnectivityCallback {
         networkConnectivityChecker.start()
 
 
-        /*// Update data 24 hours internal
+        // Update data 24 hours internal
         val updateDataWorkRequest = PeriodicWorkRequest.Builder(
             UpdateDataWorker::class.java,
             24,
@@ -118,7 +119,7 @@ class MainActivity : AppCompatActivity(), NetworkConnectivityCallback {
             "update_data",
             ExistingPeriodicWorkPolicy.KEEP,
             updateDataWorkRequest
-        )*/
+        )
 
         viewModel.getAllUpcomingFixture().observe(this) {
             // Get the list of matches from your Room database
@@ -154,10 +155,7 @@ class MainActivity : AppCompatActivity(), NetworkConnectivityCallback {
                     )
                 }
             }
-
         }
-
-
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -165,9 +163,6 @@ class MainActivity : AppCompatActivity(), NetworkConnectivityCallback {
     }
 
     private fun insertDataFromApiToLocalDatabase() {
-        Log.d(TAG, "insertDataFromApiToLocalDatabase: called")
-//        val apiTask = ApiTask()
-//        apiTask.execute()
         try {
             lifecycleScope.launch(CoroutineExceptionHandler { _, ex ->
                 Log.e(TAG, "insertDataFromApiToLocalDatabase: coroutine exception handler: $ex")
@@ -182,11 +177,9 @@ class MainActivity : AppCompatActivity(), NetworkConnectivityCallback {
                     viewModel.insertSeasons()
                     viewModel.insertOfficials()
                     viewModel.insertFixtures()
-//                    viewModel.insertUpcomingFixtures()
-//                    viewModel.insertPreviousFixtures()
                     viewModel.insertPlayers()
                 } catch (exception: Exception) {
-                    Log.e(TAG, "insertDataFromApiToLocalDatabase: innner: $exception")
+                    Log.e(TAG, "insertDataFromApiToLocalDatabase: inner: $exception")
                 }
 
             }

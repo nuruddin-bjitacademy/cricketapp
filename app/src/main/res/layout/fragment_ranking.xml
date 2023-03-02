@@ -7,35 +7,33 @@
     tools:context=".ui.fragment.RankingFragment">
 
     <ProgressBar
+        android:id="@+id/progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:id="@+id/progressbar"
         android:elevation="@dimen/_10sdp"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_no_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:elevation="@dimen/_10sdp"
+        android:gravity="center"
         android:text="@string/no_data_available"
         android:textSize="25sp"
         android:textStyle="bold"
-        android:id="@+id/tv_no_data"
-        android:elevation="@dimen/_10sdp"
-        android:gravity="center"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/batsman"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_5sdp"
-        app:cardBackgroundColor="@color/card_background"
         android:elevation="0dp"
+        app:cardBackgroundColor="@color/card_background"
         app:cardCornerRadius="@dimen/_2sdp"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -57,48 +55,48 @@
                     <TextView
                         android:layout_width="@dimen/_24sdp"
                         android:layout_height="wrap_content"
-                        android:text="@string/flag"
                         android:gravity="center"
+                        android:text="@string/flag"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
+                        android:gravity="center"
                         android:text="@string/name"
-                        android:gravity="center"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:text="@string/rank"
-                        android:gravity="center"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:text="@string/match"
-                        android:gravity="center"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:text="@string/point"
-                        android:gravity="center"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/rating"
                         android:gravity="end"
+                        android:text="@string/rating"
                         android:textStyle="bold" />
                 </TableRow>
             </TableLayout>
@@ -107,15 +105,13 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item_team_ranking"
+                android:padding="@dimen/_10sdp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:padding="@dimen/_10sdp" />
+                tools:listitem="@layout/item_team_ranking" />
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -69,6 +69,7 @@ class MatchDetailsLiveFragment : Fragment() {
                     handler.removeCallbacks(runnable)
                     binding.body.visibility = View.GONE
                     binding.internetUnavailable.visibility = View.VISIBLE
+                    binding.progressbar?.visibility = View.GONE
                 } else {
                     try {
                         if (fixtureId != null)
@@ -79,18 +80,15 @@ class MatchDetailsLiveFragment : Fragment() {
                     binding.internetUnavailable.visibility = View.GONE
                 }
             }
-
         }
-
     }
-
 
     private val runnable = object : Runnable {
         override fun run() {
 
             try {
                 liveDetails(fixtureId!!)
-                count ++
+                count++
                 // Post the runnable again after the delay
                 handler.postDelayed(this, delay.toLong())
             } catch (exception: Exception) {
@@ -101,21 +99,24 @@ class MatchDetailsLiveFragment : Fragment() {
 
     private fun liveDetails(fixtureId: Int) {
 
-
         try {
             viewModel.liveDetails(fixtureId).observe(requireActivity()) { it ->
                 Log.d(TAG, "live score details: $it")
 
                 if (it != null) {
                     binding.tvRound?.text = it.round
-                    for(i in it.runs?.indices!!){
-                        if(it.runs!![i]?.teamId == it.localteamId){
-                            binding.tvScoreTeam1?.text = it.runs!![i]?.score.toString().plus(" - ").plus(
-                                it.runs!![i]?.wickets)
+                    for (i in it.runs?.indices!!) {
+                        if (it.runs!![i]?.teamId == it.localteamId) {
+                            binding.tvScoreTeam1?.text =
+                                it.runs!![i]?.score.toString().plus(" - ").plus(
+                                    it.runs!![i]?.wickets
+                                )
                             binding.tvOversTeam1?.text = it.runs!![i]?.overs.toString()
-                        }else{
-                            binding.tvScoreTeam2?.text = it.runs!![i]?.score.toString().plus(" - ").plus(
-                                it.runs!![i]?.wickets)
+                        } else {
+                            binding.tvScoreTeam2?.text =
+                                it.runs!![i]?.score.toString().plus(" - ").plus(
+                                    it.runs!![i]?.wickets
+                                )
                             binding.tvOversTeam2?.text = it.runs!![i]?.overs.toString()
                         }
                     }
@@ -135,10 +136,6 @@ class MatchDetailsLiveFragment : Fragment() {
                     binding.progressbar?.visibility = View.GONE
                     binding.body.visibility = View.VISIBLE
                 }
-
-
-
-
 
                 var currentBattingTeam = "S1"
                 val currentBatsman: MutableList<Int> = mutableListOf()
@@ -173,14 +170,13 @@ class MatchDetailsLiveFragment : Fragment() {
                     Log.e(TAG, "liveDetails: batting is null or empty")
                 }
 
-                if(count % 2 == 0){
-                    binding.cvCurrentPartnership.animate().alpha(0f).setDuration(500).withEndAction {
-                        binding.cvCurrentPartnership.visibility = View.INVISIBLE
-                    }
+                if (count % 2 == 0) {
+                    binding.cvCurrentPartnership.animate().alpha(0f).setDuration(500)
+                        .withEndAction {
+                            binding.cvCurrentPartnership.visibility = View.INVISIBLE
+                        }
                     binding.cvWinningPrediction.visibility = View.VISIBLE
                     binding.cvWinningPrediction.animate().alpha(1f).duration = 500
-//                    binding.cvCurrentPartnership.visibility = View.INVISIBLE
-//                    binding.cvWinningPrediction.visibility = View.VISIBLE
 
                     if (it != null) {
                         binding.tvTeam1?.text = it.localteam?.code
@@ -225,7 +221,10 @@ class MatchDetailsLiveFragment : Fragment() {
 
                     // If there is no data of previous winning
                     if (confidenceLevelTeamOne == 0 && confidenceLevelTeamTwo == 0) {
-                        Log.d(TAG, "$winningPercentageTeamOne, $winningPercentageTeamTwo, $drawPercentage")
+                        Log.d(
+                            TAG,
+                            "$winningPercentageTeamOne, $winningPercentageTeamTwo, $drawPercentage"
+                        )
                         winningPercentageTeamOne = 50
                         winningPercentageTeamTwo = 50
                         drawPercentage = 0
@@ -234,6 +233,7 @@ class MatchDetailsLiveFragment : Fragment() {
                         binding.winningPercentageTeamB.text =
                             winningPercentageTeamTwo.toString().plus("%")
                         binding.winningPercentageDraw.text = drawPercentage.toString().plus("%")
+
                         // Get the current layout params for the winning color bars
                         val teamAColorBarLayoutParams =
                             binding.teamAColorBar.layoutParams as LinearLayout.LayoutParams
@@ -262,17 +262,32 @@ class MatchDetailsLiveFragment : Fragment() {
                         binding.winningPercentageTeamB.text =
                             winningPercentageTeamTwo.toString().plus("%")
                         binding.winningPercentageDraw.text = drawPercentage.toString().plus("%")
+
+                        // Get the current layout params for the winning color bars
+                        val teamAColorBarLayoutParams =
+                            binding.teamAColorBar.layoutParams as LinearLayout.LayoutParams
+                        val teamBColorBarLayoutParams =
+                            binding.teamBColorBar.layoutParams as LinearLayout.LayoutParams
+                        val drawColorBarLayoutParams =
+                            binding.drawColorBar.layoutParams as LinearLayout.LayoutParams
+
+                        // Update the layout params for the winning color bars
+                        teamAColorBarLayoutParams.weight = winningPercentageTeamOne.toFloat()
+                        teamBColorBarLayoutParams.weight = winningPercentageTeamTwo.toFloat()
+                        drawColorBarLayoutParams.weight = drawPercentage.toFloat()
+
+                        // Set the updated layout params for the winning color bars
+                        binding.teamAColorBar.layoutParams = teamAColorBarLayoutParams
+                        binding.teamBColorBar.layoutParams = teamBColorBarLayoutParams
+                        binding.drawColorBar.layoutParams = drawColorBarLayoutParams
                     }
-                }
-                else{
+                } else {
 
                     binding.cvWinningPrediction.animate().alpha(0f).setDuration(500).withEndAction {
                         binding.cvWinningPrediction.visibility = View.INVISIBLE
                     }
                     binding.cvCurrentPartnership.visibility = View.VISIBLE
                     binding.cvCurrentPartnership.animate().alpha(1f).duration = 500
-//                    binding.cvCurrentPartnership.visibility = View.VISIBLE
-//                    binding.cvWinningPrediction.visibility = View.INVISIBLE
 
                     var currentTotalScore = 0
                     try {
@@ -288,7 +303,8 @@ class MatchDetailsLiveFragment : Fragment() {
                     if (it != null) {
                         if (it.batting != null) {
                             try {
-                                lastBatsmanScore = it.batting!![it.batting?.size?.minus(1)!!]?.score!!
+                                lastBatsmanScore =
+                                    it.batting!![it.batting?.size?.minus(1)!!]?.score!!
                             } catch (exception: Exception) {
                                 Log.e(TAG, "lastBatsmanScore: $exception")
                             }
@@ -368,7 +384,8 @@ class MatchDetailsLiveFragment : Fragment() {
                         batsmanBRuns.toString().plus(" (").plus(batsmanBBalls.toString()).plus(")")
 
                     binding.partnershipTotalRun.text =
-                        totalPartnershipRuns.toString().plus(" (").plus((totalPartnershipBalls).toString()).plus(")")
+                        totalPartnershipRuns.toString().plus(" (")
+                            .plus((totalPartnershipBalls).toString()).plus(")")
 
                     // Calculate the total runs and the percentage of runs for each batsman
                     var batsmanAPercentage = 0
@@ -394,10 +411,6 @@ class MatchDetailsLiveFragment : Fragment() {
                     binding.batsmanBColorBar.layoutParams = batsmanBColorBarLayoutParams
 
                 }
-
-
-                ///////////////////////////////////////////////////////////////////////
-
 
                 try {
                     val batsManOneId = it?.batting!![currentBatsman[0]]?.playerId
@@ -433,7 +446,6 @@ class MatchDetailsLiveFragment : Fragment() {
                     binding.batsmanTwoFours.text = batsManTwoFours.toString()
                     binding.batsmanTwoSixes.text = batsManTwoSixes.toString()
                     binding.batsmanTwoStrikeRate.text = batsManTwoStrikeRate.toString()
-
 
                     if (batsManTwoId != null) {
                         viewModel.launchPlayer2(batsManTwoId)
@@ -500,13 +512,11 @@ class MatchDetailsLiveFragment : Fragment() {
                 binding.bowlerWickets.text = bowlerWickets.toString()
                 binding.bowlerEconomyRate.text = bowlerEconomyRate.toString()
 
-                //////////////////////////////////////////////////////////////////////////////
-
                 var currentRunRate = 0
                 /// It'll ensure that divided by zero will never happen
                 if (it != null) {
-                    if (it.balls?.size!! > 0){
-                        val totalTeamRun = it.runs?.get(it.runs!!.size-1)?.score
+                    if (it.balls?.size!! > 0) {
+                        val totalTeamRun = it.runs?.get(it.runs!!.size - 1)?.score
                         if (totalTeamRun != null) {
                             currentRunRate = (totalTeamRun / (it.balls?.size ?: 1)) * 6
                         }
@@ -517,7 +527,8 @@ class MatchDetailsLiveFragment : Fragment() {
 
                 binding.tvCrrValue.text = currentRunRate.toString()
                 binding.tvPartnershipValue.text =
-                    totalPartnershipRuns.toString().plus(" (").plus((totalPartnershipBalls).toString()).plus(")")
+                    totalPartnershipRuns.toString().plus(" (")
+                        .plus((totalPartnershipBalls).toString()).plus(")")
                 if (it != null) {
                     for (i in it.batting!!.size - 1 downTo 0) {
                         if (it.batting!![i]?.fowScore != 0) {
@@ -526,20 +537,11 @@ class MatchDetailsLiveFragment : Fragment() {
                         }
                     }
                 }
-
-
             }
         } catch (exception: java.lang.Exception) {
             Log.e(TAG, "liveDetails: $exception")
         }
     }
-
-
-    /*override fun onResume() {
-        super.onResume()
-        if (fixtureId != null)
-            handler.postDelayed(runnable, 0)
-    }*/
 
     override fun onPause() {
         super.onPause()

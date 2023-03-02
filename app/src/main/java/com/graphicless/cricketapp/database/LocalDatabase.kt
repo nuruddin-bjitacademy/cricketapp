@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.graphicless.cricketapp.Model.*
+import com.graphicless.cricketapp.model.*
 import com.graphicless.cricketapp.utils.TypeConverter
 
 @Database(
@@ -14,7 +14,6 @@ import com.graphicless.cricketapp.utils.TypeConverter
     exportSchema = false
 )
 @TypeConverters(TypeConverter::class)
-//@TypeConverters(Converters::class)
 abstract class LocalDatabase : RoomDatabase() {
 
     abstract fun cricketDao(): CricketDao

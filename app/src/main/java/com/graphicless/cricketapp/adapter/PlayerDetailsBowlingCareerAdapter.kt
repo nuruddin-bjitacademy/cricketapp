@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.BowlingCareerBinding
-import com.graphicless.cricketapp.Model.PlayerDetailsBowling
+import com.graphicless.cricketapp.model.PlayerDetailsBowling
+import com.graphicless.cricketapp.utils.SharedPreference
 import java.util.*
 
 class PlayerDetailsBowlingCareerAdapter(
@@ -15,15 +16,20 @@ class PlayerDetailsBowlingCareerAdapter(
     private val careerBowlingList: MutableList<PlayerDetailsBowling>
 ) : RecyclerView.Adapter<PlayerDetailsBowlingCareerAdapter.DataViewHolder>() {
 
-    class DataViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    class DataViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val binding = BowlingCareerBinding.bind(view)
+        private val currentTheme = SharedPreference().getString("theme")
 
         fun bind(itemType: String, item: PlayerDetailsBowling) {
 
-            binding.labelType.text = itemType
-            binding.root.setBackgroundColor(getRandomLightColor())
+            if (currentTheme != "light") {
+                binding.root.setBackgroundColor(getRandomLightColor(0))
+            } else {
+                binding.root.setBackgroundColor(getRandomLightColor(200))
+            }
 
+            binding.labelType.text = itemType
             binding.matches.text = item.matches.toString()
             binding.overs.text = item.overs.toString()
             binding.innings.text = item.innings.toString()
@@ -39,17 +45,19 @@ class PlayerDetailsBowlingCareerAdapter(
             binding.fiveWickets.text = item.fiveWickets.toString()
             binding.tenWickets.text = item.tenWickets.toString()
         }
-        private fun getRandomLightColor(): Int {
+
+        private fun getRandomLightColor(extra: Int): Int {
             val random = Random()
-            val red = random.nextInt(56) + 200 // 200-255
-            val green = random.nextInt(56) + 200 // 200-255
-            val blue = random.nextInt(56) + 200 // 200-255
+            val red = random.nextInt(56) + extra
+            val green = random.nextInt(56) + extra
+            val blue = random.nextInt(56) + extra
             return Color.rgb(red, green, blue)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
-        val layout = LayoutInflater.from(parent.context).inflate(R.layout.bowling_career, parent, false )
+        val layout =
+            LayoutInflater.from(parent.context).inflate(R.layout.bowling_career, parent, false)
         return DataViewHolder(layout)
     }
 
@@ -62,6 +70,4 @@ class PlayerDetailsBowlingCareerAdapter(
         val itemList = careerBowlingList[position]
         holder.bind(itemType, itemList)
     }
-
-
 }

@@ -6,24 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
-import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.adapter.ViewPagerAdapter
-import com.graphicless.cricketapp.databinding.FragmentMoreBinding
 import com.graphicless.cricketapp.databinding.FragmentTeamContainerBinding
 import com.graphicless.cricketapp.utils.MyConstants
-import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
 class TeamContainerFragment : Fragment() {
     private lateinit var _binding: FragmentTeamContainerBinding
     private val binding get() = _binding
-
-    //    private val args: DetailsFragmentArgs by navArgs()
-    private val viewModel: CricketViewModel by viewModels()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +30,7 @@ class TeamContainerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentTeamContainerBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -48,16 +40,12 @@ class TeamContainerFragment : Fragment() {
         val fragmentList: List<Fragment> = listOf(TeamFragment(), TeamFragment())
         val tabNameList: List<String> = listOf("National", "Local")
 
-        val viewPagerAdapter = ViewPagerAdapter(this@TeamContainerFragment, fragmentList, null,"odi")
+        val viewPagerAdapter =
+            ViewPagerAdapter(this@TeamContainerFragment, fragmentList, null, "odi")
 
         binding.viewPager.adapter = viewPagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = tabNameList[position]
         }.attach()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding.viewPager.adapter = null
     }
 }

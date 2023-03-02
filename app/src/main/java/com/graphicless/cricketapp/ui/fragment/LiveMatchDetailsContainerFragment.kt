@@ -13,7 +13,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.android.material.transition.MaterialElevationScale
-import com.graphicless.cricketapp.Model.LiveMatchInfo
 import com.graphicless.cricketapp.adapter.ViewPagerAdapter
 import com.graphicless.cricketapp.databinding.FragmentMatchDetailsContainerBinding
 import com.graphicless.cricketapp.utils.MyConstants
@@ -64,17 +63,8 @@ class LiveMatchDetailsContainerFragment : Fragment() {
                 TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
                     tab.text = tabNameList[position]
                 }.attach()
-            }else{
-
             }
         }
-
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding.viewPager.adapter = null
     }
 
 }

@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.ItemMatchBinding
-import com.graphicless.cricketapp.Model.FixturesIncludeRuns
-import com.graphicless.cricketapp.Model.joined.FixtureAndTeam
+import com.graphicless.cricketapp.model.FixturesIncludeRuns
+import com.graphicless.cricketapp.model.map.FixtureAndTeam
 import com.graphicless.cricketapp.ui.fragment.MatchSummaryContainerOuterFragmentDirections
 import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
@@ -84,23 +84,24 @@ class MatchAdapter(
                 Log.d(TAG, "teamOneRun: $teamOneRun")
                 Log.d(TAG, "teamTwoRun: $teamTwoRun")
 
-                if (teamOneRun != null){
-                    binding.tvScoreTeam1.text = teamOneRun.score.toString().plus("-").plus(it[0].wickets)
+                if (teamOneRun != null) {
+                    binding.tvScoreTeam1.text =
+                        teamOneRun.score.toString().plus("-").plus(it[0].wickets)
                     binding.tvOversTeam1.text = teamOneRun.overs.toString().plus(" overs")
-                }else {
+                } else {
                     binding.tvScoreTeam1.visibility = View.GONE
                     binding.tvOversTeam1.visibility = View.GONE
                     binding.tvNotAvailableTeam1.visibility = View.VISIBLE
                 }
-                if (teamTwoRun != null){
-                    binding.tvScoreTeam2.text = teamTwoRun.score.toString().plus("-").plus(it[1].wickets)
+                if (teamTwoRun != null) {
+                    binding.tvScoreTeam2.text =
+                        teamTwoRun.score.toString().plus("-").plus(it[1].wickets)
                     binding.tvOversTeam2.text = teamTwoRun.overs.toString().plus(" overs")
-                }else {
+                } else {
                     binding.tvScoreTeam1.visibility = View.GONE
                     binding.tvOversTeam1.visibility = View.GONE
                     binding.tvNotAvailableTeam2.visibility = View.VISIBLE
                 }
-
             }
 
             binding.tvNameTeam1.text = fixture.teamOneCode
@@ -109,18 +110,20 @@ class MatchAdapter(
             Glide.with(itemView.context).load(fixture.teamOneFlag).into(binding.ivFlagTeam1)
             Glide.with(itemView.context).load(fixture.teamTwoFlag).into(binding.ivFlagTeam2)
 
-            if(fixture.note == ""){
+            if (fixture.note == "") {
 
                 val countdownTimerTextView = binding.tvNote
 
                 // Set the target date and time for the countdown
                 val targetDate = fixture.startingAT
-                val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
+                val dateFormat =
+                    SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'", Locale.getDefault())
                 val targetDateTime = dateFormat.parse(targetDate)
                 val targetMillis = targetDateTime?.time
 
                 // Start the countdown timer
-                val countDownTimer = object : CountDownTimer(targetMillis?.minus(System.currentTimeMillis())!!, 1000) {
+                val countDownTimer = object :
+                    CountDownTimer(targetMillis?.minus(System.currentTimeMillis())!!, 1000) {
                     override fun onTick(millisUntilFinished: Long) {
                         val days = TimeUnit.MILLISECONDS.toDays(millisUntilFinished)
                         val hours = TimeUnit.MILLISECONDS.toHours(millisUntilFinished) % 24
@@ -128,31 +131,49 @@ class MatchAdapter(
                         val seconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) % 60
 
                         val remainingTimeText = if (days > 0) {
-                            itemView.resources.getQuantityString(R.plurals.remaining_days, days.toInt(), days.toInt(), hours.toInt(), minutes.toInt())
+                            itemView.resources.getQuantityString(
+                                R.plurals.remaining_days,
+                                days.toInt(),
+                                days.toInt(),
+                                hours.toInt(),
+                                minutes.toInt()
+                            )
                         } else {
-                            String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds)
+                            String.format(
+                                Locale.getDefault(),
+                                "%02d:%02d:%02d",
+                                hours,
+                                minutes,
+                                seconds
+                            )
                         }
-                        countdownTimerTextView.text = itemView.resources.getString(R.string.remaining_time, remainingTimeText)
+                        countdownTimerTextView.text =
+                            itemView.resources.getString(R.string.remaining_time, remainingTimeText)
                     }
 
                     override fun onFinish() {
-                        countdownTimerTextView.text = itemView.resources.getString(R.string.countdown_finished)
+                        countdownTimerTextView.text =
+                            itemView.resources.getString(R.string.countdown_finished)
                     }
                 }
 
                 countDownTimer.start()
 
-            }else
+            } else
                 binding.tvNote.text = fixture.note
 
-            binding.root.setOnClickListener{
-                val direction = MatchSummaryContainerOuterFragmentDirections.actionMatchSummaryContainerOuterFragmentToMatchDetailsContainerFragment(fixture.fixtureId)
-                val extras = FragmentNavigatorExtras(binding.root to "shared_element_container")
-                itemView.findNavController().navigate(direction, extras)
+            binding.root.setOnClickListener {
+                try{
+                    val direction =
+                        MatchSummaryContainerOuterFragmentDirections.actionMatchSummaryContainerOuterFragmentToMatchDetailsContainerFragment(
+                            fixture.fixtureId
+                        )
+                    val extras = FragmentNavigatorExtras(binding.root to "shared_element_container")
+                    itemView.findNavController().navigate(direction, extras)
+                }catch (exception: Exception){
+                    Log.e(TAG, "Go to match details: $exception")
+                }
             }
-
-//                binding.tvStartingAt.text = fixture.startingAT
-//                binding.tvStageName.text = fixture.stageName
         }
     }
 

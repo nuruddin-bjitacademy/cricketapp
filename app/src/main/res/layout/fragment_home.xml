@@ -21,7 +21,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_10sdp"
-                android:text="Live Matches"
+                android:text="@string/live_matches"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_10sdp"
-                android:text="Top News"
+                android:text="@string/top_news"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@id/recycler_view" />
@@ -55,26 +55,33 @@
 
     </ScrollView>
 
+    <ProgressBar
+        android:id="@+id/progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
     <RelativeLayout
         android:id="@+id/internet_unavailable"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="@dimen/_30sdp"
             android:id="@+id/icon_internet_unavailable"
+            android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
-            android:src="@drawable/baseline_cloud_off_24"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:src="@drawable/baseline_cloud_off_24" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Internet Unavailable"
             android:layout_below="@+id/icon_internet_unavailable"
             android:gravity="center"
+            android:text="@string/internet_not_available"
             android:textSize="20sp"
             android:textStyle="bold" />
 
     </RelativeLayout>
+
 </RelativeLayout>

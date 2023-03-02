@@ -13,22 +13,20 @@
         android:layout_height="wrap_content"
         android:background="@color/status_bar"
         android:outlineProvider="none"
-        app:tabIndicatorColor="@color/tab_text_selected"
-        app:tabTextColor="@color/tab_text"
-        app:tabIndicatorAnimationMode="elastic"
-        app:tabSelectedTextColor="@color/tab_text_selected"
-        app:tabBackground="@color/status_bar"
         app:layout_constraintTop_toTopOf="parent"
+        app:tabBackground="@color/status_bar"
+        app:tabIndicatorAnimationMode="elastic"
+        app:tabIndicatorColor="@color/tab_text_selected"
         app:tabIndicatorGravity="bottom"
-        />
+        app:tabSelectedTextColor="@color/tab_text_selected"
+        app:tabTextColor="@color/tab_text" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:saveEnabled="false"
-        android:layout_weight="1" />
+        android:layout_weight="1"/>
 
     <View
         android:id="@+id/end_view"

@@ -89,7 +89,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="9"
-                                    android:text="BatsMan"
+                                    android:text="@string/batsman"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -97,7 +97,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2"
                                     android:gravity="center"
-                                    android:text="R"
+                                    android:text="@string/r"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -105,7 +105,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2"
                                     android:gravity="center"
-                                    android:text="B"
+                                    android:text="@string/b"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -113,7 +113,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2"
                                     android:gravity="center"
-                                    android:text="S"
+                                    android:text="@string/s"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -121,7 +121,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2"
                                     android:gravity="center"
-                                    android:text="F"
+                                    android:text="@string/f"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -129,9 +129,10 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="3"
                                     android:gravity="end"
-                                    android:text="SR"
+                                    android:text="@string/sr"
                                     android:textStyle="bold" />
                             </TableRow>
+
                         </TableLayout>
 
                         <androidx.recyclerview.widget.RecyclerView
@@ -139,6 +140,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="@dimen/_10sdp" />
+
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -174,7 +176,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="9"
-                                    android:text="Bowler"
+                                    android:text="@string/bowler"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -182,7 +184,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2"
                                     android:gravity="center"
-                                    android:text="O"
+                                    android:text="@string/o"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -190,7 +192,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2"
                                     android:gravity="center"
-                                    android:text="M"
+                                    android:text="@string/m"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -198,7 +200,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2"
                                     android:gravity="center"
-                                    android:text="R"
+                                    android:text="@string/r"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -206,7 +208,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2"
                                     android:gravity="center"
-                                    android:text="W"
+                                    android:text="@string/w"
                                     android:textStyle="bold" />
 
                                 <TextView
@@ -214,7 +216,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="3"
                                     android:gravity="end"
-                                    android:text="ER"
+                                    android:text="@string/er"
                                     android:textStyle="bold" />
                             </TableRow>
                         </TableLayout>
@@ -237,15 +239,13 @@
 
         </ScrollView>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
     <RelativeLayout
-        android:visibility="gone"
         android:id="@+id/internet_unavailable"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/icon_internet_unavailable"
@@ -271,11 +271,5 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:visibility="gone" />
-
-    <!--<FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center" />-->
 
 </RelativeLayout>

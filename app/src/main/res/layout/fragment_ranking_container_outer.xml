@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/app_background"
     tools:context=".ui.fragment.RankingContainerOuterFragment">
 
@@ -13,25 +13,24 @@
         android:layout_height="wrap_content"
         android:background="@color/status_bar"
         android:outlineProvider="none"
-        app:tabIndicatorColor="@color/tab_text_selected"
-        app:tabTextColor="@color/tab_text"
-        app:tabSelectedTextColor="@color/tab_text_selected"
         app:layout_constraintTop_toTopOf="parent"
-        app:tabIndicatorGravity="bottom" />
+        app:tabIndicatorColor="@color/tab_text_selected"
+        app:tabIndicatorGravity="bottom"
+        app:tabSelectedTextColor="@color/tab_text_selected"
+        app:tabTextColor="@color/tab_text" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:saveEnabled="false"
         android:layout_marginTop="50dp"
-        />
+        android:layout_weight="1"
+        android:saveEnabled="false" />
 
     <View
         android:id="@+id/start_view"
-        android:transitionName="shared_element_container"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
+        android:transitionName="shared_element_container" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

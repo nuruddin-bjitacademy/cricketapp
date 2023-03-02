@@ -8,7 +8,6 @@
     android:background="@color/card_background"
     tools:context=".ui.fragment.PlayerDetailsFragment">
 
-
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/player_image_holder"
         android:layout_width="match_parent"
@@ -24,6 +23,7 @@
         android:id="@+id/shadow_bottom"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:contentDescription="@string/shadow"
         android:src="@drawable/player_image_shadow"
         app:layout_constraintBottom_toBottomOf="@+id/player_image_holder"
         app:layout_constraintTop_toTopOf="@id/player_image_holder" />
@@ -146,18 +146,6 @@
                 app:layout_constraintTop_toTopOf="@id/tv_career" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <!--<androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/select_season">
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingTop="@dimen/_20sdp">-->
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -241,10 +229,6 @@
                 android:visibility="gone" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!--</ScrollView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

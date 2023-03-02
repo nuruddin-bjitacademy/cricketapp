@@ -2,22 +2,19 @@ package com.graphicless.cricketapp.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
-import com.graphicless.cricketapp.Model.LiveScoreDetails
-import com.graphicless.cricketapp.Model.LiveScoresIncludeRuns
-import com.graphicless.cricketapp.Model.StandingByStageId
+import com.graphicless.cricketapp.model.LiveScoreDetails
+import com.graphicless.cricketapp.model.LiveScoresIncludeRuns
+import com.graphicless.cricketapp.model.StandingByStageId
+import com.graphicless.cricketapp.utils.ApiEndpoints
 import com.graphicless.cricketapp.utils.MyConstants
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Retrofit
-import retrofit2.await
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
-import java.io.IOException
 import java.util.concurrent.TimeUnit
 
 class LiveScoreRepository {
@@ -25,14 +22,18 @@ class LiveScoreRepository {
 
     fun getLiveScores(apiToken: String): LiveData<List<LiveScoresIncludeRuns.Data?>?> {
         return liveData {
-            val response = apiService.getLiveScores(include = "runs", apiToken)
+            val response = apiService.getLiveScores(include = ApiEndpoints.RUNS, apiToken)
             emit(response.data)
         }
     }
 
     fun getLiveScoreDetails(fixtureId: Int, apiToken: String): LiveData<LiveScoreDetails.Data?> {
         return liveData {
-            val response = apiService.getLiveScoreDetails(fixtureId, include = "bowling,batting,runs,lineup,balls,localteam,visitorteam", apiToken)
+            val response = apiService.getLiveScoreDetails(
+                fixtureId,
+                include = ApiEndpoints.GET_LIVE_SCORE_DETAILS_INCLUDE,
+                apiToken
+            )
             emit(response.data)
         }
     }
@@ -46,7 +47,7 @@ class LiveScoreRepository {
 }
 
 object CricketApiClient {
-    private const val BASE_URL = "https://cricket.sportmonks.com/api/v2.0/"
+    private const val BASE_URL = MyConstants.BASE_URL
 
     private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
@@ -69,23 +70,23 @@ object CricketApiClient {
 
 
 interface CricketApiService {
-    @GET("livescores")
+    @GET(ApiEndpoints.LIVE_SCORES)
     suspend fun getLiveScores(
-        @Query("include") include: String,
-        @Query("api_token") apiToken: String
+        @Query(MyConstants.INCLUDE) include: String,
+        @Query(MyConstants.API_TOKEN) apiToken: String
     ): LiveScoresIncludeRuns
 
-    @GET("fixtures/{fixture_id}")
+    @GET(ApiEndpoints.FIXTURES_BY_FIXTURE_ID)
     suspend fun getLiveScoreDetails(
-        @Path("fixture_id") fixtureId: Int,
-        @Query("include") include: String = "bowling,batting,runs,lineup,balls,localteam,visitorteam",
-        @Query("api_token") apiToken: String = MyConstants.API_KEY
+        @Path(ApiEndpoints.FIXTURE_ID) fixtureId: Int,
+        @Query(MyConstants.INCLUDE) include: String = ApiEndpoints.GET_LIVE_SCORE_DETAILS_INCLUDE,
+        @Query(MyConstants.API_TOKEN) apiToken: String = MyConstants.API_KEY
     ): LiveScoreDetails
 
-    @GET("standings/stage/{stageId}")
+    @GET(ApiEndpoints.STANDINGS_BY_STAGE_BY_STAGE_ID)
     suspend fun getStandingByStageId(
-        @Path("stageId") stageId: Int,
-        @Query("api_token") apiToken: String = MyConstants.API_KEY
+        @Path(ApiEndpoints.STAGE_ID) stageId: Int,
+        @Query(MyConstants.API_TOKEN) apiToken: String = MyConstants.API_KEY
     ): StandingByStageId
 
 }

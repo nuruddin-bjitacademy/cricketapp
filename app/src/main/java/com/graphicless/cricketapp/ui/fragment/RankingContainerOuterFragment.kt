@@ -6,24 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
 import com.graphicless.cricketapp.adapter.ViewPagerAdapter
 import com.graphicless.cricketapp.databinding.FragmentRankingContainerOuterBinding
 import com.graphicless.cricketapp.utils.MyConstants
-import com.graphicless.cricketapp.viewmodel.CricketViewModel
-
 
 class RankingContainerOuterFragment : Fragment() {
 
     private lateinit var _binding: FragmentRankingContainerOuterBinding
     private val binding get() = _binding
-
-    //    private val args: DetailsFragmentArgs by navArgs()
-    private val viewModel: CricketViewModel by viewModels()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +31,7 @@ class RankingContainerOuterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentRankingContainerOuterBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -60,10 +53,4 @@ class RankingContainerOuterFragment : Fragment() {
             tab.text = tabNameList[position]
         }.attach()
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding.viewPager.adapter = null
-    }
-
 }

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="@dimen/_20sdp"
-    android:elevation="@dimen/_3sdp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:elevation="@dimen/_3sdp">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/label_type"
@@ -12,30 +13,28 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
         android:padding="@dimen/_5sdp"
-        android:text="t20"
-        android:textStyle="bold"
         android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="T20" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/card_background"
-        app:layout_constraintTop_toBottomOf="@id/label_type"
-        />
+        app:layout_constraintTop_toBottomOf="@id/label_type" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/label_matches"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/_5sdp"
-        android:text="Matches"
+        android:text="@string/matches"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
         app:layout_constraintStart_toStartOf="@id/label_type"
-        app:layout_constraintTop_toBottomOf="@id/label_type"
-        />
+        app:layout_constraintTop_toBottomOf="@id/label_type" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/matches"
@@ -43,17 +42,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
         android:padding="@dimen/_5sdp"
-        android:text="125 matchews"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/label_matches"
-        app:layout_constraintTop_toTopOf="@id/label_matches" />
+        app:layout_constraintTop_toTopOf="@id/label_matches"
+        tools:text="125" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/label_overs"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/_5sdp"
-        android:text="Overs"
+        android:text="@string/overs"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
         app:layout_constraintStart_toStartOf="@id/label_type"
@@ -65,17 +64,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
         android:padding="@dimen/_5sdp"
-        android:text="Australia vs India"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/label_econ_rate"
-        app:layout_constraintTop_toTopOf="@id/label_overs" />
+        app:layout_constraintTop_toTopOf="@id/label_overs"
+        tools:text="100" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/label_innings"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/_5sdp"
-        android:text="Innings"
+        android:text="@string/innings"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
         app:layout_constraintStart_toStartOf="@id/label_type"
@@ -87,10 +86,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
         android:padding="@dimen/_5sdp"
-        android:text="1st T20I"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/label_econ_rate"
-        app:layout_constraintTop_toTopOf="@id/label_innings" />
+        app:layout_constraintTop_toTopOf="@id/label_innings"
+        tools:text="123" />
 
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -98,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/_5sdp"
-        android:text="Economy Rate"
+        android:text="@string/economy_rate"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@id/label_type"
         app:layout_constraintTop_toBottomOf="@+id/innings" />
@@ -109,17 +108,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
         android:padding="@dimen/_5sdp"
-        android:text="3.33"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/label_econ_rate"
-        app:layout_constraintTop_toTopOf="@id/label_econ_rate" />
+        app:layout_constraintTop_toTopOf="@id/label_econ_rate"
+        tools:text="3.33" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/label_medians"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/_5sdp"
-        android:text="Medians"
+        android:text="@string/medians"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@id/label_type"
         app:layout_constraintTop_toBottomOf="@+id/econ_rate" />
@@ -130,17 +129,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
         android:padding="@dimen/_5sdp"
-        android:text="India"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/label_econ_rate"
-        app:layout_constraintTop_toTopOf="@id/label_medians" />
+        app:layout_constraintTop_toTopOf="@id/label_medians"
+        tools:text="50" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/label_runs"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/_5sdp"
-        android:text="Runs"
+        android:text="@string/runs"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
         app:layout_constraintStart_toStartOf="@id/label_type"
@@ -152,17 +151,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
         android:padding="@dimen/_5sdp"
-        android:text="Thu, Feb 09"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/label_econ_rate"
-        app:layout_constraintTop_toTopOf="@id/label_runs" />
+        app:layout_constraintTop_toTopOf="@id/label_runs"
+        tools:text="1563" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/label_wickets"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/_5sdp"
-        android:text="Wickets"
+        android:text="@string/wickets"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
         app:layout_constraintStart_toStartOf="@id/label_type"
@@ -174,17 +173,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
         android:padding="@dimen/_5sdp"
-        android:text="55 wickets"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/label_econ_rate"
-        app:layout_constraintTop_toTopOf="@id/label_wickets" />
+        app:layout_constraintTop_toTopOf="@id/label_wickets"
+        tools:text="55" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/label_average"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/_5sdp"
-        android:text="Average"
+        android:text="@string/average"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
         app:layout_constraintStart_toStartOf="@id/label_type"
@@ -196,17 +195,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
         android:padding="@dimen/_5sdp"
-        android:text="3.33"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/label_average"
-        app:layout_constraintTop_toTopOf="@id/label_average" />
+        app:layout_constraintTop_toTopOf="@id/label_average"
+        tools:text="3.33" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/label_no_balls"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/_5sdp"
-        android:text="No Balls"
+        android:text="@string/no_balls"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
         app:layout_constraintStart_toStartOf="@id/label_type"
@@ -218,11 +217,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
         android:padding="@dimen/_5sdp"
-        android:text="255 no balls"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/label_econ_rate"
-        app:layout_constraintTop_toTopOf="@id/label_no_balls" />
-
+        app:layout_constraintTop_toTopOf="@id/label_no_balls"
+        tools:text="255" />
 
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -230,7 +228,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/_5sdp"
-        android:text="Strike Rate"
+        android:text="@string/strike_rate"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
         app:layout_constraintStart_toStartOf="@id/label_type"
@@ -242,17 +240,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
         android:padding="@dimen/_5sdp"
-        android:text="Australia opt to bat"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/label_econ_rate"
-        app:layout_constraintTop_toTopOf="@id/label_strike_rate" />
+        app:layout_constraintTop_toTopOf="@id/label_strike_rate"
+        tools:text="23.3" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/label_wide"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/_5sdp"
-        android:text="Wides"
+        android:text="@string/wides"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
         app:layout_constraintStart_toStartOf="@id/label_type"
@@ -264,17 +262,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
         android:padding="@dimen/_5sdp"
-        android:text="123 wides"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/label_econ_rate"
-        app:layout_constraintTop_toTopOf="@id/label_wide" />
+        app:layout_constraintTop_toTopOf="@id/label_wide"
+        tools:text="123" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/label_four_wickets"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/_5sdp"
-        android:text="Four Wickets"
+        android:text="@string/four_wickets"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
         app:layout_constraintStart_toStartOf="@id/label_type"
@@ -286,17 +284,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
         android:padding="@dimen/_5sdp"
-        android:text="0 "
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/label_econ_rate"
-        app:layout_constraintTop_toTopOf="@id/label_four_wickets" />
+        app:layout_constraintTop_toTopOf="@id/label_four_wickets"
+        tools:text="0" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/label_five_wickets"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/_5sdp"
-        android:text="Five Wickets"
+        android:text="@string/five_wickets"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
         app:layout_constraintStart_toStartOf="@id/label_type"
@@ -308,17 +306,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
         android:padding="@dimen/_5sdp"
-        android:text="0 "
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/label_econ_rate"
-        app:layout_constraintTop_toTopOf="@id/label_five_wickets" />
+        app:layout_constraintTop_toTopOf="@id/label_five_wickets"
+        tools:text="0" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/label_ten_wickets"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="@dimen/_5sdp"
-        android:text="Ten Wickets"
+        android:text="@string/ten_wickets"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/label_econ_rate"
         app:layout_constraintStart_toStartOf="@id/label_type"
@@ -330,11 +328,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_10sdp"
         android:padding="@dimen/_5sdp"
-        android:text="0 "
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@id/label_econ_rate"
-        app:layout_constraintTop_toTopOf="@id/label_ten_wickets" />
-
+        app:layout_constraintTop_toTopOf="@id/label_ten_wickets"
+        tools:text="0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

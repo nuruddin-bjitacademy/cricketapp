@@ -11,13 +11,12 @@ import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.adapter.PlayerListAdapter
-import com.graphicless.cricketapp.adapter.TeamsAdapter
 import com.graphicless.cricketapp.databinding.FragmentPlayerListBinding
-import com.graphicless.cricketapp.databinding.FragmentPlayersBinding
 import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
 private const val TAG = "PlayerListFragment"
+
 class PlayerListFragment : Fragment() {
 
 
@@ -50,8 +49,8 @@ class PlayerListFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.getAllPlayer().observe(requireActivity()){
-            val adapter = PlayerListAdapter(it,requireActivity())
+        viewModel.getAllPlayer().observe(requireActivity()) {
+            val adapter = PlayerListAdapter(it, requireActivity())
             binding.recyclerView.adapter = adapter
         }
     }
@@ -74,7 +73,7 @@ class PlayerListFragment : Fragment() {
                 // Handle search query text changes
                 Log.d(TAG, "onQueryTextChange: $newText")
                 if (newText != null && newText != "") {
-                    viewModel.getPlayerByQuery(newText).observe(requireActivity()){
+                    viewModel.getPlayerByQuery(newText).observe(requireActivity()) {
                         val adapter = PlayerListAdapter(it, requireActivity())
                         binding.recyclerView.adapter = adapter
                     }

@@ -13,7 +13,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.graphicless.cricketapp.Model.FixtureDetailsScoreCard
+import com.graphicless.cricketapp.model.FixtureDetailsScoreCard
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.adapter.MatchDetailsBallerAdapter
 import com.graphicless.cricketapp.adapter.MatchDetailsBatsManAdapter
@@ -51,48 +51,37 @@ class MatchDetailsScoreCardFragment : Fragment() {
         matchDetailsBallerAdapter = MatchDetailsBallerAdapter(this)
         binding.recyclerViewBaller.adapter = matchDetailsBallerAdapter
 
-//        val loadingView =
-//            LayoutInflater.from(context).inflate(R.layout.layout_loading, binding.container, false)
-//        binding.container.addView(loadingView)
-
         binding.scrollView.visibility = View.GONE
         binding.progressbar.visibility = View.VISIBLE
-
-
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        networkConnectionViewModel.isNetworkAvailable.observe(viewLifecycleOwner){
-            if(it){
+        networkConnectionViewModel.isNetworkAvailable.observe(viewLifecycleOwner) {
+            if (it) {
                 fetchDataFromApi()
-            }else{
+            } else {
                 binding.internetUnavailable.visibility = View.VISIBLE
             }
         }
     }
 
 
-    private fun fetchDataFromApi(){
+    private fun fetchDataFromApi() {
 
         arguments?.takeIf { it.containsKey(MyConstants.COMING_FROM) }?.apply {
 
-            if(getString(MyConstants.COMING_FROM )  == "live")
-            {
-
-//                viewModel.launchFixtureScoreCard(getInt(MyConstants.FIXTURE_ID))
+            if (getString(MyConstants.COMING_FROM) == "live") {
                 viewModel.launchFixtureScoreCard(getInt(MyConstants.FIXTURE_ID))
 
-                try{
+                try {
                     viewModel.fixtureScoreCard.observe(viewLifecycleOwner) { data ->
 
                         val teamOneId = data.data?.localteamId
-                        val teamTwoId = data.data?.visitorteamId
 
                         val teamOneCode = data.data?.localteam?.code
                         val teamTwoCode = data.data?.visitorteam?.code
-
 
                         var teamOneTotalRun = 0
                         var teamOneTotalWicket = 0
@@ -101,10 +90,9 @@ class MatchDetailsScoreCardFragment : Fragment() {
                         var teamTwoTotalWicket = 0
                         var teamTwoTotalOver = 0.0
 
-
                         binding.scrollView.visibility = View.VISIBLE
 
-                        if(data.data!!.runs?.size!! > 2){
+                        if (data.data!!.runs?.size!! > 2) {
                             val battingList = data.data!!.batting
                             val battingS1 = battingList?.filter { it?.scoreboard == "S1" }
                             val battingS2 = battingList?.filter { it?.scoreboard == "S2" }
@@ -117,17 +105,17 @@ class MatchDetailsScoreCardFragment : Fragment() {
                             val bowlingS3 = bowlingList?.filter { it?.scoreboard == "S3" }
                             val bowlingS4 = bowlingList?.filter { it?.scoreboard == "S4" }
 
-
-//                            binding.teamOne.visibility = View.GONE
-//                            binding.teamTwo.visibility = View.GONE
                             binding.spinnerSeason.visibility = View.VISIBLE
 
                             val firstInnings = "First Innings - ".plus(data.data!!.localteam?.name)
-                            val secondInnings = "Second Innings - ".plus(data.data!!.visitorteam?.name)
+                            val secondInnings =
+                                "Second Innings - ".plus(data.data!!.visitorteam?.name)
                             val thirdInnings = "Third Innings - ".plus(data.data!!.localteam?.name)
-                            val fourthInnings = "Fourth Innings - ".plus(data.data!!.visitorteam?.name)
+                            val fourthInnings =
+                                "Fourth Innings - ".plus(data.data!!.visitorteam?.name)
 
-                            val items = listOf(firstInnings, secondInnings, thirdInnings, fourthInnings)
+                            val items =
+                                listOf(firstInnings, secondInnings, thirdInnings, fourthInnings)
                             val spinnerAdapter =
                                 ArrayAdapter(
                                     MyApplication.instance,
@@ -147,16 +135,16 @@ class MatchDetailsScoreCardFragment : Fragment() {
                                     ) {
                                         when (position) {
                                             0 -> {
-                                                showTestInfo( battingS1, bowlingS1)
+                                                showTestInfo(battingS1, bowlingS1)
                                             }
                                             1 -> {
-                                                showTestInfo( battingS2, bowlingS2)
+                                                showTestInfo(battingS2, bowlingS2)
                                             }
                                             2 -> {
-                                                showTestInfo( battingS3, bowlingS3)
+                                                showTestInfo(battingS3, bowlingS3)
                                             }
                                             3 -> {
-                                                showTestInfo( battingS4, bowlingS4)
+                                                showTestInfo(battingS4, bowlingS4)
                                             }
                                         }
                                     }
@@ -165,8 +153,8 @@ class MatchDetailsScoreCardFragment : Fragment() {
                                         TODO("Not yet implemented")
                                     }
                                 }
-                        }else{
-                            try{
+                        } else {
+                            try {
                                 for (i in data.data!!.runs?.indices!!) {
                                     if (data.data!!.runs?.get(i)?.teamId == teamOneId) {
                                         teamOneTotalRun += data.data!!.runs?.get(i)?.score ?: 0
@@ -178,8 +166,8 @@ class MatchDetailsScoreCardFragment : Fragment() {
                                         teamTwoTotalOver += data.data!!.runs?.get(i)?.overs!!
                                     }
                                 }
-                            }catch (exception: java.lang.Exception){
-                                Log.e(TAG, "live runs else for: $exception", )
+                            } catch (exception: java.lang.Exception) {
+                                Log.e(TAG, "Live runs else for: $exception")
                             }
 
                             binding.teamOne.text =
@@ -205,144 +193,119 @@ class MatchDetailsScoreCardFragment : Fragment() {
                             }
                         }
                     }
-                }catch (exception: Exception){
-                    Log.e(TAG, "Load teams runs: $exception", )
+                } catch (exception: Exception) {
+                    Log.e(TAG, "Load teams runs: $exception")
                 }
+            } else {
+                Log.d(TAG, "else called")
+                arguments?.takeIf { it.containsKey(MyConstants.FIXTURE_ID) }?.apply {
+
+                    val fixtureId: Int = getInt(MyConstants.FIXTURE_ID)
+
+                    viewModel.launchFixtureScoreCard(fixtureId)
+
+                    try {
+                        viewModel.fixtureScoreCard.observe(viewLifecycleOwner) {
+
+                            val teamOneId = it.data?.localteamId
+                            val teamTwoId = it.data?.visitorteamId
+
+
+                            if (it.data?.runs?.size!! == 2) {
+
+                                binding.scrollView.visibility = View.VISIBLE
+
+                                try {
+                                    if (teamOneId != null) {
+                                        val teamOneTotalRun =
+                                            if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(
+                                                0
+                                            )?.score else it.data?.runs?.get(
+                                                1
+                                            )?.score
+                                        val teamOneWickets =
+                                            if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(
+                                                0
+                                            )?.wickets else it.data?.runs?.get(
+                                                1
+                                            )?.wickets
+                                        val teamOneOvers =
+                                            if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(
+                                                0
+                                            )?.overs else it.data?.runs?.get(
+                                                1
+                                            )?.overs
+
+                                        viewModel.getLocalTeamById(teamOneId)
+                                            .observe(requireActivity()) { team ->
+                                                binding.teamOne.text =
+                                                    team.code.plus(" [ ").plus(teamOneTotalRun)
+                                                        .plus("-")
+                                                        .plus(teamOneWickets).plus(" (")
+                                                        .plus(teamOneOvers)
+                                                        .plus(") ]")
+                                            }
+                                    }
+                                } catch (exception: Exception) {
+                                    Log.e("error", "ex mdof team one info $exception")
+                                }
+
+                                try {
+                                    if (teamTwoId != null) {
+                                        val teamTwoTotalRun =
+                                            if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(
+                                                0
+                                            )?.score else it.data?.runs?.get(
+                                                1
+                                            )?.score
+                                        val teamTwoWickets =
+                                            if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(
+                                                0
+                                            )?.wickets else it.data?.runs?.get(
+                                                1
+                                            )?.wickets
+                                        val teamTwoOvers =
+                                            if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(
+                                                0
+                                            )?.overs else it.data?.runs?.get(
+                                                1
+                                            )?.overs
+                                        viewModel.getVisitorTeamById(teamTwoId)
+                                            .observe(requireActivity()) { team ->
+                                                binding.teamTwo.text =
+                                                    team.code.plus(" [ ").plus(teamTwoTotalRun)
+                                                        .plus("-")
+                                                        .plus(teamTwoWickets).plus(" (")
+                                                        .plus(teamTwoOvers)
+                                                        .plus(") ]")
+                                            }
+                                    }
+                                } catch (exception: Exception) {
+                                    Log.e("error", "ex mdof team two info $exception")
+                                }
+
+                                showInfo(true, it)
+
+                                binding.teamOne.setOnClickListener { _ ->
+                                    showInfo(true, it)
+
+                                }
+
+                                binding.teamTwo.setOnClickListener { _ ->
+                                    showInfo(false, it)
+
+                                }
+
+                            }
+                        }
+                    } catch (exception: Exception) {
+                        Log.e(TAG, "from local and observe score card: $exception ")
+                    }
+                }
+            }
         }
-
-
-             else{
-                 Log.d(TAG, "else called")
-                 arguments?.takeIf { it.containsKey(MyConstants.FIXTURE_ID) }?.apply {
-
-                     val fixtureId: Int = getInt(MyConstants.FIXTURE_ID)
-
-                     viewModel.launchFixtureScoreCard(fixtureId)
-
-                     try{
-                         viewModel.fixtureScoreCard.observe(viewLifecycleOwner) {
-
-                             val teamOneId = it.data?.localteamId
-                             val teamTwoId = it.data?.visitorteamId
-
-
-                             if (it.data?.runs?.size!! == 2) {
-
-                                 binding.scrollView.visibility = View.VISIBLE
-
-                                 try {
-                                     if (teamOneId != null) {
-                                         val teamOneTotalRun =
-                                             if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(
-                                                 0
-                                             )?.score else it.data?.runs?.get(
-                                                 1
-                                             )?.score
-                                         val teamOneWickets =
-                                             if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(
-                                                 0
-                                             )?.wickets else it.data?.runs?.get(
-                                                 1
-                                             )?.wickets
-                                         val teamOneOvers =
-                                             if (it.data?.runs?.get(0)?.teamId == teamOneId) it.data?.runs?.get(
-                                                 0
-                                             )?.overs else it.data?.runs?.get(
-                                                 1
-                                             )?.overs
-
-                                         viewModel.getLocalTeamById(teamOneId)
-                                             .observe(requireActivity()) { team ->
-                                                 binding.teamOne.text =
-                                                     team.code.plus(" [ ").plus(teamOneTotalRun)
-                                                         .plus("-")
-                                                         .plus(teamOneWickets).plus(" (")
-                                                         .plus(teamOneOvers)
-                                                         .plus(") ]")
-                                             }
-                                     }
-                                 } catch (exception: Exception) {
-                                     Log.e("error", "ex mdof team one info $exception")
-                                 }
-
-                                 try {
-                                     if (teamTwoId != null) {
-                                         val teamTwoTotalRun =
-                                             if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(
-                                                 0
-                                             )?.score else it.data?.runs?.get(
-                                                 1
-                                             )?.score
-                                         val teamTwoWickets =
-                                             if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(
-                                                 0
-                                             )?.wickets else it.data?.runs?.get(
-                                                 1
-                                             )?.wickets
-                                         val teamTwoOvers =
-                                             if (it.data?.runs?.get(0)?.teamId == teamTwoId) it.data?.runs?.get(
-                                                 0
-                                             )?.overs else it.data?.runs?.get(
-                                                 1
-                                             )?.overs
-                                         viewModel.getVisitorTeamById(teamTwoId)
-                                             .observe(requireActivity()) { team ->
-                                                 binding.teamTwo.text =
-                                                     team.code.plus(" [ ").plus(teamTwoTotalRun)
-                                                         .plus("-")
-                                                         .plus(teamTwoWickets).plus(" (")
-                                                         .plus(teamTwoOvers)
-                                                         .plus(") ]")
-                                             }
-                                     }
-                                 } catch (exception: Exception) {
-                                     Log.e("error", "ex mdof team two info $exception")
-                                 }
-
-                                 showInfo(true, it)
-
-                                 binding.teamOne.setOnClickListener { _ ->
-                                     showInfo(true, it)
-
-                                 }
-
-                                 binding.teamTwo.setOnClickListener { _ ->
-                                     showInfo(false, it)
-
-                                 }
-
-                                 /*try {
-                                     binding.container.removeViewAt(0)
-                                 } catch (exception: Exception) {
-                                     Log.e(TAG, "remove view from container: $exception")
-                                 }*/
-
-                             } else {
-                                 /*try {
-                                     binding.container.removeViewAt(0)
-                                 } catch (exception: Exception) {
-                                     Log.e(TAG, "remove view from container: $exception")
-                                 }
-                                 val noDataView = LayoutInflater.from(context)
-                                     .inflate(R.layout.layout_no_data, binding.container, false)
-                                 binding.container.addView(noDataView)*/
-                             }
-
-
-                         }
-                     }catch(exception: Exception){
-                         Log.e(TAG, "from local and observe score card: $exception ", )
-                     }
-
-                 }
-             }
-        }
-
-
-
     }
 
-    //    private fun showInfo(teamOneSelected: Boolean, batting: List<FixtureDetailsById.Data.Batting?>?, teamOneId: Int, teamTwoId: Int ) {
     private fun showInfo(teamOneSelected: Boolean, fixtureDetails: FixtureDetailsScoreCard) {
 
         val batting = fixtureDetails.data?.batting

@@ -10,24 +10,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.adapter.SquadAdapter
 import com.graphicless.cricketapp.adapter.SquadAllSeasonAdapter
 import com.graphicless.cricketapp.databinding.FragmentTeamDetailsBinding
-import com.graphicless.cricketapp.utils.Utils
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 import com.graphicless.cricketapp.viewmodel.NetworkConnectionViewModel
 
 private const val TAG = "TeamDetailsFragment"
 
-class TeamDetailsFragment( private val teamId: Int) : Fragment() {
-
+class TeamDetailsFragment(private val teamId: Int) : Fragment() {
 
     private lateinit var _binding: FragmentTeamDetailsBinding
     private val binding get() = _binding
 
-//    private val args: TeamDetailsFragmentArgs by navArgs()
     private val viewModel: CricketViewModel by viewModels()
     private val networkConnectionViewModel: NetworkConnectionViewModel by activityViewModels()
 
@@ -45,7 +41,7 @@ class TeamDetailsFragment( private val teamId: Int) : Fragment() {
 
         viewModel.getTeamById(teamId).observe(requireActivity()) {
             (activity as AppCompatActivity).supportActionBar?.title =
-                java.lang.StringBuilder(it.name).append(" Team Squad")
+                it.name?.let { it1 -> java.lang.StringBuilder(it1).append(" Team Squad") }
         }
 
         networkConnectionViewModel.isNetworkAvailable.observe(requireActivity()) { networkAvailable ->

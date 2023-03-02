@@ -3,7 +3,6 @@ package com.graphicless.cricketapp.utils
 import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -48,7 +47,7 @@ class NotificationReceiver : BroadcastReceiver() {
             val message =
                 "The match between ${match.team1} and ${match.team2} is starting in 15 minutes."
             val notificationBuilder = NotificationCompat.Builder(context, "match_notification")
-                .setSmallIcon(R.drawable.icon_ball)
+                .setSmallIcon(R.drawable.app_icon)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)

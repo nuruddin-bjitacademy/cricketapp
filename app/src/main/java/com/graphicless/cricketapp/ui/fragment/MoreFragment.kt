@@ -9,19 +9,12 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
 import androidx.navigation.findNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
-import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.FragmentMoreBinding
-import com.graphicless.cricketapp.databinding.FragmentRankingContainerBinding
 import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.utils.SharedPreference
-import com.graphicless.cricketapp.viewmodel.CricketViewModel
 import com.graphicless.cricketapp.viewmodel.NetworkConnectionViewModel
 
 private const val TAG = "MoreFragment"
@@ -30,11 +23,7 @@ class MoreFragment : Fragment() {
     private lateinit var _binding: FragmentMoreBinding
     private val binding get() = _binding
 
-    //    private val args: DetailsFragmentArgs by navArgs()
-    private val viewModel: CricketViewModel by viewModels()
     private val netWorkConnectionViewModel: NetworkConnectionViewModel by activityViewModels()
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,7 +84,4 @@ class MoreFragment : Fragment() {
             view.findNavController().navigate(direction)
         }
     }
-
-
-
 }

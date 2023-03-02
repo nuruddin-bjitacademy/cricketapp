@@ -27,6 +27,7 @@
                 android:id="@+id/img"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_180sdp"
+                android:contentDescription="@string/image"
                 android:scaleType="centerCrop"
                 android:transitionName="img"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -37,6 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_alignBottom="@id/img"
+                android:contentDescription="@string/shadow"
                 android:src="@drawable/bottom_shadow"
                 app:layout_constraintBottom_toBottomOf="@+id/img" />
 
@@ -46,14 +48,13 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textColor="@color/white"
-                android:singleLine="true"
-                tools:text="Author: Names here"
-                android:textSize="16sp"
                 android:padding="10dp"
-                app:layout_constraintTop_toTopOf="@+id/img"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                />
+                app:layout_constraintTop_toTopOf="@+id/img"
+                tools:text="Author: Names here" />
 
             <TextView
                 android:id="@+id/title"
@@ -61,12 +62,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
+                android:ellipsize="end"
                 android:fontFamily="sans-serif-light"
                 android:maxLines="2"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:ellipsize="end"
                 app:layout_constraintBottom_toBottomOf="@+id/shadow_bottom"
                 tools:text="This is the news title" />
 

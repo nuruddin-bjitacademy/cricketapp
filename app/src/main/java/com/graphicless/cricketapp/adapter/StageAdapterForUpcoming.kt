@@ -2,7 +2,6 @@ package com.graphicless.cricketapp.adapter
 
 import android.app.Application
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +13,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.ItemStageBinding
-import com.graphicless.cricketapp.Model.StageName
-import com.graphicless.cricketapp.Model.map.StageByLeague
+import com.graphicless.cricketapp.model.StageName
+import com.graphicless.cricketapp.model.map.StageByLeague
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
 private const val TAG = "StageAdapterForUpcoming"
@@ -34,11 +33,8 @@ class StageAdapterForUpcoming(
 
             binding.tvStage.text = fixture.stageName.plus(", ").plus(fixture.seasonName)
 
-
             viewModel.getUpcomingFixturesByStageId(fixture.stageId).removeObservers(lifecycleOwner)
             viewModel.getUpcomingFixturesByStageId(fixture.stageId).distinctUntilChanged().observe(lifecycleOwner) {
-
-                Log.d(TAG, "getFixtureWithStageName observe: $it")
 
                 val adapter = MatchAdapter(it, binding.expandable, fixture.stageId, lifecycleOwner)
 

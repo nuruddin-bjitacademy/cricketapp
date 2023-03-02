@@ -10,8 +10,6 @@
     <color name="red">#FF0000</color>
 
     // Custom color
-<!--    <color name="status_bar">#141d26</color>-->
-<!--    <color name="action_bar">#141d26</color>-->
     <color name="status_bar">#07182B</color>
     <color name="action_bar">#07182B</color>
     <color name="app_background">#07182B</color>
@@ -43,10 +41,8 @@
     <color name="over_ball_bye">#6D849A</color>
     <color name="over_ball_other">@android:color/darker_gray</color>
 
-
     <color name="info_text">#BCBCBC</color>
     <color name="title_text">#E3E3E3</color>
-
 
     <color name="partnership_bar_left">#5EC800</color>
     <color name="partnership_bar_right">#E64A19</color>

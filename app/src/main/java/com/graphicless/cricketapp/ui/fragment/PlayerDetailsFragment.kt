@@ -20,9 +20,9 @@ import com.graphicless.cricketapp.adapter.PlayerDetailsBowlingCareerAdapter
 import com.graphicless.cricketapp.adapter.PlayerDetailsBattingCareerAdapter
 import com.graphicless.cricketapp.adapter.PlayerDetailsTeamsAdapter
 import com.graphicless.cricketapp.databinding.FragmentPlayerDetailsBinding
-import com.graphicless.cricketapp.Model.PlayerDetailsBatting
-import com.graphicless.cricketapp.Model.PlayerDetailsBowling
-import com.graphicless.cricketapp.Model.PlayerDetailsNew
+import com.graphicless.cricketapp.model.PlayerDetailsBatting
+import com.graphicless.cricketapp.model.PlayerDetailsBowling
+import com.graphicless.cricketapp.model.PlayerDetailsNew
 import com.graphicless.cricketapp.utils.MyApplication
 import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
@@ -65,8 +65,8 @@ class PlayerDetailsFragment : Fragment() {
         binding.playerImageHolder.layoutParams =
             ViewGroup.LayoutParams(screenWidth, screenHeight / 3)
 
-        networkConnectionViewModel.isNetworkAvailable.observe(viewLifecycleOwner){isNetworkAvailable ->
-            if(isNetworkAvailable){
+        networkConnectionViewModel.isNetworkAvailable.observe(viewLifecycleOwner) { isNetworkAvailable ->
+            if (isNetworkAvailable) {
                 viewModel.launchPlayerDetails(playerId)
                 try {
 
@@ -80,13 +80,15 @@ class PlayerDetailsFragment : Fragment() {
                         binding.playerLastName.text =
                             if (it != null) it.lastname else MyConstants.NOT_AVAILABLE
                         if (it != null) {
-                            Glide.with(MyApplication.instance).load(it.imagePath).into(binding.playerImage)
+                            Glide.with(MyApplication.instance).load(it.imagePath)
+                                .into(binding.playerImage)
                         }
                         val age = it?.dateofbirth?.let { it1 -> calculateAge(it1) }
                         if (it != null) {
                             binding.playerCountryAge.text =
                                 it.country?.name.plus(activity?.getString(R.string.special_bullet))
-                                    .plus(age).plus(activity?.getString(R.string.space)).plus(activity?.getString(R.string.years))
+                                    .plus(age).plus(activity?.getString(R.string.space))
+                                    .plus(activity?.getString(R.string.years))
                         }
 
                         careerTab(it)
@@ -107,22 +109,27 @@ class PlayerDetailsFragment : Fragment() {
                 } catch (exception: Exception) {
                     Log.e(TAG, "player details observe: $exception")
                 }
-            }else{
-                viewModel.getPlayerById(playerId).observe(viewLifecycleOwner){
+            } else {
+                viewModel.getPlayerById(playerId).observe(viewLifecycleOwner) {
                     binding.playerFirstName.text =
                         if (it != null) it.firstname else MyConstants.NOT_AVAILABLE
                     binding.playerLastName.text =
                         if (it != null) it.lastname else MyConstants.NOT_AVAILABLE
                     if (it != null) {
-                        Glide.with(MyApplication.instance).load(it.imagePath).into(binding.playerImage)
+                        Glide.with(MyApplication.instance).load(it.imagePath)
+                            .into(binding.playerImage)
                     }
                     val age = it?.dateofbirth?.let { it1 -> calculateAge(it1) }
 
-                    it.countryId?.let { it1 -> viewModel.getCountryNameById(it1).observe(viewLifecycleOwner){countryName->
-                        binding.playerCountryAge.text =
-                            countryName.plus(activity?.getString(R.string.special_bullet))
-                                .plus(age).plus(activity?.getString(R.string.space)).plus(activity?.getString(R.string.years))
-                    } }
+                    it.countryId?.let { it1 ->
+                        viewModel.getCountryNameById(it1)
+                            .observe(viewLifecycleOwner) { countryName ->
+                                binding.playerCountryAge.text =
+                                    countryName.plus(activity?.getString(R.string.special_bullet))
+                                        .plus(age).plus(activity?.getString(R.string.space))
+                                        .plus(activity?.getString(R.string.years))
+                            }
+                    }
 
                     binding.tvNoInternet.visibility = View.VISIBLE
                     binding.progressbar.visibility = View.GONE
@@ -164,7 +171,6 @@ class PlayerDetailsFragment : Fragment() {
                                 if (data.currentteams == null) {
                                     binding.tvNoData.visibility = View.VISIBLE
                                 } else {
-                                    Log.d(TAG, "current teams size: ${data.currentteams!!.size}")
                                     try {
                                         val currentTeamList: MutableList<PlayerDetailsNew.Data.Currentteam?> =
                                             mutableListOf()
@@ -172,8 +178,6 @@ class PlayerDetailsFragment : Fragment() {
                                             currentTeamList.add(i, data.currentteams!![i])
                                         }
 
-                                        Log.d(TAG, "currentTeamList size : ${currentTeamList.size}")
-                                        Log.d(TAG, "currentTeamList : $currentTeamList")
                                         val adapter = PlayerDetailsTeamsAdapter(
                                             currentTeamList,
                                             null,
@@ -188,9 +192,9 @@ class PlayerDetailsFragment : Fragment() {
                                         binding.rvTeams.layoutManager = layoutManager
                                         binding.rvCareer.adapter = null
                                         binding.rvTeams.adapter = adapter
-                                        if(binding.rvTeams.adapter?.itemCount == 0){
+                                        if (binding.rvTeams.adapter?.itemCount == 0) {
                                             binding.tvNoData.visibility = View.VISIBLE
-                                        }else{
+                                        } else {
                                             binding.tvNoData.visibility = View.GONE
                                         }
                                     } catch (exception: Exception) {
@@ -227,9 +231,9 @@ class PlayerDetailsFragment : Fragment() {
                                         binding.rvTeams.layoutManager = layoutManager
                                         binding.rvCareer.adapter = null
                                         binding.rvTeams.adapter = adapter
-                                        if(binding.rvTeams.adapter?.itemCount == 0){
+                                        if (binding.rvTeams.adapter?.itemCount == 0) {
                                             binding.tvNoData.visibility = View.VISIBLE
-                                        }else{
+                                        } else {
                                             binding.tvNoData.visibility = View.GONE
                                         }
                                     }
@@ -271,13 +275,14 @@ class PlayerDetailsFragment : Fragment() {
         try {
             if (data != null) {
 
-                if (data.position?.id == 2) {
-                    binding.playerPosition.setImageResource(R.drawable.icon_ball)
-//                    selectCareer = "bowling"
-//                    binding.spinnerCareer.setSelection(1)
-                } else {
+                if (data.position?.id == 1) {
                     binding.playerPosition.setImageResource(R.drawable.icon_bat)
-//                    binding.spinnerCareer.setSelection(0)
+                } else if (data.position?.id == 2) {
+                    binding.playerPosition.setImageResource(R.drawable.icon_ball)
+                } else if (data.position?.id == 3) {
+                    binding.playerPosition.setImageResource(R.drawable.icon_glove)
+                } else {
+                    binding.playerPosition.setImageResource(R.drawable.icon_all_rounder)
                 }
 
                 for (i in data.career?.indices!!) {
@@ -386,11 +391,8 @@ class PlayerDetailsFragment : Fragment() {
                         id: Long
                     ) {
                         if (data != null) {
-//                            if (data.position?.id == 2) {
-//                                selectCareer = if (position == 0) "bowling" else "batting"
-//                            }else{
-                                selectCareer = if (position == 0) "batting" else "bowling"
-//                            }
+                            selectCareer = if (position == 0) "batting" else "bowling"
+//
                         }
                         showCareer(
                             selectCareer,
@@ -418,7 +420,7 @@ class PlayerDetailsFragment : Fragment() {
         careerBowlingTypeList: MutableList<String>,
         careerBowlingListWithType: MutableList<PlayerDetailsBowling>
     ) {
-        when(selectCareer){
+        when (selectCareer) {
             "batting" -> {
                 val adapter = PlayerDetailsBattingCareerAdapter(
                     careerBattingTypeList,
@@ -430,9 +432,9 @@ class PlayerDetailsFragment : Fragment() {
                 binding.rvTeams.adapter = null
                 binding.rvCareer.adapter = adapter
                 Log.d(TAG, "showCareer: batting : $careerBattingListWithType")
-                if(binding.rvCareer.adapter?.itemCount == 0){
+                if (binding.rvCareer.adapter?.itemCount == 0) {
                     binding.tvNoData.visibility = View.VISIBLE
-                }else{
+                } else {
                     binding.tvNoData.visibility = View.GONE
                 }
                 binding.progressbar.visibility = View.GONE
@@ -447,9 +449,9 @@ class PlayerDetailsFragment : Fragment() {
                 binding.rvCareer.layoutManager = layoutManager
                 binding.rvTeams.adapter = null
                 binding.rvCareer.adapter = adapter
-                if(binding.rvCareer.adapter?.itemCount == 0){
+                if (binding.rvCareer.adapter?.itemCount == 0) {
                     binding.tvNoData.visibility = View.VISIBLE
-                }else{
+                } else {
                     binding.tvNoData.visibility = View.GONE
                 }
                 binding.progressbar.visibility = View.GONE
@@ -482,9 +484,12 @@ class PlayerDetailsFragment : Fragment() {
     private fun changeTabColor(item: String) {
         val unselectedBackground =
             ResourcesCompat.getDrawable(resources, R.drawable.boarder_rectangle_round, null)
-        val unselectedTextColor = ResourcesCompat.getColor(resources, R.color.button_text_unselected, null)
-        val selectedBackground = ResourcesCompat.getDrawable(resources, R.drawable.boarder_rectangle_round_solid, null)
-        val selectedTextColor = ResourcesCompat.getColor(resources, R.color.button_text_selected, null)
+        val unselectedTextColor =
+            ResourcesCompat.getColor(resources, R.color.button_text_unselected, null)
+        val selectedBackground =
+            ResourcesCompat.getDrawable(resources, R.drawable.boarder_rectangle_round_solid, null)
+        val selectedTextColor =
+            ResourcesCompat.getColor(resources, R.color.button_text_selected, null)
         when (item) {
             "career" -> {
                 binding.tvCareer.background = selectedBackground

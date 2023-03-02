@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.Hold
@@ -16,8 +15,6 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.graphicless.cricketapp.adapter.ViewPagerAdapter
 import com.graphicless.cricketapp.databinding.FragmentTeamDetailsContainerBinding
 import com.graphicless.cricketapp.utils.MyConstants
-import com.graphicless.cricketapp.utils.Utils
-import com.graphicless.cricketapp.viewmodel.CricketViewModel
 import com.graphicless.cricketapp.viewmodel.NetworkConnectionViewModel
 
 class TeamDetailsContainerFragment : Fragment() {
@@ -26,7 +23,6 @@ class TeamDetailsContainerFragment : Fragment() {
     private val binding get() = _binding
 
     private val args: TeamDetailsContainerFragmentArgs by navArgs()
-    private val viewModel: CricketViewModel by viewModels()
     private val networkConnectionViewModel: NetworkConnectionViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,8 +45,8 @@ class TeamDetailsContainerFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        networkConnectionViewModel.isNetworkAvailable.observe(requireActivity()){networkAvailable->
-            if(networkAvailable){
+        networkConnectionViewModel.isNetworkAvailable.observe(requireActivity()) { networkAvailable ->
+            if (networkAvailable) {
                 val fragmentList: List<Fragment> =
                     listOf(TeamMatchesFragment(args.teamId), TeamDetailsFragment(args.teamId))
                 val tabNameList: List<String> = listOf("Matches", "Squad")
@@ -65,12 +61,5 @@ class TeamDetailsContainerFragment : Fragment() {
                 }.attach()
             }
         }
-
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding.viewPager.adapter = null
-    }
-
 }

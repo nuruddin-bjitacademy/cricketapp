@@ -10,13 +10,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.ItemSingleRowBinding
-import com.graphicless.cricketapp.Model.Teams
+import com.graphicless.cricketapp.model.Teams
 import com.graphicless.cricketapp.ui.fragment.TeamContainerFragmentDirections
 import com.graphicless.cricketapp.utils.MyApplication
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
 private const val TAG = "TeamsAdapter"
-class TeamsAdapter(private val data: List<Teams.Data>, private val national: Int, private val lifecycleOwner: LifecycleOwner) :
+
+class TeamsAdapter(
+    private val data: List<Teams.Data>,
+    private val national: Int,
+    private val lifecycleOwner: LifecycleOwner
+) :
     RecyclerView.Adapter<TeamsAdapter.DataViewHolder>() {
     class DataViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -29,7 +34,7 @@ class TeamsAdapter(private val data: List<Teams.Data>, private val national: Int
 
             if (national == 0) {
                 item.countryId?.let {
-                    viewModel.getCountryNameById(it).observe(lifecycleOwner){ countryName ->
+                    viewModel.getCountryNameById(it).observe(lifecycleOwner) { countryName ->
                         binding.country.text = StringBuilder("Country: ").append(countryName)
                         binding.country.visibility = View.VISIBLE
                     }
@@ -38,11 +43,10 @@ class TeamsAdapter(private val data: List<Teams.Data>, private val national: Int
 
             binding.root.setOnClickListener {
                 val direction =
-                TeamContainerFragmentDirections.actionTeamContainerFragmentToTeamDetailsContainerFragment(
-                    item.id
-                )
+                    TeamContainerFragmentDirections.actionTeamContainerFragmentToTeamDetailsContainerFragment(
+                        item.id
+                    )
                 itemView.findNavController().navigate(direction)
-
             }
         }
 

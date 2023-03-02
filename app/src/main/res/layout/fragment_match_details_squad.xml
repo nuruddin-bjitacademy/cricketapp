@@ -11,7 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/iv_flag_team1"
             style="@style/RoundedImageViewStyle"
@@ -83,8 +82,7 @@
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/heading"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/heading">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -98,7 +96,7 @@
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_player_one"
@@ -449,7 +447,7 @@
                     android:layout_margin="@dimen/_10sdp"
                     android:padding="@dimen/_1sdp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_player_one_team_two"

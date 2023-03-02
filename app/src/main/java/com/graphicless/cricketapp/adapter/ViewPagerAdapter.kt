@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.graphicless.cricketapp.utils.MyConstants
 
-class ViewPagerAdapter(fragment: Fragment, private val  fragmentList: List<Fragment>, private val fixtureId: Int?, private val comingFrom: String?) :
+class ViewPagerAdapter(
+    fragment: Fragment,
+    private val fragmentList: List<Fragment>,
+    private val fixtureId: Int?,
+    private val comingFrom: String?
+) :
     FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = fragmentList.size

@@ -47,7 +47,12 @@ class MatchDetailsContainerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val fragmentList: List<Fragment> =
-            listOf(MatchDetailsInfoFragment(), MatchDetailsSquadFragment(), MatchDetailsScoreCardFragment(), MatchDetailsOverFragment())
+            listOf(
+                MatchDetailsInfoFragment(),
+                MatchDetailsSquadFragment(),
+                MatchDetailsScoreCardFragment(),
+                MatchDetailsOverFragment()
+            )
         val tabNameList: List<String> = listOf("Info", "Squad", "Score Card", "Over")
 
         val fixtureId = args.fixtureId
@@ -59,10 +64,4 @@ class MatchDetailsContainerFragment : Fragment() {
             tab.text = tabNameList[position]
         }.attach()
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding.viewPager.adapter = null
-    }
-
 }

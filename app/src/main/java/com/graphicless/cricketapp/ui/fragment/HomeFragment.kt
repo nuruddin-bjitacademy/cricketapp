@@ -22,7 +22,6 @@ import kotlinx.coroutines.*
 import java.net.SocketTimeoutException
 
 private const val TAG = "HomeFragment"
-
 class HomeFragment : Fragment() {
 
     private lateinit var _binding: FragmentHomeBinding
@@ -35,7 +34,8 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
+        binding.tvLive.visibility = View.GONE
+        binding.tvNews.visibility = View.GONE
         return binding.root
     }
 
@@ -52,13 +52,15 @@ class HomeFragment : Fragment() {
                     viewModel.live().observe(requireActivity()) {
                         val adapter = LiveScoreAdapter(it, requireActivity())
                         binding.recyclerView.adapter = adapter
+                        binding.progressbar.visibility = View.GONE
+                        binding.tvLive.visibility = View.VISIBLE
                     }
                 }catch (exception: Exception){
-                    Log.e(TAG, "live observe: $exception", )
+                    Log.e(TAG, "Live observe: $exception")
                 }
 
                 // Trying to fetch and insert news 5 times if there is socket timeout exception
-                /*viewModel.viewModelScope.launch {
+                viewModel.viewModelScope.launch {
                     withContext(Dispatchers.IO){
                         var retryCount = 0
                         while (retryCount < 5) {
@@ -76,12 +78,13 @@ class HomeFragment : Fragment() {
                             }
                         }
                     }
-                }*/
+                }
 
                 try {
                     viewModel.news.observe(viewLifecycleOwner) {
                         val adapter = NewsAdapter(it)
                         binding.rvNews.adapter = adapter
+                        binding.tvNews.visibility = View.VISIBLE
                     }
                 } catch (exception: java.lang.Exception) {
                     Log.e(TAG, "News error: $exception")
@@ -90,12 +93,14 @@ class HomeFragment : Fragment() {
             } else {
                 val snackBarNetworkUnavailable = Snackbar.make(
                     requireActivity().findViewById(R.id.bottom_nav_menu),
-                    "No internet! Please check you connection.",
-                    Snackbar.LENGTH_INDEFINITE
+                    (activity as AppCompatActivity).getString(R.string.no_internet_snack_bar),
+                    Snackbar.LENGTH_LONG
                 )
+                snackBarNetworkUnavailable.anchorView = requireActivity().findViewById(R.id.bottom_nav_menu)
                 snackBarNetworkUnavailable.show()
                 binding.internetUnavailable.visibility = View.VISIBLE
                 binding.information.visibility = View.GONE
+                binding.progressbar.visibility = View.GONE
             }
         }
     }// End of onCreateView

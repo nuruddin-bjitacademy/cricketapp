@@ -5,11 +5,11 @@
     android:id="@+id/ball"
     android:layout_width="@dimen/_20sdp"
     android:layout_height="@dimen/_20sdp"
+    android:layout_margin="@dimen/_3sdp"
     android:background="@drawable/boarder_over_ball"
     android:gravity="center"
-    android:textStyle="bold"
-    android:textColor="@color/black"
-    android:layout_margin="@dimen/_3sdp"
     android:padding="@dimen/_3sdp"
+    android:textColor="@color/black"
+    android:textStyle="bold"
     tools:text="0" />
 

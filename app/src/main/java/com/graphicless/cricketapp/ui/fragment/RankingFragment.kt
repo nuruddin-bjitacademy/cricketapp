@@ -19,11 +19,9 @@ private const val TAG = "RankingFragment"
 
 class RankingFragment : Fragment() {
 
-
     private lateinit var _binding: FragmentRankingBinding
     private val binding get() = _binding
 
-    //    private val args: DetailsFragmentArgs by navArgs()
     private val viewModel: CricketViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +37,7 @@ class RankingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentRankingBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -55,26 +53,27 @@ class RankingFragment : Fragment() {
                         when (getInt(MyConstants.CATEGORY_TAB_NUMBER)) {
 
                             0 -> {// Men
-                                viewModel.getTeamRankings("ODI", "men").observe(requireActivity()){
+                                viewModel.getTeamRankings("ODI", "men").observe(requireActivity()) {
                                     Log.d(TAG, "odi men: $it")
                                     val adapter = TeamRankingAdapter(it)
                                     binding.recyclerView.adapter = adapter
                                     binding.progressbar.visibility = View.GONE
-                                    if(binding.recyclerView.adapter?.itemCount == 0){
+                                    if (binding.recyclerView.adapter?.itemCount == 0) {
                                         binding.tvNoData.visibility = View.VISIBLE
                                     }
                                 }
                             }
                             1 -> {// Women
-                                viewModel.getTeamRankings("ODI", "women").observe(requireActivity()){
-                                    Log.d(TAG, "odi men: $it")
-                                    val adapter = TeamRankingAdapter(it)
-                                    binding.recyclerView.adapter = adapter
-                                    binding.progressbar.visibility = View.GONE
-                                    if(binding.recyclerView.adapter?.itemCount == 0){
-                                        binding.tvNoData.visibility = View.VISIBLE
+                                viewModel.getTeamRankings("ODI", "women")
+                                    .observe(requireActivity()) {
+                                        Log.d(TAG, "odi men: $it")
+                                        val adapter = TeamRankingAdapter(it)
+                                        binding.recyclerView.adapter = adapter
+                                        binding.progressbar.visibility = View.GONE
+                                        if (binding.recyclerView.adapter?.itemCount == 0) {
+                                            binding.tvNoData.visibility = View.VISIBLE
+                                        }
                                     }
-                                }
                             }
                         }
                     }
@@ -84,26 +83,28 @@ class RankingFragment : Fragment() {
                         when (getInt(MyConstants.CATEGORY_TAB_NUMBER)) {
 
                             0 -> {// Men
-                                viewModel.getTeamRankings("T20I", "men").observe(requireActivity()){
-                                    Log.d(TAG, "T20 men: $it")
-                                    val adapter = TeamRankingAdapter(it)
-                                    binding.recyclerView.adapter = adapter
-                                    binding.progressbar.visibility = View.GONE
-                                    if(binding.recyclerView.adapter?.itemCount == 0){
-                                        binding.tvNoData.visibility = View.VISIBLE
+                                viewModel.getTeamRankings("T20I", "men")
+                                    .observe(requireActivity()) {
+                                        Log.d(TAG, "T20 men: $it")
+                                        val adapter = TeamRankingAdapter(it)
+                                        binding.recyclerView.adapter = adapter
+                                        binding.progressbar.visibility = View.GONE
+                                        if (binding.recyclerView.adapter?.itemCount == 0) {
+                                            binding.tvNoData.visibility = View.VISIBLE
+                                        }
                                     }
-                                }
                             }
                             1 -> {// Women
-                                viewModel.getTeamRankings("T20I", "women").observe(requireActivity()){
-                                    Log.d(TAG, "T20 women: $it")
-                                    val adapter = TeamRankingAdapter(it)
-                                    binding.recyclerView.adapter = adapter
-                                    binding.progressbar.visibility = View.GONE
-                                    if(binding.recyclerView.adapter?.itemCount == 0){
-                                        binding.tvNoData.visibility = View.VISIBLE
+                                viewModel.getTeamRankings("T20I", "women")
+                                    .observe(requireActivity()) {
+                                        Log.d(TAG, "T20 women: $it")
+                                        val adapter = TeamRankingAdapter(it)
+                                        binding.recyclerView.adapter = adapter
+                                        binding.progressbar.visibility = View.GONE
+                                        if (binding.recyclerView.adapter?.itemCount == 0) {
+                                            binding.tvNoData.visibility = View.VISIBLE
+                                        }
                                     }
-                                }
                             }
                         }
                     }
@@ -113,24 +114,21 @@ class RankingFragment : Fragment() {
                         when (getInt(MyConstants.CATEGORY_TAB_NUMBER)) {
 
                             0 -> {// Men
-                                viewModel.getTeamRankings("TEST", "men").observe(requireActivity()){
-                                    Log.d(TAG, "TEST men: $it")
-                                    val adapter = TeamRankingAdapter(it)
-                                    binding.recyclerView.adapter = adapter
-                                    binding.progressbar.visibility = View.GONE
-                                    if(binding.recyclerView.adapter?.itemCount == 0){
-                                        binding.tvNoData.visibility = View.VISIBLE
+                                viewModel.getTeamRankings("TEST", "men")
+                                    .observe(requireActivity()) {
+                                        Log.d(TAG, "TEST men: $it")
+                                        val adapter = TeamRankingAdapter(it)
+                                        binding.recyclerView.adapter = adapter
+                                        binding.progressbar.visibility = View.GONE
+                                        if (binding.recyclerView.adapter?.itemCount == 0) {
+                                            binding.tvNoData.visibility = View.VISIBLE
+                                        }
                                     }
-                                }
                             }
                         }
                     }
                 }
-
             }
         }
-
-
     }
-
 }

@@ -7,16 +7,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.graphicless.cricketapp.Model.FixtureDetailsScoreCard
+import com.graphicless.cricketapp.model.FixtureDetailsScoreCard
 import com.graphicless.cricketapp.R
-import com.graphicless.cricketapp.Model.FixtureScoreCard
 import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
-class MatchDetailsBallerAdapter(private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<MatchDetailsBallerAdapter.PlayerStatisticsViewHolder>() {
+class MatchDetailsBallerAdapter(private val lifecycleOwner: LifecycleOwner) :
+    RecyclerView.Adapter<MatchDetailsBallerAdapter.PlayerStatisticsViewHolder>() {
 
     private var ballerList: List<FixtureDetailsScoreCard.Data.Bowling?>? = ArrayList()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayerStatisticsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_batter, parent, false)
         return PlayerStatisticsViewHolder(view)
@@ -52,7 +51,7 @@ class MatchDetailsBallerAdapter(private val lifecycleOwner: LifecycleOwner) : Re
             val playerId = baller?.playerId
 
             if (playerId != null) {
-                viewModel.player.observe(lifecycleOwner){
+                viewModel.player.observe(lifecycleOwner) {
                     playerName.text = it.data?.fullname ?: MyConstants.NOT_AVAILABLE
                 }
                 viewModel.launchPlayer(playerId)

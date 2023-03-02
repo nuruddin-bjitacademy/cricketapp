@@ -54,11 +54,23 @@ class MatchSummaryContainerFragment : Fragment() {
                         MatchesFragment(),
                         MatchesFragment(),
                         MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
                         MatchesFragment()
                     )
-                    val tabNameList: List<String> = listOf("BPL", "IPL", "BBL", "ODI", "T20I")
+                    val tabNameList: List<String> = listOf("IPL", "ODI", "T20I", "BBL", "SS", "APL", "PSL", "BPL", "ASIA CUP", "WWCT20", "WCT20", "WC")
 
-                    val viewPagerAdapter = ViewPagerAdapter(this@MatchSummaryContainerFragment, fragmentList, null, "upcoming")
+                    val viewPagerAdapter = ViewPagerAdapter(
+                        this@MatchSummaryContainerFragment,
+                        fragmentList,
+                        null,
+                        "upcoming"
+                    )
 
                     binding.viewPager.adapter = viewPagerAdapter
                     TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
@@ -71,11 +83,23 @@ class MatchSummaryContainerFragment : Fragment() {
                         MatchesFragment(),
                         MatchesFragment(),
                         MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
                         MatchesFragment()
                     )
-                    val tabNameList: List<String> = listOf("BPL", "IPL", "BBL", "ODI", "T20I")
+                    val tabNameList: List<String> = listOf("IPL", "ODI", "T20I", "BBL", "SS", "APL", "PSL", "BPL", "ASIA CUP", "WWCT20", "WCT20", "WC")
 
-                    val viewPagerAdapter = ViewPagerAdapter(this@MatchSummaryContainerFragment, fragmentList, null, "recent")
+                    val viewPagerAdapter = ViewPagerAdapter(
+                        this@MatchSummaryContainerFragment,
+                        fragmentList,
+                        null,
+                        "recent"
+                    )
 
                     binding.viewPager.adapter = viewPagerAdapter
                     TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
@@ -88,11 +112,23 @@ class MatchSummaryContainerFragment : Fragment() {
                         MatchesFragment(),
                         MatchesFragment(),
                         MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
+                        MatchesFragment(),
                         MatchesFragment()
                     )
-                    val tabNameList: List<String> = listOf("BPL", "IPL", "BBL", "ODI", "T20I")
+                    val tabNameList: List<String> = listOf("IPL", "ODI", "T20I", "BBL", "SS", "APL", "PSL", "BPL", "ASIA CUP", "WWCT20", "WCT20", "WC")
 
-                    val viewPagerAdapter = ViewPagerAdapter(this@MatchSummaryContainerFragment, fragmentList, null, "previous")
+                    val viewPagerAdapter = ViewPagerAdapter(
+                        this@MatchSummaryContainerFragment,
+                        fragmentList,
+                        null,
+                        "previous"
+                    )
 
                     binding.viewPager.adapter = viewPagerAdapter
                     TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
@@ -101,10 +137,5 @@ class MatchSummaryContainerFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding.viewPager.adapter = null
     }
 }

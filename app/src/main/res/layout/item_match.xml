@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -43,20 +42,20 @@
             tools:text="Dhaka" />
 
         <LinearLayout
-            app:layout_constraintTop_toBottomOf="@+id/tv_live"
             android:id="@+id/container"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="@+id/tv_live"
             app:layout_constraintStart_toStartOf="@+id/tv_live"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@+id/tv_live">
 
             <View
                 android:id="@+id/line"
                 android:layout_width="0dp"
                 android:layout_height="2dp"
-                android:background="@color/red"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@color/red" />
 
         </LinearLayout>
 
@@ -65,13 +64,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_5sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/tv_round"
-            app:layout_constraintEnd_toEndOf="@+id/iv_flag_team2"
-            app:layout_constraintTop_toTopOf="@+id/tv_round"
+            android:text="@string/live"
             android:textColor="@color/red"
             android:textStyle="bold"
             android:visibility="gone"
-            android:text="@string/live" />
+            app:layout_constraintBottom_toBottomOf="@+id/tv_round"
+            app:layout_constraintEnd_toEndOf="@+id/iv_flag_team2"
+            app:layout_constraintTop_toTopOf="@+id/tv_round" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_flag_team1"
@@ -107,19 +106,19 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
+            android:text="@string/not_available"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/tv_name_team1"
             app:layout_constraintStart_toEndOf="@+id/iv_flag_team1"
-            app:layout_constraintTop_toTopOf="@+id/iv_flag_team1"
-            android:visibility="gone"
-            android:text="N/A" />
+            app:layout_constraintTop_toTopOf="@+id/iv_flag_team1" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_name_team1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@+id/iv_flag_team1"
             app:layout_constraintEnd_toEndOf="@id/iv_flag_team1"
+            app:layout_constraintStart_toStartOf="@+id/iv_flag_team1"
             app:layout_constraintTop_toBottomOf="@id/iv_flag_team1"
             tools:text="WI" />
 
@@ -130,8 +129,8 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:text="@string/vs"
             app:layout_constraintBottom_toBottomOf="@id/tv_name_team1"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/iv_flag_team1" />
 
 
@@ -170,11 +169,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_10sdp"
+            android:text="@string/not_available"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/tv_name_team2"
             app:layout_constraintEnd_toStartOf="@+id/iv_flag_team2"
-            app:layout_constraintTop_toTopOf="@+id/iv_flag_team2"
-            android:visibility="gone"
-            android:text="N/A" />
+            app:layout_constraintTop_toTopOf="@+id/iv_flag_team2" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_name_team2"
@@ -213,14 +212,12 @@
             />-->
 
 
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <View
         android:id="@+id/start_view"
-        android:transitionName="shared_element_container"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_width="0dp"/>
+        android:transitionName="shared_element_container" />
 
 </com.google.android.material.card.MaterialCardView>

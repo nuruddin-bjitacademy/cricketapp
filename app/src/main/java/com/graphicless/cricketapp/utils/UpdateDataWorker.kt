@@ -6,7 +6,8 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
-class UpdateDataWorker(context: Context, workerParameters: WorkerParameters) : Worker(context, workerParameters) {
+class UpdateDataWorker(context: Context, workerParameters: WorkerParameters) :
+    Worker(context, workerParameters) {
     val viewModel = CricketViewModel(Application())
     override fun doWork(): Result {
         // Make API call and store the response in Room database
@@ -18,9 +19,7 @@ class UpdateDataWorker(context: Context, workerParameters: WorkerParameters) : W
         viewModel.insertStages()
         viewModel.insertSeasons()
         viewModel.insertOfficials()
-            viewModel.insertFixtures()
-//        viewModel.insertUpcomingFixtures()
-//        viewModel.insertPreviousFixtures()
+        viewModel.insertFixtures()
         viewModel.insertPlayers()
         return Result.success()
     }

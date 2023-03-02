@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
@@ -18,11 +17,11 @@ import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
 private const val TAG = "TeamFragment"
+
 class TeamFragment : Fragment() {
     private lateinit var _binding: FragmentTeamBinding
     private val binding get() = _binding
 
-    //    private val args: DetailsFragmentArgs by navArgs()
     private val viewModel: CricketViewModel by viewModels()
 
     // This is for searching
@@ -50,7 +49,7 @@ class TeamFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        
+
         arguments?.takeIf { it.containsKey(MyConstants.CATEGORY_TAB_NUMBER) }?.apply {
             when (getInt(MyConstants.CATEGORY_TAB_NUMBER)) {
 
@@ -92,7 +91,7 @@ class TeamFragment : Fragment() {
                 // Handle search query text changes
                 Log.d(TAG, "onQueryTextChange: $newText")
                 if (newText != null && newText != "") {
-                    viewModel.getAllTeamByQuery(national, newText).observe(requireActivity()){
+                    viewModel.getAllTeamByQuery(national, newText).observe(requireActivity()) {
                         val adapter = TeamsAdapter(it, national, requireActivity())
                         binding.recyclerView.adapter = adapter
                     }
@@ -118,12 +117,14 @@ class TeamFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav_menu).visibility = View.GONE
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav_menu).visibility =
+            View.GONE
     }
 
     override fun onDestroy() {
         super.onDestroy()
         super.onPause()
-        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav_menu).visibility = View.VISIBLE
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav_menu).visibility =
+            View.VISIBLE
     }
 }

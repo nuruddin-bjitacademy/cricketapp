@@ -9,11 +9,10 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.adapter.OverAdapter
 import com.graphicless.cricketapp.databinding.FragmentMatchDetailsOverBinding
-import com.graphicless.cricketapp.Model.FixtureOver
+import com.graphicless.cricketapp.model.FixtureOver
 import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
@@ -41,13 +40,9 @@ class MatchDetailsOverFragment : Fragment() {
 
     private fun fetchDataFromApi() {
 
-//        binding.container.visibility =View.VISIBLE
-
         arguments?.takeIf { it.containsKey(MyConstants.FIXTURE_ID) }?.apply {
 
             val fixtureId: Int = getInt(MyConstants.FIXTURE_ID)
-
-            Log.d(TAG, "fixture id : $fixtureId")
 
             viewModel.launchFixtureOver(fixtureId)
 
@@ -87,7 +82,7 @@ class MatchDetailsOverFragment : Fragment() {
                                 }
                         }
                     } catch (exception: Exception) {
-                        Log.e("error", "ex mdof team one info $exception")
+                        Log.e("error", "Team one info $exception")
                     }
 
 
@@ -120,9 +115,8 @@ class MatchDetailsOverFragment : Fragment() {
                                 }
                         }
                     } catch (exception: Exception) {
-                        Log.e("error", "ex mdof team two info $exception")
+                        Log.e("error", "Team two info $exception")
                     }
-
 
                     showInfo(true, it)
 
@@ -152,13 +146,7 @@ class MatchDetailsOverFragment : Fragment() {
                     binding.container.addView(noDataView)
                 }
             }
-
         }
-
-//        binding.container.removeViewAt(0)
-//        val contentView = LayoutInflater.from(context)
-//            .inflate(R.layout.fragment_match_details_over, binding.container, false)
-//        binding.container.addView(contentView)
     }
     // end of onCreate
 
@@ -231,9 +219,6 @@ class MatchDetailsOverFragment : Fragment() {
         val reversedMap = reversedValues.toSortedMap(reverseOrder())
         Log.d(TAG, "group balls: $groupedBalls")
         val adapter = OverAdapter(reversedMap, teamOneOver.reversed())
-//        val layoutManager = LinearLayoutManager(context)
-//        layoutManager.reverseLayout = true
-//        binding.rvOver.layoutManager = layoutManager
         binding.rvOver.adapter = adapter
         groupedBalls.forEach { (intPart, ballsWithSameIntPart) ->
             Log.d(
@@ -242,7 +227,6 @@ class MatchDetailsOverFragment : Fragment() {
             )
         }
     }
-
     private fun groupBallsByIntPart(balls: List<Double>): Map<Int, List<Double>> {
         return balls.groupBy { ball -> ball.toInt() }
     }

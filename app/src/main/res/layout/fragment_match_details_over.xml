@@ -1,67 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragment.MatchDetailsOverFragment"
-    >
+    tools:context=".ui.fragment.MatchDetailsOverFragment">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="@dimen/_10sdp">
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/team_one"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/team_two"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="BAN 125-8(20.0)" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/team_two"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/team_one"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="BAN 125-8(20.0)" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_view"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/team_one"
-        android:layout_marginTop="@dimen/_20sdp"
-        app:cardBackgroundColor="@color/app_background"
-        android:elevation="0dp"
-        >
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/_10sdp">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/team_one"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/team_two"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="BAN 125-8(20.0)" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/team_two"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/team_one"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="BAN 125-8(20.0)" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:id="@+id/rv_over"
-            />
-    </androidx.cardview.widget.CardView>
+            android:layout_marginTop="@dimen/_20sdp"
+            android:elevation="0dp"
+            app:cardBackgroundColor="@color/app_background"
+            app:layout_constraintTop_toBottomOf="@+id/team_one">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_over"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </androidx.cardview.widget.CardView>
 
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        />
+        android:gravity="center" />
+
 </RelativeLayout>

@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
-import com.graphicless.cricketapp.Model.FixtureDetailsScoreCard
+import com.graphicless.cricketapp.model.FixtureDetailsScoreCard
 import com.graphicless.cricketapp.R
-import com.graphicless.cricketapp.Model.FixtureScoreCard
 import com.graphicless.cricketapp.utils.MyConstants
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
-class MatchDetailsBatsManAdapter(private val lifecycleOwner: LifecycleOwner) : RecyclerView.Adapter<MatchDetailsBatsManAdapter.PlayerStatisticsViewHolder>() {
+class MatchDetailsBatsManAdapter(private val lifecycleOwner: LifecycleOwner) :
+    RecyclerView.Adapter<MatchDetailsBatsManAdapter.PlayerStatisticsViewHolder>() {
 
     private var playerStatisticsList: List<FixtureDetailsScoreCard.Data.Batting?>? = ArrayList()
 
@@ -47,12 +47,15 @@ class MatchDetailsBatsManAdapter(private val lifecycleOwner: LifecycleOwner) : R
         private val fours: TextView = itemView.findViewById(R.id.fours)
         private val strikeRate: TextView = itemView.findViewById(R.id.strikeRate)
 
-        fun bind(playerStatistics: FixtureDetailsScoreCard.Data.Batting?, lifecycleOwner: LifecycleOwner) {
+        fun bind(
+            playerStatistics: FixtureDetailsScoreCard.Data.Batting?,
+            lifecycleOwner: LifecycleOwner
+        ) {
 
             val playerId = playerStatistics?.playerId
 
             if (playerId != null) {
-                viewModel.player.observe(lifecycleOwner){
+                viewModel.player.observe(lifecycleOwner) {
                     playerName.text = it.data?.fullname ?: MyConstants.NOT_AVAILABLE
                 }
                 viewModel.launchPlayer(playerId)

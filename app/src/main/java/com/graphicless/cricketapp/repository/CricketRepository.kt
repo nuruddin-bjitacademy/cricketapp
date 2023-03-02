@@ -1,21 +1,15 @@
 package com.graphicless.cricketapp.repository
 
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.bumptech.glide.load.engine.Resource
 import com.graphicless.cricketapp.database.CricketDao
 import com.graphicless.cricketapp.network.CricketApi
 import com.graphicless.cricketapp.network.NewsApi
-import com.graphicless.cricketapp.Model.*
-import com.graphicless.cricketapp.Model.joined.FixtureAndTeam
-import com.graphicless.cricketapp.Model.map.FixtureDetails
-import com.graphicless.cricketapp.Model.map.StageByLeague
-import kotlinx.coroutines.CoroutineScope
+import com.graphicless.cricketapp.model.*
+import com.graphicless.cricketapp.model.map.FixtureAndTeam
+import com.graphicless.cricketapp.model.map.FixtureDetails
+import com.graphicless.cricketapp.model.map.StageByLeague
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
@@ -36,10 +30,6 @@ class CricketRepository(private val cricketDao: CricketDao) {
 
     suspend fun insertPlayers(players: List<PlayerAll.Data?>?) {
         cricketDao.insertPlayers(players)
-    }
-
-    suspend fun insertCurrentPlayer(players: List<CurrentPlayers.Data.Squad?>?) {
-        cricketDao.insertCurrentPlayer(players)
     }
 
     suspend fun insertTeamRankings(teamRanking: TeamRankingsLocal) {
@@ -208,11 +198,6 @@ class CricketRepository(private val cricketDao: CricketDao) {
             CricketApi.retrofitService.getFixturesByTeamId(teamId).await()
         }
     }
-    /*suspend fun getTeamRankings(): TeamRankings {
-        return withContext(Dispatchers.IO) {
-            CricketApi.retrofitService.getTeamRankings().await()
-        }
-    }*/
 
     suspend fun getPlayer2(playerId: Int): Player {
         return withContext(Dispatchers.IO) {
@@ -235,12 +220,6 @@ class CricketRepository(private val cricketDao: CricketDao) {
     suspend fun getFixtureScoreCard(fixtureId: Int): FixtureDetailsScoreCard {
         return withContext(Dispatchers.IO) {
             CricketApi.retrofitService.getFixtureScoreCard(fixtureId).await()
-        }
-    }
-
-    suspend fun getFixtureScoreCard526(fixtureId: Int): FixtureDetailsScoreCard {
-        return withContext(Dispatchers.IO) {
-            CricketApi.retrofitService.getFixtureScoreCard526(fixtureId).await()
         }
     }
 
@@ -295,22 +274,6 @@ class CricketRepository(private val cricketDao: CricketDao) {
         return cricketDao.getPlayerById(playerId)
     }
 
-    /*suspend fun fetchTeamRankings(): List<TeamRankings.Data?>? {
-        return withContext(Dispatchers.IO){
-            CricketApi.retrofitService.getTeamRankings().await().data
-        }
-    }*/
-
-    /*suspend fun getTeamRankings(): List<TeamRankings.Data?>? {
-        return try {
-            val response = CricketApi.retrofitService.getTeamRankings().await()
-            response.data
-        } catch (e: Exception) {
-            // Handle the exception
-            null
-        }
-    }*/
-
     fun getTeamRankings(callback: (List<TeamRankings.Data?>?) -> Unit) {
         CricketApi.retrofitService.getTeamRankings().enqueue(object : Callback<TeamRankings> {
             override fun onResponse(call: Call<TeamRankings>, response: Response<TeamRankings>) {
@@ -327,26 +290,5 @@ class CricketRepository(private val cricketDao: CricketDao) {
             }
         })
     }
-
-    /*fun getLiveMatchInfo(fixtureId: Int, callback: (LiveMatchInfo?) -> Unit) {
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response = CricketApi.retrofitService.getLiveMatchInfo(fixtureId).execute()
-                if (response.isSuccessful) {
-                    val liveMatchInfo: LiveMatchInfo? = response.body()
-                    withContext(Dispatchers.Main) {
-                        callback(liveMatchInfo)
-                    }
-                } else {
-                    withContext(Dispatchers.Main) {
-                        callback(null)
-                    }
-                }
-            } catch (e: Exception) {
-                Log.e(TAG, "Error loading live match info: $e")
-            }
-        }
-    }*/
-
 
 }

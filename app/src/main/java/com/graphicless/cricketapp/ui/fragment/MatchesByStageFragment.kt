@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.graphicless.cricketapp.adapter.MatchAdapter
+import com.graphicless.cricketapp.adapter.MatchAdapter2
 import com.graphicless.cricketapp.databinding.FragmentMatchesByStageBinding
 import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
@@ -28,12 +28,14 @@ class MatchesByStageFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.tvStage.text = args.stageId.toString()
 
-        viewModel.getFixturesByStageId(args.stageId).observe(requireActivity()){
-            val adapter = MatchAdapter(it, null, null, requireActivity())
-            binding.recyclerView.adapter = adapter
+        viewModel.getStageNameById(args.stageId).observe(viewLifecycleOwner){
+            binding.tvStage.text = it
         }
 
+        viewModel.getFixturesByStageId(args.stageId).observe(requireActivity()){
+            val adapter = MatchAdapter2(it, null, null, requireActivity())
+            binding.recyclerView.adapter = adapter
+        }
     }
 }

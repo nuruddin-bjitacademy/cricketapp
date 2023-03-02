@@ -14,15 +14,14 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/_5sdp"
         android:textSize="18sp"
-        tools:text="AUSTRALIA TOUR OF INDIA, 2023"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        tools:text="AUSTRALIA TOUR OF INDIA, 2023" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/tv_stage"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_stage" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

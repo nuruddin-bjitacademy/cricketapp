@@ -1,38 +1,36 @@
 package com.graphicless.cricketapp.adapter
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.graphicless.cricketapp.R
 import com.graphicless.cricketapp.databinding.BattingCareerBinding
-import com.graphicless.cricketapp.Model.PlayerDetailsBatting
+import com.graphicless.cricketapp.model.PlayerDetailsBatting
 import com.graphicless.cricketapp.utils.SharedPreference
 import java.util.*
 
 private const val TAG = "PlayerDetailsCareerAdap"
+
 class PlayerDetailsBattingCareerAdapter(
     private val careerBattingTypeList: MutableList<String>,
     private val careerBattingList: MutableList<PlayerDetailsBatting>
 ) : RecyclerView.Adapter<PlayerDetailsBattingCareerAdapter.DataViewHolder>() {
-    class DataViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    class DataViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val binding = BattingCareerBinding.bind(view)
         private val currentTheme = SharedPreference().getString("theme")
 
         fun bind(itemType: String, itemList: PlayerDetailsBatting) {
-            if(currentTheme != "light"){
+
+            if (currentTheme != "light") {
                 binding.root.setBackgroundColor(getRandomLightColor(0))
-            }else{
+            } else {
                 binding.root.setBackgroundColor(getRandomLightColor(200))
             }
-            Log.d(TAG, "bind: $itemType")
+
             binding.labelType.text = itemType
-            Log.d(TAG, "bind: label type text : ${binding.labelType.text}")
-
-
             binding.matches.text = itemList.matches.toString()
             binding.runs1.text = itemList.runs.toString()
             binding.innings.text = itemList.innings.toString()
@@ -46,6 +44,7 @@ class PlayerDetailsBattingCareerAdapter(
             binding.s6.text = itemList.s6.toString()
             binding.strikeRate.text = itemList.strikeRate.toString()
         }
+
         private fun getRandomLightColor(extra: Int): Int {
             val random = Random()
             val red = random.nextInt(56) + extra
@@ -56,12 +55,12 @@ class PlayerDetailsBattingCareerAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
-        val layout = LayoutInflater.from(parent.context).inflate(R.layout.batting_career, parent, false )
+        val layout =
+            LayoutInflater.from(parent.context).inflate(R.layout.batting_career, parent, false)
         return DataViewHolder(layout)
     }
 
     override fun getItemCount(): Int {
-        Log.d(TAG, "careerBattingList.size: ${careerBattingList.size}")
         return careerBattingList.size
     }
 
@@ -70,6 +69,4 @@ class PlayerDetailsBattingCareerAdapter(
         val itemList = careerBattingList[position]
         holder.bind(itemType, itemList)
     }
-
-
 }

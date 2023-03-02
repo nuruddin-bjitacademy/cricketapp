@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/app_background"
     android:layout_height="match_parent"
+    android:background="@color/app_background"
     android:orientation="vertical"
     android:paddingTop="@dimen/_10sdp"
     tools:context=".ui.fragment.MoreFragment">
@@ -14,37 +14,34 @@
         android:id="@+id/browse_team"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Browse Team"
         android:backgroundTint="@color/card_background"
-        android:textColor="@color/title_text"
         android:padding="@dimen/_10sdp"
+        android:text="@string/browse_team"
+        android:textAlignment="viewStart"
+        android:textColor="@color/title_text"
         android:textStyle="bold"
         app:icon="@drawable/baseline_people_24"
-        app:iconTint="@color/title_text"
-        android:textAlignment="viewStart"
-        />
+        app:iconTint="@color/title_text" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/browse_Player"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Browse Player"
         android:backgroundTint="@color/card_background"
-        android:textColor="@color/title_text"
         android:padding="@dimen/_10sdp"
+        android:text="@string/browse_player"
+        android:textAlignment="viewStart"
+        android:textColor="@color/title_text"
         android:textStyle="bold"
         app:icon="@drawable/baseline_person_24"
-        app:iconTint="@color/title_text"
-        android:textAlignment="viewStart"/>
+        app:iconTint="@color/title_text" />
 
     <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_theme"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Night Mode"
-        android:id="@+id/switch_theme"
         android:padding="@dimen/_10sdp"
-        />
-
+        android:text="@string/night_mode" />
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -6,25 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.viewModels
-import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.android.material.transition.Hold
 import com.google.android.material.transition.MaterialElevationScale
 import com.graphicless.cricketapp.adapter.ViewPagerAdapter
 import com.graphicless.cricketapp.databinding.FragmentFixtureBinding
 import com.graphicless.cricketapp.utils.MyConstants
-import com.graphicless.cricketapp.viewmodel.CricketViewModel
 
 class MatchSummaryContainerOuterFragment : Fragment(){
 
     private lateinit var _binding: FragmentFixtureBinding
     private val binding get() = _binding
-
-    //    private val args: DetailsFragmentArgs by navArgs()
-    private val viewModel: CricketViewModel by viewModels()
-
-    private lateinit var childViewPager: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +40,6 @@ class MatchSummaryContainerOuterFragment : Fragment(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-//        val fragmentList: List<Fragment> = listOf(MatchesFragment(), MatchesFragment())
-//        val tabNameList: List<String> = listOf("Upcoming", "Previous")
         val fragmentList: List<Fragment> = listOf(MatchSummaryContainerFragment(), MatchSummaryContainerFragment(), MatchSummaryContainerFragment())
         val tabNameList: List<String> = listOf("Upcoming", "Recent", "Previous")
 
@@ -59,12 +49,6 @@ class MatchSummaryContainerOuterFragment : Fragment(){
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = tabNameList[position]
         }.attach()
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding.viewPager.adapter = null
     }
 }
 

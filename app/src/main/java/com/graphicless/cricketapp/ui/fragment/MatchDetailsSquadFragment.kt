@@ -32,10 +32,6 @@ class MatchDetailsSquadFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMatchDetailsSquadBinding.inflate(inflater, container, false)
-
-//        val loadingView =
-//            LayoutInflater.from(context).inflate(R.layout.layout_loading, binding.container, false)
-//        binding.container.addView(loadingView)
         binding.body.visibility = View.GONE
         return binding.root
     }
@@ -43,7 +39,7 @@ class MatchDetailsSquadFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         arguments?.takeIf { it.containsKey(MyConstants.COMING_FROM) }?.apply {
-            if(getString(MyConstants.COMING_FROM)== "live"){
+            if (getString(MyConstants.COMING_FROM) == "live") {
                 comingFrom = "live"
             }
         }
@@ -71,7 +67,7 @@ class MatchDetailsSquadFragment : Fragment() {
                         }
                     }
                 } catch (exception: Exception) {
-                    Log.e("error", "ex mdsf teamOneId: $exception")
+                    Log.e("error", "TeamOneId: $exception")
                 }
 
                 try {
@@ -82,15 +78,14 @@ class MatchDetailsSquadFragment : Fragment() {
                                 Glide.with(MyApplication.instance).load(team.imagePath)
                                     .into(binding.ivFlagTeam2)
                             } catch (exception: Exception) {
-                                Log.e(TAG, "binding team two name and flag: $exception")
+                                Log.e(TAG, "Team two name and flag: $exception")
                             }
                         }
                     }
                 } catch (exception: Exception) {
-                    Log.e("error", "ex mdsf teamTwoId: $exception")
+                    Log.e("error", "TeamTwoId: $exception")
                 }
 
-                Log.d(TAG, "data lineup size: ${it.data.lineup?.size}")
 
                 if (it.data.lineup?.size!! >= 22) {
                     try {
@@ -128,7 +123,7 @@ class MatchDetailsSquadFragment : Fragment() {
                             it.data.lineup?.get(10)?.fullname.plus("\n").plus("(")
                                 .plus(it.data.lineup?.get(10)?.position?.name).plus(")")
                     } catch (exception: Exception) {
-                        Log.e("error", "ex mdsf team one names: $exception")
+                        Log.e("error", "Team one names: $exception")
                     }
 
                     try {
@@ -155,7 +150,7 @@ class MatchDetailsSquadFragment : Fragment() {
                         Glide.with(MyApplication.instance).load(it.data.lineup?.get(10)?.imagePath)
                             .into(binding.ivPlayerEleven)
                     } catch (exception: Exception) {
-                        Log.e("error", "ex mdsf team one pics: $exception")
+                        Log.e("error", "Team one pics: $exception")
                     }
 
                     try {
@@ -193,7 +188,7 @@ class MatchDetailsSquadFragment : Fragment() {
                             it.data.lineup?.get(21)?.fullname.plus("\n").plus("(")
                                 .plus(it.data.lineup?.get(21)?.position?.name).plus(")")
                     } catch (exception: Exception) {
-                        Log.e("error", "ex mdsf team two names: $exception")
+                        Log.e("error", "Team two names: $exception")
                     }
 
                     try {
@@ -220,527 +215,497 @@ class MatchDetailsSquadFragment : Fragment() {
                         Glide.with(MyApplication.instance).load(it.data.lineup?.get(21)?.imagePath)
                             .into(binding.ivPlayerElevenTeamTwo)
                     } catch (exception: Exception) {
-                        Log.e("error", "ex mdsf team two pics: $exception")
-                    }
-
-                    try{
-                        binding.tvPlayerOne.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(0)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerTwo.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(1)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerThree.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(2)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerFour.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(3)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerFive.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(4)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerSix.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(5)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerSeven.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(6)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerEight.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(7)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerNine.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(8)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerTen.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(9)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerEleven.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(10)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerOneTeamTwo.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(11)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerTwoTeamTwo.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(12)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerThreeTeamTwo.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(13)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerFourTeamTwo.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(14)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerFive.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(15)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerSixTeamTwo.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(16)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerSevenTeamTwo.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(17)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerEightTeamTwo.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(18)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerNineTeamTwo.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(19)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerTenTeamTwo.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(20)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-                        binding.tvPlayerElevenTeamTwo.setOnClickListener { _->
-                            val playerId = it.data.lineup?.get(21)?.id
-                            if(comingFrom == "live"){
-                                val direction = playerId?.let { it1 ->
-                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }else{
-                                val direction = playerId?.let { it1 ->
-                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
-                                        it1
-                                    )
-                                }
-                                if (direction != null) {
-                                    findNavController().navigate(direction)
-                                }
-                            }
-
-                        }
-
-
-
-                    }catch (exception: Exception){
-                        Log.e(TAG, "Goto player details: $exception", )
+                        Log.e("error", "Team two pics: $exception")
                     }
 
                     try {
-//                        binding.container.removeViewAt(0)
+                        binding.tvPlayerOne.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(0)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerTwo.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(1)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerThree.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(2)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerFour.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(3)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerFive.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(4)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerSix.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(5)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerSeven.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(6)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerEight.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(7)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerNine.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(8)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerTen.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(9)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerEleven.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(10)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerOneTeamTwo.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(11)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerTwoTeamTwo.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(12)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerThreeTeamTwo.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(13)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerFourTeamTwo.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(14)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerFive.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(15)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerSixTeamTwo.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(16)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerSevenTeamTwo.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(17)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerEightTeamTwo.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(18)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerNineTeamTwo.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(19)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerTenTeamTwo.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(20)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+                        binding.tvPlayerElevenTeamTwo.setOnClickListener { _ ->
+                            val playerId = it.data.lineup?.get(21)?.id
+                            if (comingFrom == "live") {
+                                val direction = playerId?.let { it1 ->
+                                    LiveMatchDetailsContainerFragmentDirections.actionLiveMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            } else {
+                                val direction = playerId?.let { it1 ->
+                                    MatchDetailsContainerFragmentDirections.actionMatchDetailsContainerFragmentToPlayerDetailsFragment(
+                                        it1
+                                    )
+                                }
+                                if (direction != null) {
+                                    findNavController().navigate(direction)
+                                }
+                            }
+                        }
+
                     } catch (exception: Exception) {
-                        Log.e(TAG, "remove view from container: $exception")
+                        Log.e(TAG, "Goto player details: $exception")
                     }
 
                     binding.progressbar.visibility = View.GONE
@@ -750,17 +715,8 @@ class MatchDetailsSquadFragment : Fragment() {
                 } else {
                     binding.progressbar.visibility = View.GONE
                     binding.tvNoData.visibility = View.VISIBLE
-                    try {
-//                        binding.container.removeViewAt(0)
-                    } catch (exception: Exception) {
-                        Log.e(TAG, "remove view from container: $exception")
-                    }
-//                    val noDataView = LayoutInflater.from(context)
-//                        .inflate(R.layout.layout_no_data, binding.container, false)
-//                    binding.container.addView(noDataView)
                 }
             }
-
         }
     }
 }

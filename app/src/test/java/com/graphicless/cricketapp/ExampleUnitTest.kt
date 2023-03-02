@@ -1,17 +1,25 @@
 package com.graphicless.cricketapp
 
 import org.junit.Test
-
 import org.junit.Assert.*
+import java.net.HttpURLConnection
+import java.net.URL
 
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * See [testing documentation](http://d.android.com/tools/testing).
- */
 class ExampleUnitTest {
+
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun testHttpGetStatusCode() {
+        val url = "https://cricket.sportmonks.com/api/v2.0/positions?api_token=RPrn0e15lzWEqcFHvbcwVaPqPsSKR8Dv1fcxFHkWWAidr1bJZ5NyfTfBUPTP"
+        val connection = URL(url).openConnection() as HttpURLConnection
+        connection.connect()
+
+        // Check if the status code of the URL is 200
+        assertEquals(HttpURLConnection.HTTP_OK, connection.responseCode)
+
+        // Disconnect the connection
+        connection.disconnect()
     }
+
 }
+
+

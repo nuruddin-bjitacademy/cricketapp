@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/homeFragment"
-        android:title="@string/home"
-        android:icon="@drawable/ic_baseline_home_24"/>
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/home" />
 
-    <item android:id="@+id/MatchSummaryContainerOuterFragment"
-        android:title="@string/matches"
-        android:icon="@drawable/baseline_sports_baseball_24"/>
+    <item
+        android:id="@+id/MatchSummaryContainerOuterFragment"
+        android:icon="@drawable/icon_fixture"
+        android:title="@string/matches" />
 
-    <item android:id="@+id/rankingContainerOuterFragment"
-        android:title="@string/ranking"
-        android:icon="@drawable/icon_ranking"/>
+    <item
+        android:id="@+id/rankingContainerOuterFragment"
+        android:icon="@drawable/icon_ranking"
+        android:title="@string/ranking" />
 
-    <item android:id="@+id/moreFragment"
-        android:title="@string/settings"
-        android:icon="@drawable/baseline_more_vert_24"/>
+    <item
+        android:id="@+id/moreFragment"
+        android:icon="@drawable/baseline_more_vert_24"
+        android:title="@string/more" />
 
 
 </menu>

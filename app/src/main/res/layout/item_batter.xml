@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_marginTop="@dimen/_10sdp"
-    android:layout_marginBottom="@dimen/_10sdp"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_10sdp"
+    android:layout_marginBottom="@dimen/_10sdp">
 
     <TextView
         android:id="@+id/name"
@@ -19,40 +19,40 @@
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:gravity="center"
-        tools:text="23"
+        android:textSize="16sp"
         android:textStyle="bold"
-        android:textSize="16sp" />
+        tools:text="23" />
 
     <TextView
         android:id="@+id/balls"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        tools:text="33"
-        android:gravity="center" />
+        android:gravity="center"
+        tools:text="33" />
 
     <TextView
         android:id="@+id/sixes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        tools:text="5"
-        android:gravity="center" />
+        android:gravity="center"
+        tools:text="5" />
 
     <TextView
         android:id="@+id/fours"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
-        tools:text="6"
-        android:gravity="center" />
+        android:gravity="center"
+        tools:text="6" />
 
     <TextView
         android:id="@+id/strikeRate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="3"
-        tools:text="23.98"
-        android:gravity="end"/>
+        android:gravity="end"
+        tools:text="23.98" />
 
 </TableRow>

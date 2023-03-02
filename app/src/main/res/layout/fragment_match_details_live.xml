@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -25,11 +23,11 @@
                 android:id="@+id/match_summary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_1sdp"
                 android:transitionName="item_match"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_margin="@dimen/_10sdp"
-                app:cardBackgroundColor="@color/card_background">
+                app:cardBackgroundColor="@color/card_background"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -45,20 +43,20 @@
                         tools:text="2nd T20I" />
 
                     <LinearLayout
-                        app:layout_constraintTop_toBottomOf="@+id/tv_live"
                         android:id="@+id/container"
                         android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="@+id/tv_live"
                         app:layout_constraintStart_toStartOf="@+id/tv_live"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        app:layout_constraintTop_toBottomOf="@+id/tv_live">
 
                         <View
                             android:id="@+id/line"
                             android:layout_width="0dp"
                             android:layout_height="2dp"
-                            android:background="@color/red"
-                            android:layout_weight="1"/>
+                            android:layout_weight="1"
+                            android:background="@color/red" />
 
                     </LinearLayout>
 
@@ -67,20 +65,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
-                        app:layout_constraintBottom_toBottomOf="@+id/tv_round"
-                        app:layout_constraintEnd_toEndOf="@+id/iv_flag_team2"
-                        app:layout_constraintTop_toTopOf="@+id/tv_round"
+                        android:text="@string/live"
                         android:textColor="@color/red"
                         android:textStyle="bold"
                         android:visibility="gone"
-                        android:text="@string/live" />
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_round"
+                        app:layout_constraintEnd_toEndOf="@+id/iv_flag_team2"
+                        app:layout_constraintTop_toTopOf="@+id/tv_round" />
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/iv_flag_team1"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_24sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:src="@drawable/ic_launcher_background"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_round" />
 
@@ -109,19 +106,19 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_10sdp"
+                        android:text="@string/not_available"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@id/tv_name_team1"
                         app:layout_constraintStart_toEndOf="@+id/iv_flag_team1"
-                        app:layout_constraintTop_toTopOf="@+id/iv_flag_team1"
-                        android:visibility="gone"
-                        android:text="N/A" />
+                        app:layout_constraintTop_toTopOf="@+id/iv_flag_team1" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_name_team1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="16sp"
-                        app:layout_constraintStart_toStartOf="@+id/iv_flag_team1"
                         app:layout_constraintEnd_toEndOf="@id/iv_flag_team1"
+                        app:layout_constraintStart_toStartOf="@+id/iv_flag_team1"
                         app:layout_constraintTop_toBottomOf="@id/iv_flag_team1"
                         tools:text="WI" />
 
@@ -132,8 +129,8 @@
                         android:layout_marginStart="@dimen/_10sdp"
                         android:text="@string/vs"
                         app:layout_constraintBottom_toBottomOf="@id/tv_name_team1"
-                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@id/iv_flag_team1" />
 
 
@@ -142,7 +139,6 @@
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_24sdp"
                         android:layout_marginStart="@dimen/_10sdp"
-                        android:src="@drawable/ic_launcher_background"
                         app:layout_constraintBottom_toBottomOf="@+id/iv_flag_team1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/iv_flag_team1" />
@@ -172,11 +168,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/_10sdp"
+                        android:text="@string/not_available"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="@id/tv_name_team2"
                         app:layout_constraintEnd_toStartOf="@+id/iv_flag_team2"
-                        app:layout_constraintTop_toTopOf="@+id/iv_flag_team2"
-                        android:visibility="gone"
-                        android:text="N/A" />
+                        app:layout_constraintTop_toTopOf="@+id/iv_flag_team2" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_name_team2"
@@ -198,32 +194,13 @@
                         app:layout_constraintTop_toBottomOf="@+id/tv_name_team1"
                         tools:text="West Indies won by 3 wickets" />
 
-                    <!--<androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_starting_at"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/tv_note"
-                        tools:text="time here"
-                        />
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tv_stage_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/tv_starting_at"
-                        tools:text="stage name here"
-                        />-->
-
-
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <View
                     android:id="@+id/start_view"
-                    android:transitionName="shared_element_container"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_width="0dp"/>
+                    android:transitionName="shared_element_container" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -235,9 +212,8 @@
                 android:orientation="vertical"
                 app:cardBackgroundColor="@color/card_background"
                 app:cardCornerRadius="@dimen/_3sdp"
-                app:layout_constraintTop_toTopOf="@+id/cv_current_partnership"
                 app:layout_constraintBottom_toBottomOf="@id/cv_current_partnership"
-                >
+                app:layout_constraintTop_toTopOf="@+id/cv_current_partnership">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -249,7 +225,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_10sdp"
-                        android:text="Winning Prediction"
+                        android:text="@string/winning_prediction"
                         android:textStyle="bold"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:layout_editor_absoluteX="0dp" />
@@ -267,37 +243,34 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:padding="@dimen/_5sdp"
+                        android:text="@string/dot_dot_dot"
                         android:textSize="16sp"
-                        app:layout_constraintTop_toBottomOf="@id/divider_winning_prediction"
-                        android:text="..." />
+                        app:layout_constraintTop_toBottomOf="@id/divider_winning_prediction" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_team1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/tv_prediction"
-                        tools:text="BAN"
                         app:layout_constraintStart_toStartOf="@id/winning_prediction_bar"
-                        />
+                        app:layout_constraintTop_toBottomOf="@id/tv_prediction"
+                        tools:text="BAN" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_draw"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="@id/tv_team1"
-                        android:text="DRAW"
-                        app:layout_constraintStart_toStartOf="@id/winning_prediction_bar"
+                        android:text="@string/draw"
                         app:layout_constraintEnd_toEndOf="@id/winning_prediction_bar"
-                        />
+                        app:layout_constraintStart_toStartOf="@id/winning_prediction_bar"
+                        app:layout_constraintTop_toTopOf="@id/tv_team1" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_team2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="@id/tv_team1"
-                        tools:text="AUS"
                         app:layout_constraintEnd_toEndOf="@id/winning_prediction_bar"
-                        />
+                        app:layout_constraintTop_toTopOf="@id/tv_team1"
+                        tools:text="AUS" />
 
 
                     <LinearLayout
@@ -345,10 +318,11 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/winning_percentage_draw"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:paddingTop="@dimen/_5sdp"
+                        app:layout_constraintStart_toStartOf="@+id/winning_prediction_bar"
                         app:layout_constraintEnd_toEndOf="@+id/winning_prediction_bar"
                         app:layout_constraintTop_toBottomOf="@+id/winning_prediction_bar"
                         tools:text="DRAW (4%)" />
@@ -388,7 +362,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_10sdp"
-                        android:text="Current Partnership"
+                        android:text="@string/current_partnership"
                         android:textStyle="bold"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -468,10 +442,11 @@
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/partnership_total_run"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:paddingTop="@dimen/_5sdp"
+                        app:layout_constraintStart_toStartOf="@+id/partnership_bar"
                         app:layout_constraintEnd_toEndOf="@+id/partnership_bar"
                         app:layout_constraintTop_toBottomOf="@+id/partnership_bar"
                         tools:text="144(12.3)" />
@@ -515,7 +490,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="9"
-                                android:text="BatsMan"
+                                android:text="@string/batsman"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -523,7 +498,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:gravity="center"
-                                android:text="R"
+                                android:text="@string/r"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -531,7 +506,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:gravity="center"
-                                android:text="B"
+                                android:text="@string/b"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -539,7 +514,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:gravity="center"
-                                android:text="6s"
+                                android:text="@string/_6s"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -547,7 +522,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:gravity="center"
-                                android:text="4s"
+                                android:text="@string/_4s"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -555,7 +530,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:gravity="end"
-                                android:text="SR"
+                                android:text="@string/sr"
                                 android:textStyle="bold" />
                         </TableRow>
 
@@ -692,7 +667,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="9"
-                                android:text="Bowler"
+                                android:text="@string/bowler"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -700,7 +675,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:gravity="center"
-                                android:text="O"
+                                android:text="@string/o"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -708,7 +683,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:gravity="center"
-                                android:text="M"
+                                android:text="@string/m"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -716,7 +691,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:gravity="center"
-                                android:text="R"
+                                android:text="@string/r"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -724,7 +699,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="2"
                                 android:gravity="center"
-                                android:text="W"
+                                android:text="@string/w"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -732,7 +707,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
                                 android:gravity="end"
-                                android:text="ER"
+                                android:text="@string/er"
                                 android:textStyle="bold" />
                         </TableRow>
 
@@ -816,7 +791,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_10sdp"
-                        android:text="Key Stats"
+                        android:text="@string/key_stats"
                         android:textStyle="bold"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -833,7 +808,7 @@
                         android:layout_height="wrap_content"
                         android:paddingStart="@dimen/_10sdp"
                         android:paddingTop="@dimen/_5sdp"
-                        android:text="CRR"
+                        android:text="@string/crr"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/divider_key_stats" />
 
@@ -853,7 +828,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/_10sdp"
                         android:paddingTop="@dimen/_5sdp"
-                        android:text="Partnetship"
+                        android:text="@string/partnership"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_crr" />
 
@@ -873,7 +848,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/_10sdp"
                         android:paddingTop="@dimen/_5sdp"
-                        android:text="Last 5 Overs"
+                        android:text="@string/last_5_overs"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_partnership" />
 
@@ -883,9 +858,9 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="@dimen/_5sdp"
                         android:paddingRight="@dimen/_10sdp"
+                        android:text="@string/not_available"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_partnership_value"
-                        tools:text="18 runs, 0 wickets" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_partnership_value" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_last_10_overs"
@@ -893,7 +868,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/_10sdp"
                         android:paddingTop="@dimen/_5sdp"
-                        android:text="Last 10 Overs"
+                        android:text="@string/last_10_overs"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_last_5_overs" />
 
@@ -903,9 +878,9 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="@dimen/_5sdp"
                         android:paddingRight="@dimen/_10sdp"
+                        android:text="@string/not_available"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_last_5_overs_value"
-                        tools:text="31 runs, 2 wickets" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_last_5_overs_value" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/tv_last_wicket"
@@ -913,7 +888,7 @@
                         android:layout_height="wrap_content"
                         android:paddingLeft="@dimen/_10sdp"
                         android:paddingTop="@dimen/_5sdp"
-                        android:text="Last Wicket"
+                        android:text="@string/last_wicket"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_last_10_overs" />
 
@@ -937,11 +912,10 @@
     </ScrollView>
 
     <ProgressBar
+        android:id="@+id/progressbar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:id="@+id/progressbar"
-        />
+        android:layout_centerInParent="true" />
 
     <RelativeLayout
         android:id="@+id/internet_unavailable"
